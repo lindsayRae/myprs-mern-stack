@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 1234
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
+    console.log('heard')
   res.json([
     {id: 1, title: 'hello, this is from server.js'}
   ])
