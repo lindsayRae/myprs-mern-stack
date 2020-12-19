@@ -17,6 +17,12 @@ connection.once('open', () => {
   console.log('MogoDB database connection established successfully')
 })
 
+const movementsRouter = require('./routes/movements');
+const usersRouter = require('./routes/users');
+
+app.use('/movements', movementsRouter);
+app.use('/users', usersRouter);
+
 // app.get('/api', (req, res) => {
 //     console.log('heard')
 //   res.json([
