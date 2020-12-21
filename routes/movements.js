@@ -19,7 +19,10 @@ router.get('/:type', auth, async function (req, res) {
     res.send(movement);   
 });
 
-router.post('/add', auth, async (req, res) => {
+/**
+ * @description add a new movement
+ */
+router.post('/', auth, async (req, res) => {
     const {error} = validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
