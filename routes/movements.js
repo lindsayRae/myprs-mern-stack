@@ -1,24 +1,38 @@
+const auth = require('../middleware/auth');
+const _ = require('lodash'); 
 const router = require('express').Router();
-let Movement = require('../models/movement.model');
+const { Movement, validate } = require('../models/movement.model');
 
-router.route('/').get((req, res) => {
-    Movement.find()
-        .then(movements => res.json(movements))
-        .catch(err => res.status(400).json('Error: ' + err))
-})
+// router.route('/').get((req, res) => {
+//     Movement.find()
+//         .then(movements => res.json(movements))
+//         .catch(err => res.status(400).json('Error: ' + err))
+// })
 
-router.route('/add').post((req, res) => {
-    const name = req.body.name;
-    const type = req.body.type;
-    const preDefined = req.body.preDefined;
-    const date = Date.parse(req.body.date);
-
-    const newMovement = new Movement({name, type, preDefined, date })
-
-    newMovement.save()
-        .then(() => res.json('Movement added!'))
-        .catch(err => res.status(400).json('Error: ' + err))
+//? get default movements
+router.get('/:type', auth, async function (req, res) {
+    
+    let type = req.params.type;   
+    
+    // need to only get the the subdoc where type = type
+    const movement = await Movement.find({ type: type });  
+    res.send(movement);   
 });
+
+router.post('/add', auth, async (req, res) => {
+    const {error} = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    let movement = await Movement.findOne({name: req.body.name})
+    if(movement) return res.status(400).send('Movement already exists.')
+
+    movement =  new Movement (_.pick(req.body, ['name', 'type', 'preDefined']))
+
+    movement.save()
+        .then(() => res.json('Movement added!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+
+})
 
 router.route('/:id').get((req, res) => {
     Movement.findById(req.params.id)

@@ -1,3 +1,4 @@
+//const config = require('config');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -7,8 +8,13 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 1234
 
-app.use(cors());
-app.use(express.json());
+const privateKey = process.env.prs_jwtPrivateKey;
+
+if (!privateKey) {
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.')
+  // 0 is success, anything else is failure
+  process.exit(1)
+}
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -17,11 +23,16 @@ connection.once('open', () => {
   console.log('MogoDB database connection established successfully')
 })
 
+app.use(cors());
+app.use(express.json());
+
 const movementsRouter = require('./routes/movements');
 const usersRouter = require('./routes/users');
+const auth = require('./routes/auth');
 
 app.use('/movements', movementsRouter);
 app.use('/users', usersRouter);
+app.use('/auth', auth);
 
 // app.get('/api', (req, res) => {
 //     console.log('heard')
