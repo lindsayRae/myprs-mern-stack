@@ -30,9 +30,9 @@ const movementsRouter = require('./routes/movements');
 const usersRouter = require('./routes/users');
 const auth = require('./routes/auth');
 
-app.use('/movements', movementsRouter);
-app.use('/users', usersRouter);
-app.use('/auth', auth);
+app.use('/api/movements', movementsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/auth', auth);
 
 // app.get('/api', (req, res) => {
 //     console.log('heard')
