@@ -26,10 +26,12 @@ connection.once('open', () => {
 app.use(cors());
 app.use(express.json());
 
+const adminRouter = require('./routes/admin')
 const movementsRouter = require('./routes/movements');
 const usersRouter = require('./routes/users');
 const auth = require('./routes/auth');
 
+app.use('/api/admin', adminRouter)
 app.use('/api/movements', movementsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', auth);
