@@ -1,4 +1,6 @@
 //const config = require('config');
+require('express-async-errors');
+const error = require('./middleware/error')
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -36,12 +38,7 @@ app.use('/api/movements', movementsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', auth);
 
-// app.get('/api', (req, res) => {
-//     console.log('heard')
-//   res.json([
-//     {id: 1, title: 'hello, this is from server.js'}
-//   ])
-// })
+app.use(error)
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`)
