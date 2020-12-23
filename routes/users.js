@@ -72,6 +72,10 @@ router.post('/', async (req, res) =>{
     
 })
 
+/**
+ * 
+ * @description custom validation to update customer (no password needed)
+ */
 function validateUser(req) {
     const schema =  Joi.object({        
         email: Joi.string().min(5).max(255).required().email(),

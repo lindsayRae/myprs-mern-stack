@@ -3,24 +3,20 @@ const _ = require('lodash');
 const router = require('express').Router();
 const { Movement, validate } = require('../models/movement.model');
 
-// router.route('/').get((req, res) => {
-//     Movement.find()
-//         .then(movements => res.json(movements))
-//         .catch(err => res.status(400).json('Error: ' + err))
-// })
+// Note:  All error handling is used through "express-async-errors": "^3.1.1"
 
-//? get default movements
-router.get('/:type', auth, async function (req, res) {
-    
-    let type = req.params.type;   
-    
-    // need to only get the the subdoc where type = type
-    const movement = await Movement.find({ type: type });  
-    res.send(movement);   
+/**
+ * @description GET default movements by type
+ */
+router.get('/:type', auth, async (req, res) => { 
+        let type = req.params.type;        
+        // need to only get the the subdoc where type = type
+        const movement = await Movement.find({ type: type });  
+        res.send(movement);  
 });
 
 /**
- * @description add a new movement
+ * @description CREATE a new movement
  */
 router.post('/', auth, async (req, res) => {
     const {error} = validate(req.body);
@@ -31,37 +27,47 @@ router.post('/', auth, async (req, res) => {
 
     movement =  new Movement (_.pick(req.body, ['name', 'type', 'preDefined']))
 
-    movement.save()
-        .then(() => res.json('Movement added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-
+    let result = await movement.save()
+    res.send(result); 
 })
 
-router.route('/:id').get((req, res) => {
-    Movement.findById(req.params.id)
-        .then(movement => res.json(movement))
-        .catch(err => res.status(400).json('Error: ' + err))
+// don't think i'll use, might delete 12/22/20
+// /**
+//  * @description GET 
+//  */
+// router.route('/:id').get((req, res) => {
+//     Movement.findById(req.params.id)
+//         .then(movement => res.json(movement))
+//         .catch(err => res.status(400).json('Error: ' + err))
+// })
+
+/**
+ * @description DELETE a movement 
+ */
+router.delete('/:id', auth, async(req, res) => {
+    const result = await Movement.findByIdAndDelete(req.params.id)
+    if(result) res.send('Movement deleted')   
 })
 
-router.route('/:id').delete((req, res) => {
-    Movement.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Movement deleted'))
-        .catch(err => res.status(400).json('Error: ' + err))
-})
+/**
+ * @description UPDATE a movement
+ */
+router.put('/update/:id', auth, async (req, res) => {
+    const {error} = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
 
-router.route('/update/:id').post((req, res) => {
-    Movement.findById(req.params.id)
-        .then(movement => {
-            movement.name = req.body.name;
-            movement.type = req.body.type;
-            movement.preDefined = req.body.preDefined;
-            movement.date = Date.parse(req.body.date)
+    const movement = await Movement.findById(req.params.id)
+    if(!movement) return;
 
-            movement.save()
-                .then(() => res.json('Movement updated@'))
-                .catch(err => res.status(400).json('Error: ' + err))
-        })
-        .catch(err => res.status(400).json('Error: ' + err))
+    if(movement.preDefined) return res.send('Cannot update a predefined movement. Please create a new one.')
+    movement.name = req.body.name
+    movement.type = req.body.type
+    movement.preDefined = false
+
+    const result = await movement.save()
+
+    if(result) res.send(result)
+    if(!result) return res.send('Could not update movement.')
 })
 
 module.exports = router;
