@@ -6,6 +6,8 @@ const {User, validate} = require('../models/user.model');
 const express = require('express');
 const router = express.Router();
 
+const { PersonalRecord } = require('../models/personalRecord.model');
+
 // Note:  All error handling is used through "express-async-errors": "^3.1.1"
 
 /**
@@ -68,8 +70,30 @@ router.post('/', async (req, res) =>{
     await user.save()   
 
     const token = user.generateAuthToken();
-    res.header('x-auth-token', token).send(_.pick(user, ['userName', 'email']))        
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'userName', 'email']))        
     
+})
+
+/**
+ * @description called after creating a new user to set up their empty PRs
+ */
+//? Called in create new user to set up empty PRs
+router.post( '/usersetup/:id', async (req, res) =>{
+            
+    let user_id = req.params.id
+    let newUserEntry = {
+        user_id: user_id,
+        lifts: [],
+        cardio: [],
+        skills: []
+    }
+    
+    let personalRecord = new PersonalRecord(newUserEntry)    
+        
+    let result = await personalRecord.save()
+    console.log(result)  
+    
+    res.send(result)    
 })
 
 /**
