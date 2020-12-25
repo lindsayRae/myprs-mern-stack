@@ -33,12 +33,14 @@ const movementsRouter = require('./routes/movements');
 const usersRouter = require('./routes/users');
 const personalRecordsRouter = require('./routes/personalRecords');
 const auth = require('./routes/auth');
+const contact = require('./routes/email');
 
 app.use('/api/admin', adminRouter)
 app.use('/api/movements', movementsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/prs', personalRecordsRouter)
 app.use('/api/auth', auth);
+app.use('/api/contact', contact);
 
 app.use(error)
 
