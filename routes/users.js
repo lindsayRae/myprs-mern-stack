@@ -55,12 +55,12 @@ router.delete('/me', auth, async(req, res) => {
 /**
  * @description CREATE a new user
  */
-router.post('/', async (req, res) =>{
+router.post('/register', async (req, res) =>{
     const {error} = validate(req.body)    
-    if(error) return res.status(400).send(error.details[0].message)
+    if(error) return res.status(400).send({message: error.details[0].message})
  
     let user = await User.findOne({email: req.body.email})
-    if(user) return res.status(400).send('User already registered.')
+    if(user) return res.status(400).send({message: 'User already registered.'})
     
     // _.pick lets us decided what specifically we want to send to DB and back to the client 
     user = new User (_.pick(req.body, ['userName', 'email', 'password']))
