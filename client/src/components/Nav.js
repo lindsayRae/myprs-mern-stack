@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
+import {UserContext} from '../context/UserContext';
 
-const Nav = (props) => (
-    <footer className='App-nav'>
-        <ul className='container nav-items'>
-            <li>Nav 1</li>
-            <li>Nav 2</li>
-            <li>Nav 3</li>
-        </ul>
-    </footer>
-)
+// eslint-disable-next-line
+export default () => {
+    const {user} = useContext(UserContext);
+console.log('**user: ', user)
+    return (
+        <header className='App-header'>
+            <ul className='container'>
+                <li key='home'>
+                    <NavLink to='/' exact>MyPrs</NavLink>
+                </li>
+               {user &&             
+                <li key='logout'>
+                    <NavLink to='/login' exact>Logout</NavLink>
+                </li>
+               }
+               {!user && 
+                    <>
+                        <li key='login'>
+                                <NavLink to='/login' exact>Login</NavLink>
+                        </li><li key='signup'>
+                                <NavLink to='/signup' exact>Signup</NavLink>
+                        </li>
+                    
+                    </>
+               
+                
+               }                
+            </ul>
+        </header> 
+    )
+}
 
-export default Nav;
