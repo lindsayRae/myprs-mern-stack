@@ -1,8 +1,14 @@
-import { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
-const UserContext = createContext({
-    email: ``,
-    isAuthenticated: false 
-})
+export const UserContext = createContext(null)
 
-export default UserContext;
+// eslint-disable-next-line
+export default ({children}) => {
+    const [user, setUser] = useState(null)
+
+    return (
+        <UserContext.Provider value={{user, setUser}}>
+            {children}
+        </UserContext.Provider>
+    )
+}
