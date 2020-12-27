@@ -52,6 +52,7 @@ export default({history}) => {
             <form  className='container' onSubmit={handleSubmit}>
                 Signup
                 <p>
+                    <label htmlFor='userName'>User Name:</label>
                     <input 
                         type='string'
                         value={userName}
@@ -59,6 +60,7 @@ export default({history}) => {
                     />
                 </p>
                 <p>
+                    <label htmlFor='email'>Email:</label>
                     <input 
                         type='email'
                         value={email}
@@ -66,6 +68,7 @@ export default({history}) => {
                     />
                 </p>
                 <p>
+                    <label htmlFor='password'>Password:</label>
                     <input 
                         type='password'
                         value={password}
@@ -73,7 +76,7 @@ export default({history}) => {
                     />
                 </p>
                 <p>
-                    <button type='submit' >Signup</button> 
+                    <button type='submit'>Signup</button> 
                 </p>
                  
             </form>
