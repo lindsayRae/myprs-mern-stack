@@ -11,6 +11,7 @@ import Nav from './components/Nav';
 import Login from './pages/Login';
 import Signup from './pages/Signup.js'
 import Movements from './pages/Movements';
+import Cardios from './pages/Cardios';
 //import Nav from './components/Nav';
 import NotFound from './components/NotFound';
 
@@ -27,7 +28,8 @@ const App = (props) => {
           <Switch>           
             <Route path="/" exact component={Movements} />
             <Route path="/login" exact component={Login} />    
-            <Route path="/signup" exact component={Signup} />        
+            <Route path="/signup" exact component={Signup} /> 
+            <Route path="/cardio" exact component={Cardios} />        
             <Route component={NotFound}></Route>
           </Switch>          
          

@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Movements = () => (
     <section>
         <ul>
             <li key='cardio'>
-                <Link to='/cardio'>Cardio</Link>
+                <NavLink to='/cardio' exact>Cardio</NavLink>
             </li>
             <li key='lifts'>
-                <Link to='/lift'>Lifts</Link>
+                <NavLink to='/lift' exact>Lifts</NavLink>
             </li>
             <li key='skills'>
-                <Link to='/skill'>Skills</Link>
+                <NavLink to='/skill' exact>Skills</NavLink>
+            </li>
+            <li key='wod'>
+                <NavLink to='/wod' exact>WODs</NavLink>
             </li>
         </ul>
     </section>
