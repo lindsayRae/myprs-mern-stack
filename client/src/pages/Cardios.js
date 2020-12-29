@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {UserContext} from '../context/UserContext';
 import Message from '../components/Message';
+import Modal from '../components/Modal';
 
 const CardioList = () => {
     const [message, setMessage] = useState(null);
@@ -9,7 +10,7 @@ const CardioList = () => {
 
     const {user} = useContext(UserContext);
     console.log('user in Cardios.js', user)
-    
+   
     useEffect(() => {       
         const fetchMovements = async () => {
             const headers = {'Content-Type': 'application/json', 'x-auth-token': user.jwt}
@@ -54,6 +55,11 @@ const CardioList = () => {
         }, 1600);
     }
 
+    const modalRef = React.useRef()
+    const openModal = () => {
+        modalRef.current.openModal();
+    }
+
     // const getNewSlugFromTitle = (title) => encodeURIComponent(title.toLowerCase().split(' ').join('-'));
     
     
@@ -73,21 +79,26 @@ const CardioList = () => {
                 <li key='empty'>No cardio records yet! Time to get moving!</li>
             )}
             {cardios.map(cardio => (
-                <li key={cardio.id}>
+                <li key={cardio._id}>
                     <h2>
-                        <Link to={`/cardio/${cardio.slug}`}>{cardio.name}</Link>
+                        <NavLink to={`/cardio/${cardio.slug}`}>{cardio.name}</NavLink>
                     </h2>
                     <p>
-                        <Link to={`/edit/${cardio.slug}`}><button className='linkLike'>Edit</button></Link>
+                        <NavLink to={`/edit/${cardio.slug}`}><button className='linkLike'>Edit</button></NavLink>
                         {'  '}
                     <button className='linkLike' onClick={() => deleteCardio(cardio)}>Delete</button>
                     </p>
                 </li>
             ))}
-        </ul>
-        <Link to='/new-cardio'>
-            <button className='linkLike'>Add New Cardio</button> 
-        </Link>
+        </ul>     
+           
+            <button className='linkLike' onClick={openModal}>Add New Cardio</button> 
+            <Modal ref={modalRef}> 
+                <h1>New Cardio</h1>
+                <p>Add form here ...</p>
+                <button onClick={()=> modalRef.current.closeModal()}>Close</button>
+            </Modal>
+        
     </article>
     )
 }
