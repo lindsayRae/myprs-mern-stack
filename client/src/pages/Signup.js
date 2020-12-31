@@ -39,10 +39,26 @@ export default({history}) => {
                 setError(data.message)
                 return
             }
-
+            setupUserAccount(data._id)
             setUser(data)
 
         } catch (err) {
+            setError('Something went wrong: ', err)
+        }
+    }
+
+    const setupUserAccount = async (user_id) => {
+        try {
+            const response = await fetch(`http://localhost:1234/api/users/usersetup/${user_id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            
+            const data = await response.json();
+            console.log('data: ', data)
+        } catch(err) {
             setError('Something went wrong: ', err)
         }
     }
