@@ -13,7 +13,7 @@ router.post('/defaults', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     let movement = await Movement.findOne({name: req.body.name})
-    if(movement) return res.status(400).send('Movement already exists.')
+    if(movement) return res.status(400).send({message: 'Movement already exists.'})
 
     movement =  new Movement (_.pick(req.body, ['name', 'type', 'preDefined']))
 

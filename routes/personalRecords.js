@@ -33,11 +33,14 @@ router.get('/:id', auth, async (req, res) => {
  */
 router.post('/:movement', auth, async (req, res) => {
     const {error} = validatePR(req.body)
-    if(error) return res.status(400).send(error.details[0].message);
+    console.log('error: ', error)
+    if(error) return res.status(400).send({message: error.details[0].message});
 
     let movement = req.params.movement        
     let id = req.body.user_id 
-    
+    console.log('movement from POST: ', movement)
+    console.log('id  from POST: ', id )
+
     let pr = {
         name: req.body.name,          
         preDefined: req.body.preDefined,
@@ -46,9 +49,10 @@ router.post('/:movement', auth, async (req, res) => {
         comment: req.body.comment,
         personalRecord: req.body.personalRecord
     }     
-    
+    console.log('pr from POST: ', pr)
+
     let record = await PersonalRecord.findOne({ user_id: id}); 
-    
+    console.log(record)
     if(!record){
         res.send({ message: "Did not find a record for this user"});
     } else if (movement === 'lift') {           
@@ -141,11 +145,11 @@ router.delete('/:id', auth, async (req, res) => {
 })
 
 function validatePR(pr) {
-    const schema =  Joi.object({
+    const schema = Joi.object({
         prID: Joi.string().min(1).max(99),
         user_id: Joi.string().min(1).max(99),
         name: Joi.string().min(1).max(99).required(),
-        type: Joi.string().required(),   
+        type: Joi.string(),   
         preDefined: Joi.boolean(),    
         date: Joi.string().max(999).required(),
         comment: Joi.string().max(999),

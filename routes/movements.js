@@ -20,10 +20,10 @@ router.get('/:type', auth, async (req, res) => {
  */
 router.post('/', auth, async (req, res) => {
     const {error} = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send({message: error.details[0].message});
 
     let movement = await Movement.findOne({name: req.body.name})
-    if(movement) return res.status(400).send('Movement already exists.')
+    if(movement) return res.status(400).send({message: 'Movement already exists.'})
 
     movement =  new Movement (_.pick(req.body, ['name', 'type', 'preDefined']))
 
@@ -54,7 +54,7 @@ router.delete('/:id', auth, async(req, res) => {
  */
 router.put('/update/:id', auth, async (req, res) => {
     const {error} = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send({message: error.details[0].message});
 
     const movement = await Movement.findById(req.params.id)
     if(!movement) return;
