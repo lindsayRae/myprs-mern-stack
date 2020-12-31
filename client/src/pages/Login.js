@@ -4,7 +4,7 @@ import {UserContext} from '../context/UserContext';
 // eslint-disable-next-line
 export default ({history}) => {
  //   const { onLogin } = useContext(UserContext)
- console.log('history', history)
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -40,6 +40,8 @@ export default ({history}) => {
                 return
             }
             console.log(data)
+            sessionStorage.setItem('UserID', data.user._id)
+            sessionStorage.setItem('jwt', data.jwt)
             setUser(data)
        } catch (err) {
            setError(`Something went wrong: ${err}`)
@@ -64,7 +66,7 @@ export default ({history}) => {
                     }} />
                 </p>
                 <p>
-                    <button type='submit' disabled={!email && !password}>Login</button>
+                    <button type='submit' disabled={!email && !password} className='linkLike'>Login</button>
                 </p>
             </form>
             {error && <p>{error}</p>}
