@@ -6,6 +6,8 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
     const [saved, setSaved] = useState(false);
     const [cardio, setCardio] = useState({ ...propsCardio }) 
 
+  
+
     const prevCardioRef = useRef();
     useEffect(() => {
         prevCardioRef.current = cardio;
@@ -14,8 +16,10 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
     
     const handleAddCardio = (event) => {
         event.preventDefault();
-       
-        if (cardio.title){           
+        console.log(cardio)
+     
+
+        if (cardio.name){           
             if(updateCardio){
                 updateCardio(cardio)
             } else {
@@ -23,7 +27,7 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
             }                    
             setSaved(true)
         } else {
-            alert('title required')
+            alert('Name required')
         }                     
     }
     if(saved === true) {
@@ -31,22 +35,45 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
     } 
     return (
         <form className='container' onSubmit={handleAddCardio}>           
-            <h1>{updateCardio ? 'Edit' : 'Add New'} Cardio</h1>           
+            <h1>{updateCardio ? 'Edit' : 'Add New'} Cardio</h1>                
             <p>
-            <label htmlFor='form-title'>New Movement:</label>    
-            <input
-                defaultValue={cardio.title}
-                id='form-title'
-                value={cardio.title}
-                placeholder='Movement Title'
-                onChange={event => setCardio({
-                    ...cardio, 
-                    title: event.target.value
-                })}
-            />
+                <label htmlFor='form-name'>New Movement:</label>
+                <input                   
+                    id='form-name'
+                    value={cardio.name}
+                    placeholder='Movement Name'
+                    onChange={event => setCardio({
+                        ...cardio, 
+                        name: event.target.value
+                    })}
+                />
+            </p>
+            <p>
+                <label htmlFor='form-pr'>PR:</label>               
+                <input                  
+                    id='form-pr'                    
+                    placeholder='Personal Record'
+                    value={cardio.personalRecord}
+                    onChange={event => setCardio({
+                        ...cardio, 
+                        personalRecord: event.target.value
+                    })}
+                />
+            </p>
+            <p>
+                <label htmlFor='form-notes'>Notes:</label>               
+                <textarea                  
+                    id='form-notes'                    
+                    placeholder='Notes...'
+                    value={cardio.comment}
+                    onChange={event => setCardio({
+                        ...cardio, 
+                        comment: event.target.value
+                    })}
+                />
             </p>
             <p>              
-                <button type='submit'>Save</button>
+                <button type='submit' className='linkLike'>Add</button>
             </p>
         </form>
     )
