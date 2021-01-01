@@ -8,8 +8,7 @@ const Joi = require('joi')
 /**
  * @description GET movement by user_id
  */
-router.get('/:id', auth, async (req, res) => {   
-       
+router.get('/:id', auth, async (req, res) => {       
     let id = req.params.id;
     let movement = req.query.movement;  
     let record = await PersonalRecord.findOne({ user_id: id}); 
@@ -17,11 +16,11 @@ router.get('/:id', auth, async (req, res) => {
     if (record == null){        
         return res.status(404).send({record: [], message: 'There are not any user defined lifts for this user'});
     } else if (movement === 'lift') {
-        res.send(record.lifts)
+        res.send({results: record.lifts})
     } else if (movement === 'cardio') {            
-        res.send(record.cardio)
+        res.send({results: record.cardio})
     } else if (movement === 'skill') {
-        res.send(record.skills)
+        res.send({results: record.skills})
     } else {
         res.send({message: 'Something went wrong'})
     }  
@@ -32,14 +31,12 @@ router.get('/:id', auth, async (req, res) => {
  * @description CREATE a PR and push to movement array
  */
 router.post('/:movement', auth, async (req, res) => {
-    const {error} = validatePR(req.body)
-    console.log('error: ', error)
-    if(error) return res.status(400).send({message: error.details[0].message});
+   // const {error} = validatePR(req.body)
+   // console.log('error: ', error)   
+    //if(error) return res.status(400).send({message: error.details[0].message});
 
     let movement = req.params.movement        
     let id = req.body.user_id 
-    console.log('movement from POST: ', movement)
-    console.log('id  from POST: ', id )
 
     let pr = {
         name: req.body.name,          
@@ -49,22 +46,42 @@ router.post('/:movement', auth, async (req, res) => {
         comment: req.body.comment,
         personalRecord: req.body.personalRecord
     }     
-    console.log('pr from POST: ', pr)
 
     let record = await PersonalRecord.findOne({ user_id: id}); 
-    console.log(record)
     if(!record){
         res.send({ message: "Did not find a record for this user"});
-    } else if (movement === 'lift') {           
-        record.lifts.push(pr)
-    } else if (movement === 'cardio') {
-        record.cardio.push(pr)
-    } else if (movement === 'skill') {
-        record.skills.push(pr)
-    }
-
-    let result = await record.save(pr);
-    res.send({ message: "Success", results: result })
+        return
+    } else {       
+      
+        if (movement === 'lift') { 
+            let duplicate = record.lift.find(o => o.name === pr.name);
+            if(duplicate){            
+                res.send({ message: "Duplicate", recordID: duplicate._id})
+            } else {
+                record.lift.push(pr)
+                let result = await record.save(pr);
+                res.send({ message: "Success", results: result }) 
+            }
+        } else if (movement === 'cardio') {
+            let duplicate = record.cardio.find(o => o.name === pr.name);
+            if(duplicate){            
+                res.send({ message: "Duplicate", recordID: duplicate._id})
+            } else {
+                record.cardio.push(pr)
+                let result = await record.save(pr);
+                res.send({ message: "Success", results: result }) 
+            }            
+        } else if (movement === 'skill') {
+            if(duplicate){            
+                res.send({ message: "Duplicate", recordID: duplicate._id})
+            } else {
+                record.skill.push(pr)
+                let result = await record.save(pr);
+                res.send({ message: "Success", results: result }) 
+            }
+        }
+             
+    }       
 })
 
 
@@ -72,8 +89,8 @@ router.post('/:movement', auth, async (req, res) => {
  * @description UPDATE a movement by user_id
  */
 router.put('/:id', auth, async (req, res) => {
-    const {error} = validatePR(req.body)
-    if(error) return res.status(400).send(error.details[0].message);
+   // const {error} = validatePR(req.body)
+   // if(error) return res.status(400).send(error.details[0].message);
 
     let id = req.params.id;
     let prID = req.body.prID;
