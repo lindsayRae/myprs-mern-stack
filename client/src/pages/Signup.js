@@ -92,7 +92,7 @@ export default({history}) => {
                     />
                 </p>
                 <p>
-                    <button type='submit'>Signup</button> 
+                    <button type='submit' className='linkLike'>Signup</button> 
                 </p>
                  
             </form>

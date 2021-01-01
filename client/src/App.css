@@ -191,3 +191,7 @@ a.active {
  z-index: 101;
  padding: 40px;
 }
+
+.capitalize {
+ text-transform: capitalize;
+}
