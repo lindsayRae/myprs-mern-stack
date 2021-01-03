@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import {UserContext} from '../context/UserContext';
+import { UserContext } from '../context/UserContext';
+import { useHistory  } from "react-router-dom";
 
 // eslint-disable-next-line
 export default () => {
     const {user} = useContext(UserContext);
     console.log('**user: ', user)
+    let history = useHistory();
+   
+    useEffect(() => {            
+        if(!user){
+            history.push('/login')
+        } 
+    }, [user])
+
     return (
         <header className='App-header'>
             <ul className='container'>                

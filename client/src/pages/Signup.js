@@ -1,6 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {UserContext} from '../context/UserContext';
-
+import { UserContext } from '../context/UserContext';
 
 export default({history}) => {
     
@@ -11,9 +10,12 @@ export default({history}) => {
 
     const {user, setUser} = useContext(UserContext)
 
-    useEffect(() => {
+    useEffect(() => {        
+        console.log(user)
         if(user){
-            history.push('/')
+            history.push('/login')
+        } else {
+            history.push('/signup')
         }
     }, [user])
 
@@ -34,34 +36,20 @@ export default({history}) => {
             })
             
             const data = await response.json();
-            console.log('data: ', data)
+          
             if(data.message){
                 setError(data.message)
                 return
+            } else {                
+                setUser(data)
+                localStorage.setItem("UserID", data._id);
+                localStorage.setItem("jwt", data.token);
             }
-            setupUserAccount(data._id)
-            setUser(data)
-
         } catch (err) {
             setError('Something went wrong: ', err)
         }
     }
 
-    const setupUserAccount = async (user_id) => {
-        try {
-            const response = await fetch(`http://localhost:1234/api/users/usersetup/${user_id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-            
-            const data = await response.json();
-            console.log('data: ', data)
-        } catch(err) {
-            setError('Something went wrong: ', err)
-        }
-    }
     return (
         <div>
             

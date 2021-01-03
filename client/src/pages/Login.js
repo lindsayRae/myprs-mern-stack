@@ -40,8 +40,8 @@ export default ({history}) => {
                 return
             }
             console.log(data)
-            sessionStorage.setItem('UserID', data.user._id)
-            sessionStorage.setItem('jwt', data.jwt)
+            localStorage.setItem('UserID', data.user._id)
+            localStorage.setItem('jwt', data.jwt)
             setUser(data)
        } catch (err) {
            setError(`Something went wrong: ${err}`)
