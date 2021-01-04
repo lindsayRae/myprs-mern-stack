@@ -27,7 +27,7 @@ const AddCardioEntry = ({ addNewCardioEntry }) => {
 
     return (
         <form className='container' onSubmit={handleAddCardioEntry}>
-            <h1>Add New Entry</h1>            
+            <h5>Add New Entry</h5>            
             <p>
             <label htmlFor='form-entry'>New Entry:</label>    
             <input
@@ -47,7 +47,7 @@ const AddCardioEntry = ({ addNewCardioEntry }) => {
             />
             </p>
             <p>              
-                <button type='submit'>Save</button>
+                <button type='submit' className='linkLike'>Save</button>
             </p>
         </form>
     )
