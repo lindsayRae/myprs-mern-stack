@@ -5,8 +5,7 @@ import { Redirect } from 'react-router-dom';
 const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
     const [saved, setSaved] = useState(false);
     const [cardio, setCardio] = useState({ ...propsCardio }) 
-
-  
+    const [error, setError] = useState('')
 
     const prevCardioRef = useRef();
     useEffect(() => {
@@ -16,10 +15,9 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
     
     const handleAddCardio = (event) => {
         event.preventDefault();
-        console.log(cardio)
-     
+        console.log(cardio)     
 
-        if (cardio.name){           
+        if (cardio.name && cardio.personalRecord){           
             if(updateCardio){
                 updateCardio(cardio)
             } else {
@@ -27,7 +25,7 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
             }                    
             setSaved(true)
         } else {
-            alert('Name required')
+            setError('Name and PR entry is required')
         }                     
     }
     if(saved === true) {
@@ -40,12 +38,15 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
                 <label htmlFor='form-name'>New Movement:</label>
                 <input                   
                     id='form-name'
-                    value={cardio.name}
+                    value={cardio.name || ''}
                     placeholder='Movement Name'
-                    onChange={event => setCardio({
-                        ...cardio, 
-                        name: event.target.value
-                    })}
+                    onChange={event => {
+                        setError('')
+                        setCardio({
+                            ...cardio, 
+                            name: event.target.value
+                        })}
+                    }
                 />
             </p>
             <p>
@@ -53,11 +54,14 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
                 <input                  
                     id='form-pr'                    
                     placeholder='Personal Record'
-                    value={cardio.personalRecord}
-                    onChange={event => setCardio({
-                        ...cardio, 
-                        personalRecord: event.target.value
-                    })}
+                    value={cardio.personalRecord || ''}
+                    onChange={event => {
+                        setError('')
+                        setCardio({
+                            ...cardio, 
+                            personalRecord: event.target.value
+                        })}
+                    }
                 />
             </p>
             <p>
@@ -65,7 +69,7 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
                 <textarea                  
                     id='form-notes'                    
                     placeholder='Notes...'
-                    value={cardio.comment}
+                    value={cardio.comment || ''}
                     onChange={event => setCardio({
                         ...cardio, 
                         comment: event.target.value
@@ -75,6 +79,7 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
             <p>              
                 <button type='submit' className='linkLike'>Add</button>
             </p>
+            {error && <p>{error}</p>}
         </form>
     )
 }
