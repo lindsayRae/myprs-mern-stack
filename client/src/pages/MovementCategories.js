@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Movements = () => (
+const MovementCategories = () => (
     <section>
         <ul>
             <li key='cardio'>
@@ -20,4 +20,4 @@ const Movements = () => (
     </section>
 )
 
-export default Movements;
+export default MovementCategories;
