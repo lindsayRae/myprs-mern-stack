@@ -14,13 +14,13 @@ router.get('/:id', auth, async (req, res) => {
     let record = await PersonalRecord.findOne({ user_id: id}); 
 
     if (record == null){        
-        return res.status(404).send({record: [], message: 'There are not any user defined lifts for this user'});
+        return res.status(404).send({record: [], message: 'There are not any user defined movements for this user'});
     } else if (movement === 'lift') {
-        res.send({results: record.lifts})
+        res.send(record.lifts)
     } else if (movement === 'cardio') {            
-        res.send({results: record.cardio})
+        res.send(record.cardio)
     } else if (movement === 'skill') {
-        res.send({results: record.skills})
+        res.send(record.skills)
     } else {
         res.send({message: 'Something went wrong'})
     }  
@@ -39,49 +39,28 @@ router.post('/:movement', auth, async (req, res) => {
     let id = req.body.user_id 
 
     let pr = {
-        name: req.body.name,          
-        preDefined: req.body.preDefined,
-        type: req.body.type,
+        name: req.body.name,  
+        type: req.body.type,        
+        preDefined: req.body.preDefined,       
         date: req.body.date,
         comment: req.body.comment,
-        personalRecord: req.body.personalRecord
-    }     
+        personalRecord: req.body.personalRecord                     
+    } 
+    console.log('PR: ', pr)    
 
     let record = await PersonalRecord.findOne({ user_id: id}); 
+    console.log('**** Record: ', record)  
     if(!record){
         res.send({ message: "Did not find a record for this user"});
-        return
-    } else {       
-      
-        if (movement === 'lift') { 
-            let duplicate = record.lift.find(o => o.name === pr.name);
-            if(duplicate){            
-                res.send({ message: "Duplicate", recordID: duplicate._id})
-            } else {
-                record.lift.push(pr)
-                let result = await record.save(pr);
-                res.send({ message: "Success", results: result }) 
-            }
-        } else if (movement === 'cardio') {
-            let duplicate = record.cardio.find(o => o.name === pr.name);
-            if(duplicate){            
-                res.send({ message: "Duplicate", recordID: duplicate._id})
-            } else {
-                record.cardio.push(pr)
-                let result = await record.save(pr);
-                res.send({ message: "Success", results: result }) 
-            }            
-        } else if (movement === 'skill') {
-            if(duplicate){            
-                res.send({ message: "Duplicate", recordID: duplicate._id})
-            } else {
-                record.skill.push(pr)
-                let result = await record.save(pr);
-                res.send({ message: "Success", results: result }) 
-            }
-        }
-             
-    }       
+    } else if (movement === 'lift') {           
+        record.lifts.push(pr)
+    } else if (movement === 'cardio') {
+        record.cardio.push(pr)
+    } else if (movement === 'skill') {
+        record.skills.push(pr)
+    }
+    let result = await record.save(pr);
+    res.send({ message: "Success", results: result })      
 })
 
 
@@ -91,43 +70,55 @@ router.post('/:movement', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
    // const {error} = validatePR(req.body)
    // if(error) return res.status(400).send(error.details[0].message);
-
+   
     let id = req.params.id;
     let prID = req.body.prID;
-
+    // console.log('prID', prID)
     let name = req.body.name;
     let date = req.body.date;
     let personalRecord = req.body.personalRecord;
     let comment = req.body.comment;
     let type = req.body.type
 
-    let record;
+    let result;
 
-    if(type === 'lift'){
-        record = await PersonalRecord.updateOne({user_id: id, 'lifts._id': prID},        
-        {$set : {
-            'lifts.$.name': name,
-            'lifts.$.date': date, 
-            'lifts.$.personalRecord': personalRecord, 
-            'lifts.$.comment': comment                   
-            } });
-    } else if(type === 'cardio'){
-        record = await PersonalRecord.updateOne({user_id: id, 'cardio._id': prID}, 
-        {$set : {
-            'cardio.$.name': name,
-            'cardio.$.date': date, 
-            'cardio.$.personalRecord': personalRecord, 
-            'cardio.$.comment': comment                   
-            } });
-    } else if(type === 'skill'){
-        record = await PersonalRecord.updateOne({user_id: id, 'skills._id': prID}, 
-        {$set : {
-            'skills.$.name': name,
-            'skills.$.date': date, 
-            'skills.$.personalRecord': personalRecord, 
-            'skills.$.comment': comment                   
-            } });
-    }        
+    // if(type === 'lift'){
+    //     record = await PersonalRecord.updateOne({user_id: id, 'lifts._id': prID},        
+    //     {$set : {
+    //         'lifts.$.name': name,
+    //         'lifts.$.date': date, 
+    //         'lifts.$.personalRecord': personalRecord, 
+    //         'lifts.$.comment': comment                   
+    //         } });
+    // } else 
+    
+    if(type === 'cardio'){
+        console.log('in cardio')
+        result = await PersonalRecord.find({
+            'user_id' : '5fe32e55a20d45639870f032',
+            'cardio._id' : '5fee01cad216654e8c729733'
+        });
+        // {$set : {
+        //     'cardio.name': name,
+        //     'cardio.entries.date': date, 
+        //     'cardio.entries.personalRecord': personalRecord, 
+        //     'cardio.entries.comment': comment
+                                          
+        //     }}, {new: true}
+        //    );
+        console.log('result', result)
+    } 
+    // else if(type === 'skill'){
+    //     record = await PersonalRecord.updateOne({user_id: id, 'skills._id': prID}, 
+    //     {$set : {
+    //         'skills.$.name': name,
+    //         'skills.$.date': date, 
+    //         'skills.$.personalRecord': personalRecord, 
+    //         'skills.$.comment': comment                   
+    //         } });
+    // } 
+   
+   // await result.save();      
     res.send({message: "Success" });
 })
 
