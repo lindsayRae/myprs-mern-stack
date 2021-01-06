@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom'
 
 import UserContextProvider from './context/UserContext';
@@ -11,7 +10,8 @@ import Nav from './components/Nav';
 import Login from './pages/Login';
 import Signup from './pages/Signup.js'
 import MovementCategories from './pages/MovementCategories';
-import Cardios from './pages/Cardios';
+import CardioList from './pages/CardioList';
+import SingleMovement from './pages/SingleMovement';
 //import Nav from './components/Nav';
 import NotFound from './components/NotFound';
 
@@ -26,10 +26,11 @@ const App = (props) => {
         <div className='App'>
           <Nav />          
           <Switch>           
-            <Route path="/" exact component={MovementCategories} />
+            <Route path="/dashboard" exact component={MovementCategories} />
             <Route path="/login" exact component={Login} />    
             <Route path="/signup" exact component={Signup} /> 
-            <Route path="/cardio" exact component={Cardios} />        
+            <Route path="/cardios" exact component={CardioList} /> 
+            <Route path="/cardios/:id" exact component={SingleMovement} />        
             <Route component={NotFound}></Route>
           </Switch>          
          
