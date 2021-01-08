@@ -1,117 +1,117 @@
 * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .App a {
- color: #26738d;
+  color: #26738d;
 }
 
 .App h1 {
- font-size: 2rem;
+  font-size: 2rem;
 }
 
 .App h2 {
- color: #353944;
+  color: #353944;
 }
 
 .App h3 a {
- color: #353944;
+  color: #353944;
 }
 
-.App .container {
- max-width: 800px;
- margin: 0 auto;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .App-header {
- background-color: #353944;
- color: #fff;
- font-size: calc(10px + 1vmin);
- padding: 1rem;
+  background-color: #353944;
+  color: #fff;
+  font-size: calc(10px + 1vmin);
+  padding: 1rem;
 }
 
 .App-header a {
- color: #fff;
- font-weight: normal;
+  color: #fff;
+  font-weight: normal;
 }
 .App-header ul,
 .App-nav ul {
- padding: 0;
+  padding: 0;
 }
 
 .App-header li,
 .App-nav li {
- list-style: none;
- display: inline;
- padding: 1rem;
- font-weight: bold;
+  list-style: none;
+  display: inline;
+  padding: 1rem;
+  font-weight: bold;
 }
 
 .App-header li:first-child,
 .App-nav li:first-child {
- padding-left: 0;
+  padding-left: 0;
 }
 
 .App article {
- padding: 1rem;
+  padding: 1rem;
 }
 
 .App article ul {
- margin: 0;
- padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .App article ul li {
- list-style: none;
+  list-style: none;
 }
 
 .App article h3 {
- font-size: calc(14px + 2vmin);
+  font-size: calc(14px + 2vmin);
 }
 
 .App-link {
- color: #61dafb;
+  color: #61dafb;
 }
 
 .App-message {
- background-color: #55a9d6;
- color: white;
- padding: 2rem 1rem;
- text-shadow: 0 1px 0 #444;
+  background-color: #55a9d6;
+  color: white;
+  padding: 2rem 1rem;
+  text-shadow: 0 1px 0 #444;
 }
 
 .App-message.savedMovement,
 .App-message.savedEntry {
- background: #51bb7a;
+  background: #51bb7a;
 }
 
 .App-message.deleted {
- background: #ff3f69;
+  background: #ff3f69;
 }
 
 form {
- padding: 1rem;
+  padding: 1rem;
 }
 
 form input,
 form textarea {
- border: 1px solid #ccc;
- padding: 0.3rem;
+  border: 1px solid #ccc;
+  padding: 0.3rem;
 }
 
 form label {
- display: block;
- padding: 0.5rem 0;
+  display: block;
+  padding: 0.5rem 0;
 }
 
 form input#form-name,
 form input#form-pr,
 form textarea#form-notes {
- min-width: calc(100% - 20px);
- padding: 10px;
- font-size: 1rem;
+  min-width: calc(100% - 20px);
+  padding: 10px;
+  font-size: 1rem;
 }
 
 /* .App form button[type='submit'] {
@@ -125,73 +125,73 @@ form textarea#form-notes {
 } */
 
 button.linkLike {
- /* border: none;
+  /* border: none;
   font-size: inherit;
   color: #26738D;
   text-decoration: underline;   */
- border: 1px #ccc solid;
- background: white;
- font-size: 1rem;
- padding: 0.5rem 1rem;
+  border: 1px #ccc solid;
+  background: white;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .linkLike a {
- text-decoration: none;
+  text-decoration: none;
 }
 
 button.linkLike:hover {
- cursor: pointer;
+  cursor: pointer;
 }
 
 .App-nav {
- background-color: #353944;
- color: #fff;
- font-size: calc(10px + 1vmin);
- padding: 1rem;
+  background-color: #353944;
+  color: #fff;
+  font-size: calc(10px + 1vmin);
+  padding: 1rem;
 }
 
 a {
- text-decoration: none;
+  text-decoration: none;
 }
 
 a.active {
- text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Modal */
 
 .modal-wrapper {
- position: fixed;
- top: 0;
- bottom: 0;
- left: 0;
- right: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .modal-backdrop {
- position: fixed;
- top: 0;
- bottom: 0;
- left: 0;
- right: 0;
- z-index: 100;
- background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal-box {
- position: relative;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%);
- min-height: 30%;
- max-width: 80%;
- overflow-y: auto;
- background-color: white;
- box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
- z-index: 101;
- padding: 40px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 30%;
+  max-width: 80%;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  z-index: 101;
+  padding: 40px;
 }
 
 .capitalize {
- text-transform: capitalize;
+  text-transform: capitalize;
 }
