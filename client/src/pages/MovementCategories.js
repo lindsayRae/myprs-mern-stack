@@ -5,16 +5,16 @@ const MovementCategories = () => (
     <section>
         <ul>
             <li key='cardio'>
-                <NavLink to='/cardio' exact>Cardio</NavLink>
+                <NavLink to='/cardios' exact>Cardio</NavLink>
             </li>
             <li key='lifts'>
-                <NavLink to='/lift' exact>Lifts</NavLink>
+                <NavLink to='/lifts' exact>Lifts</NavLink>
             </li>
             <li key='skills'>
-                <NavLink to='/skill' exact>Skills</NavLink>
+                <NavLink to='/skills' exact>Skills</NavLink>
             </li>
             <li key='wod'>
-                <NavLink to='/wod' exact>WODs</NavLink>
+                <NavLink to='/wods' exact>WODs</NavLink>
             </li>
         </ul>
     </section>
