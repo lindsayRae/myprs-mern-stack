@@ -3,6 +3,7 @@ const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
+const { concat } = require('lodash');
 
 /**
  * @description GET record by user_id and movement by query param
@@ -156,21 +157,28 @@ router.delete('/:id', auth, async (req, res) => {
   let id = req.params.id;
   let prID = req.body.prID;
   let subRecord;
+  console.log('PR ID', prID);
+  try {
+    let record = await PersonalRecord.findOne({ user_id: id });
 
-  let record = await PersonalRecord.findOne({ user_id: id });
-
-  if (movement === 'lift') {
-    subRecord = record.lifts.id(prID);
-  } else if (movement === 'cardio') {
-    subRecord = record.cardio.id(prID);
-  } else if (movement === 'skill') {
-    subRecord = record.skills.id(prID);
+    if (movement === 'lift') {
+      subRecord = record.lifts.id(prID);
+    } else if (movement === 'cardio') {
+      subRecord = record.cardio.id(prID);
+      console.log(subRecord);
+    } else if (movement === 'skill') {
+      subRecord = record.skills.id(prID);
+    }
+    if (subRecord) {
+      subRecord.remove();
+      record.save();
+      res.send({ removed: true });
+    } else {
+      res.send({ message: 'Record not found. Could not delete.' });
+    }
+  } catch (error) {
+    res.send({ message: error.message });
   }
-
-  let result = subRecord.remove();
-  console.log('RESULTS:', result);
-  record.save();
-  res.send({ message: 'Successfully deleted!' });
 });
 
 function validatePR(pr) {

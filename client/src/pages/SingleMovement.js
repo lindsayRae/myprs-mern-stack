@@ -22,6 +22,7 @@ export default ({ match }) => {
    * @description GET all of users records and match to the name user clicked on to display records or form for new entry
    */
   const getEntries = async () => {
+    setError('');
     let allRecords = await userMovementMenu();
 
     if (allRecords.length <= 0) {
@@ -35,21 +36,36 @@ export default ({ match }) => {
     }
   };
 
-  const handleDelete = async (event) => {
-    console.log('heard delete');
-    event.preventDefault();
-    // try {
-    //     const body = {
-    //         prID: dataID,
-    //         type: dataType
-    //     }
-    //     const res = await fetch(`http://localhost:1234/api/prs/${localStorage.getItem('UserID')}`, {
-    //         method: 'DELETE'
-    //     })
-    //     const data = await res.json()
-    // } catch (error) {
+  const handleDelete = async (id, type) => {
+    const body = {
+      prID: id,
+      type: type,
+    };
 
-    // }
+    try {
+      const res = await fetch(
+        `http://localhost:1234/api/prs/${localStorage.getItem('UserID')}`,
+        {
+          method: 'DELETE',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': localStorage.getItem('jwt'),
+          },
+        }
+      );
+      const data = await res.json();
+
+      if (data.message) {
+        setError(data.message);
+        return;
+      } else if (data.removed) {
+        setEntries([]);
+        getEntries();
+      }
+    } catch (error) {
+      setError(error);
+    }
   };
 
   /**
@@ -249,7 +265,12 @@ export default ({ match }) => {
                     <p>
                       PR: {entry.personalRecord}
                       <span>Date: {entry.date}</span>
-                      <button className='linkLike' onClick={handleDelete}>
+                      <button
+                        className='linkLike'
+                        onClick={() => {
+                          handleDelete(entry._id, entry.type);
+                        }}
+                      >
                         Delete
                       </button>
                       {'  '}
