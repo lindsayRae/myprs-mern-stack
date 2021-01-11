@@ -8,12 +8,11 @@ import AddMovement from '../components/AddMovement';
 const MovementList = (props) => {
   console.log(props);
   const [message, setMessage] = useState(null);
-  const [cardios, setCardios] = useState([]);
+  const [movements, setMovements] = useState([]);
   const [error, setError] = useState('');
   const [type, setType] = useState('');
 
   const { user, setUser } = useContext(UserContext);
-  // console.log('user in Cardios.js', user);
 
   useEffect(() => {
     let str = props.location.pathname;
@@ -50,10 +49,10 @@ const MovementList = (props) => {
       //* ... spread puts back into array
       let usersMenu = [...uniqueMenu];
 
-      setCardios(usersMenu.sort());
+      setMovements(usersMenu.sort());
       return;
     } else {
-      setCardios(defaultMovementName);
+      setMovements(defaultMovementName);
       return defaultMovementName;
     }
   };
@@ -158,9 +157,9 @@ const MovementList = (props) => {
       setError(err.message);
     }
 
-    // cardio.id = cardios.length + 1;
-    // //cardio.slug = getNewSlugFromTitle(cardio.title);
-    // setCardios([...cardios, cardio])
+    // movement.id = movements.length + 1;
+    // //movement.slug = getNewSlugFromTitle(movement.title);
+    // setMovements([...movements, movement])
     // setFlashMessage('savedMovement')
   };
 
@@ -171,83 +170,22 @@ const MovementList = (props) => {
     }, 1600);
   };
 
-  // //* find the PR from selected lift
-  // async function movementPR(movementName) {
-  //   let movementRecords = await selectedMovementRecords(movementName);
-  //   console.log('movementRecords', movementRecords);
-  //   if (movementRecords.length < 1) {
-  //     // noEntries();
-  //   } else {
-  //     // highestRecord(movementRecords);
-  //     // recordTable(movementRecords);
-  //   }
-  // }
-  // //* find all the records for selected lift
-  // const selectedMovementRecords = async (movementName) => {
-  //   let allRecords = await allMovementRecords();
-
-  //   if (allRecords.length <= 0) {
-  //     return [];
-  //   } else {
-  //     let selectedMovement = allRecords.filter(
-  //       (el) => el.name === movementName
-  //     );
-
-  //     return selectedMovement;
-  //   }
-  // };
-  // //* get all of the lift records from the server
-  // const allMovementRecords = async () => {
-  //   let userID = localStorage.getItem('UserID');
-  //   //let movement = sessionStorage.getItem('Movement')
-  //   try {
-  //     let url = `/api/prs/${userID}?movement=cardio`;
-  //     let headers = {
-  //       'Content-Type': 'application/json',
-  //       'x-auth-token': localStorage.getItem('jwt'),
-  //     };
-
-  //     let res = await fetch(url, {
-  //       method: 'GET',
-  //       headers: headers,
-  //     });
-  //     let json = await res.json();
-
-  //     if (res.status === 200) {
-  //       return json;
-  //     } else if (res.status === 404) {
-  //       console.log(json.message);
-  //     } else if (res.status === 400) {
-  //       console.log(json.message);
-  //     } else {
-  //       console.log('Some other error');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   const modalRef = React.useRef();
   const openModal = () => {
     setError('');
     modalRef.current.openModal();
   };
 
-  // const addNewCardioEntry = (userInput) => {
-  //     console.log('addNewCardioEntry(userInput)', userInput)
-  //     setFlashMessage('savedEntry')
-  //     // setCardios
-
-  // }
   return (
     <div className='container'>
       {message && <Message type={message} />}
       <h1 className='capitalize'>{type}</h1>
       <ul>
-        {cardios.map((cardio) => {
-          let slug = cardio.replace(/ /g, '-');
+        {movements.map((movement) => {
+          let slug = movement.replace(/ /g, '-');
           return (
-            <Link key={slug} to={`/cardios/${slug}`}>
-              <li className='capitalize'>{cardio}</li>
+            <Link key={slug} to={`/${type}s/${slug}`}>
+              <li className='capitalize'>{movement}</li>
             </Link>
           );
         })}
