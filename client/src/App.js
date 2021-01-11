@@ -27,6 +27,8 @@ const App = (props) => {
             <Route path='/lifts' exact component={MovementList} />
             <Route path='/skills' exact component={MovementList} />
             <Route path='/cardios/:id' exact component={SingleMovement} />
+            <Route path='/lifts/:id' exact component={SingleMovement} />
+            <Route path='/skills/:id' exact component={SingleMovement} />
             <Route component={NotFound}></Route>
           </Switch>
         </div>
