@@ -2,49 +2,49 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 
-const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
+const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
   const [saved, setSaved] = useState(false);
-  const [cardio, setCardio] = useState({ ...propsCardio });
+  const [movement, setMovement] = useState({ ...propsMovement });
   const [error, setError] = useState('');
 
-  const prevCardioRef = useRef();
+  const prevMovementRef = useRef();
 
   useEffect(() => {
-    prevCardioRef.current = cardio;
-  }, [cardio]);
-  // const prevCardio = prevCardioRef.current;
+    prevMovementRef.current = movement;
+  }, [movement]);
 
   /**
-   * @description calls addNewCardio() from /pages/CardioList.js
+   * @description calls addNewMovement() from /pages/MovementList.js
    *
    */
-  const handleAddCardio = (event) => {
+  const handleAddMovement = (event) => {
     event.preventDefault();
 
-    if (cardio.name && cardio.personalRecord) {
-      addNewCardio(cardio);
+    if (movement.name && movement.personalRecord) {
+      addNewMovement(movement);
       setSaved(true);
     } else {
       setError('Name and PR entry are required');
     }
   };
   if (saved === true) {
-    return <Redirect to='/cardios' />;
+    return <Redirect to={`/${type}s`} />;
   }
   return (
-    <form className='container' onSubmit={handleAddCardio}>
-      <h1>{updateCardio ? 'Edit' : 'Add New'} Cardio</h1>
+    <form className='container' onSubmit={handleAddMovement}>
+      <h1 className='capitalize'>Add New {type}</h1>
       <p>
         <label htmlFor='form-name'>New Movement:</label>
         <input
           id='form-name'
-          value={cardio.name || ''}
+          value={movement.name || ''}
           placeholder='Movement Name'
           onChange={(event) => {
             setError('');
-            setCardio({
-              ...cardio,
+            setMovement({
+              ...movement,
               name: event.target.value,
+              type,
             });
           }}
         />
@@ -54,12 +54,13 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
         <input
           id='form-pr'
           placeholder='Personal Record'
-          value={cardio.personalRecord || ''}
+          value={movement.personalRecord || ''}
           onChange={(event) => {
             setError('');
-            setCardio({
-              ...cardio,
+            setMovement({
+              ...movement,
               personalRecord: event.target.value,
+              type,
             });
           }}
         />
@@ -69,11 +70,12 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
         <textarea
           id='form-notes'
           placeholder='Notes...'
-          value={cardio.comment || ''}
+          value={movement.comment || ''}
           onChange={(event) =>
-            setCardio({
-              ...cardio,
+            setMovement({
+              ...movement,
               comment: event.target.value,
+              type,
             })
           }
         />
@@ -88,4 +90,4 @@ const AddCardio = ({ cardio: propsCardio, addNewCardio, updateCardio }) => {
   );
 };
 
-export default AddCardio;
+export default AddMovement;

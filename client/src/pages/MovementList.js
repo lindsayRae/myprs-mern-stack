@@ -3,26 +3,31 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import Message from '../components/Message';
 import Modal from '../components/Modal';
-import AddCardio from '../components/AddCardio';
+import AddMovement from '../components/AddMovement';
 
-const CardioList = () => {
+const MovementList = (props) => {
+  console.log(props);
   const [message, setMessage] = useState(null);
   const [cardios, setCardios] = useState([]);
   const [error, setError] = useState('');
+  const [type, setType] = useState('');
 
   const { user, setUser } = useContext(UserContext);
-  console.log('user in Cardios.js', user);
+  // console.log('user in Cardios.js', user);
 
   useEffect(() => {
-    buildMovementMenu();
+    let str = props.location.pathname;
+    let currentType = str.substring(1, str.length - 1);
+    setType(currentType);
+    buildMovementMenu(currentType);
   }, []);
 
   /**
    * @description builds movement menu by getting default movements, user defined movements and concatenating together. Then removes duplicate moment names before displaying to user
    */
-  const buildMovementMenu = async () => {
-    const defaultMovements = await defaultMovementMenu();
-    const userMovements = await userMovementMenu();
+  const buildMovementMenu = async (currentType) => {
+    const defaultMovements = await defaultMovementMenu(currentType);
+    const userMovements = await userMovementMenu(currentType);
     const allMovements = defaultMovements.concat(userMovements);
 
     sessionStorage.setItem('All Movements', JSON.stringify(allMovements));
@@ -56,9 +61,9 @@ const CardioList = () => {
   /**
    * @description gets the defaults movements setup in the DB
    */
-  const defaultMovementMenu = async () => {
+  const defaultMovementMenu = async (currentType) => {
     try {
-      const url = `http://localhost:1234/api/movements/cardio`;
+      const url = `http://localhost:1234/api/movements/${currentType}`;
 
       const headers = {
         'Content-Type': 'application/json',
@@ -84,10 +89,10 @@ const CardioList = () => {
   /**
    * @description gets the user defined movements
    */
-  const userMovementMenu = async () => {
+  const userMovementMenu = async (currentType) => {
     const user_ID = localStorage.getItem('UserID');
     try {
-      const url = `http://localhost:1234/api/prs/${user_ID}?movement=cardio`;
+      const url = `http://localhost:1234/api/prs/${user_ID}?movement=${currentType}`;
 
       const headers = {
         'Content-Type': 'application/json',
@@ -116,20 +121,21 @@ const CardioList = () => {
   };
   /**
    * @description CREATE new movement name and pr entry
-   * @param {*} cardio
+   * @param {*} entry
    */
-  const addNewCardio = async (cardio) => {
+  const addNewMovement = async (entry) => {
     let body = {
       user_id: localStorage.getItem('UserID'),
-      name: cardio.name.trim().toLowerCase(),
-      type: 'cardio',
-      personalRecord: cardio.personalRecord.trim(),
-      comment: cardio.comment ? cardio.comment.trim() : '',
+      name: entry.name.trim().toLowerCase(),
+      type: entry.type,
+      personalRecord: entry.personalRecord.trim(),
+      comment: entry.comment ? entry.comment.trim() : '',
       date: currentDate(),
       preDefined: false,
     };
+
     try {
-      const res = await fetch(`http://localhost:1234/api/prs/cardio`, {
+      const res = await fetch(`http://localhost:1234/api/prs/${entry.type}`, {
         method: 'POST',
         headers: {
           'x-auth-token': localStorage.getItem('jwt'),
@@ -138,13 +144,13 @@ const CardioList = () => {
         body: JSON.stringify(body),
       });
       const data = await res.json();
-
+      console.log('data', data);
       if (data.message) {
         setError(data.message);
         modalRef.current.closeModal();
         return;
       }
-      buildMovementMenu();
+      buildMovementMenu(entry.type);
 
       //? modalRef.current give access to ref in Modal component
       modalRef.current.closeModal();
@@ -235,7 +241,7 @@ const CardioList = () => {
   return (
     <div className='container'>
       {message && <Message type={message} />}
-      <h1>Cardio</h1>
+      <h1 className='capitalize'>{type}</h1>
       <ul>
         {cardios.map((cardio) => {
           let slug = cardio.replace(/ /g, '-');
@@ -248,13 +254,13 @@ const CardioList = () => {
       </ul>
 
       <p>
-        <button className='linkLike' onClick={openModal}>
-          Add New Cardio
+        <button className='linkLike capitalize' onClick={openModal}>
+          Add New {type}
         </button>
       </p>
 
       <Modal ref={modalRef}>
-        <AddCardio addNewCardio={addNewCardio} />
+        <AddMovement type={type} addNewMovement={addNewMovement} />
         <button
           className='linkLike'
           onClick={() => {
@@ -270,4 +276,4 @@ const CardioList = () => {
   );
 };
 
-export default CardioList;
+export default MovementList;
