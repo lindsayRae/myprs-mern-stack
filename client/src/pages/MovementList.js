@@ -7,7 +7,7 @@ import AddMovement from '../components/AddMovement';
 
 const MovementList = (props) => {
   console.log(props);
-  const [message, setMessage] = useState(null);
+
   const [movements, setMovements] = useState([]);
   const [error, setError] = useState('');
   const [type, setType] = useState('');
@@ -28,7 +28,7 @@ const MovementList = (props) => {
     const defaultMovements = await defaultMovementMenu(currentType);
     const userMovements = await userMovementMenu(currentType);
     const allMovements = defaultMovements.concat(userMovements);
-
+    console.log('Setting sessionStorage');
     sessionStorage.setItem('All Movements', JSON.stringify(allMovements));
 
     let defaultMovementName = defaultMovements.map((movement) => {
@@ -143,7 +143,7 @@ const MovementList = (props) => {
         body: JSON.stringify(body),
       });
       const data = await res.json();
-      console.log('data', data);
+      console.log('addNewMovement', data);
       if (data.message) {
         setError(data.message);
         modalRef.current.closeModal();
@@ -156,18 +156,6 @@ const MovementList = (props) => {
     } catch (err) {
       setError(err.message);
     }
-
-    // movement.id = movements.length + 1;
-    // //movement.slug = getNewSlugFromTitle(movement.title);
-    // setMovements([...movements, movement])
-    // setFlashMessage('savedMovement')
-  };
-
-  const setFlashMessage = (message) => {
-    setMessage(message);
-    setTimeout(() => {
-      setMessage(null);
-    }, 1600);
   };
 
   const modalRef = React.useRef();

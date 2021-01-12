@@ -74,6 +74,7 @@ router.post('/:movement', auth, async (req, res) => {
       res.send({ message: 'Could not add record' });
       return;
     }
+
     res.send(result);
   } catch (err) {
     res.send({ message: err.message });
