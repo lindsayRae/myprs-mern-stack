@@ -166,7 +166,7 @@ const MovementList = (props) => {
 
   return (
     <div className='container'>
-      {message && <Message type={message} />}
+      {/* {message && <Message type={message} />} */}
       <h1 className='capitalize'>{type}</h1>
       <ul>
         {movements.map((movement) => {
