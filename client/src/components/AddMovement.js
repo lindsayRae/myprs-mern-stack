@@ -1,6 +1,5 @@
 // 'PostForm Component'
 import React, { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
 
 const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
   const [saved, setSaved] = useState(false);
@@ -27,9 +26,7 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
       setError('Name and PR entry are required');
     }
   };
-  if (saved === true) {
-    return <Redirect to={`/${type}s`} />;
-  }
+
   return (
     <form className='container' onSubmit={handleAddMovement}>
       <h1 className='capitalize'>Add New {type}</h1>
@@ -82,7 +79,7 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
       </p>
       <p>
         <button type='submit' className='linkLike'>
-          Add
+          Add New
         </button>
       </p>
       {error && <p>{error}</p>}
