@@ -16,14 +16,16 @@ export default ({ match }) => {
   const [editComment, setEditComment] = useState('');
   const [newComment, setNewComment] = useState('');
 
-  console.log('selectedEntry', selectedEntry);
-
+  useEffect(() => {
+    getEntries();
+  }, []);
   /**
    * @description GET all of users records and match to the name user clicked on to display records or form for new entry
    */
   const getEntries = async () => {
     setError('');
-    let allRecords = await userMovementMenu();
+    const type = getType();
+    let allRecords = await userMovementMenu(type);
 
     if (allRecords.length <= 0) {
       setEntries([]);
@@ -34,6 +36,12 @@ export default ({ match }) => {
       setEntries(selectedMovement);
       setLoading(false);
     }
+  };
+
+  const getType = () => {
+    let str = match.path;
+    const type = str.substring(1).replace(/\/.*/, '').slice(0, -1);
+    return type;
   };
 
   const handleDelete = async (id, type) => {
@@ -144,6 +152,9 @@ export default ({ match }) => {
       if (data.message) setError(data.message);
       else {
         setEdit(false);
+        setNewPR('');
+        setNewDate('');
+        setNewComment('');
         getEntries();
       }
     } catch (error) {
@@ -151,15 +162,12 @@ export default ({ match }) => {
       console.error(error);
     }
   };
-  useEffect(() => {
-    getEntries();
-  }, []);
 
-  const userMovementMenu = async () => {
-    console.log('** heard here');
+  const userMovementMenu = async (type) => {
     const user_ID = localStorage.getItem('UserID');
     try {
-      const url = `http://localhost:1234/api/prs/${user_ID}?movement=cardio`;
+      const url = `http://localhost:1234/api/prs/${user_ID}?movement=${type}`;
+
       const headers = {
         'Content-Type': 'application/json',
         'x-auth-token': localStorage.getItem('jwt'),
@@ -181,42 +189,6 @@ export default ({ match }) => {
     }
   };
 
-  // const updateCardio = async (cardio) => {
-  //   console.log('Updating cardio...', cardio);
-
-  //   try {
-  //     const d = cardio.results;
-  //     let userID = localStorage.getItem('UserID');
-  //     let body = {
-  //       prID: d._id,
-  //       name: d.name,
-  //       personalRecord: d.personalRecord,
-  //       date: d.date,
-  //       comment: d.comment,
-  //       type: d.type,
-  //     };
-  //     console.log(body);
-  //     const res = await fetch(`http://localhost:1234/api/prs/${userID}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         'x-auth-token': localStorage.getItem('jwt'),
-  //         'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify(body),
-  //     });
-  //     const data = await res.json();
-  //     console.log(data);
-  //   } catch (error) {}
-  // };
-
-  // const deleteCardio = (cardio) => {
-  //   if (window.confirm('Delete this post?')) {
-  //     const updateCardio = cardios.filter((c) => c.id !== cardio.id);
-  //     setCardios(updateCardio);
-  //     setFlashMessage('deleted');
-  //   }
-  // };
-
   return (
     <div>
       <h2 className='capitalize'>{name}</h2>
@@ -227,34 +199,6 @@ export default ({ match }) => {
             {!entries.length && (
               <>
                 <p>No records yet for this movement, get moving!</p>
-
-                <form onSubmit={handleNewSubmit}>
-                  <input
-                    value={newPR}
-                    onChange={(event) => {
-                      setError('');
-                      setNewPR(event.target.value);
-                    }}
-                    placeholder='New PR'
-                  />
-                  <input
-                    value={newDate}
-                    onChange={(event) => {
-                      setError('');
-                      setNewDate(event.target.value);
-                    }}
-                    placeholder='New Date'
-                  />
-                  <textarea
-                    value={newComment}
-                    onChange={(event) => {
-                      setError('');
-                      setNewComment(event.target.value);
-                    }}
-                    placeholder='New Comment'
-                  />
-                  <button className='linkLike'>Add</button>
-                </form>
               </>
             )}
 
@@ -321,6 +265,33 @@ export default ({ match }) => {
                   </li>
                 ))}
             </ul>
+            <form onSubmit={handleNewSubmit}>
+              <input
+                value={newPR}
+                onChange={(event) => {
+                  setError('');
+                  setNewPR(event.target.value);
+                }}
+                placeholder='New PR'
+              />
+              <input
+                value={newDate}
+                onChange={(event) => {
+                  setError('');
+                  setNewDate(event.target.value);
+                }}
+                placeholder='New Date'
+              />
+              <textarea
+                value={newComment}
+                onChange={(event) => {
+                  setError('');
+                  setNewComment(event.target.value);
+                }}
+                placeholder='New Comment'
+              />
+              <button className='linkLike'>Add Entry</button>
+            </form>
           </>
         )}
       </div>
