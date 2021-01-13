@@ -6,8 +6,6 @@ import Modal from '../components/Modal';
 import AddMovement from '../components/AddMovement';
 
 const MovementList = (props) => {
-  console.log(props);
-
   const [movements, setMovements] = useState([]);
   const [error, setError] = useState('');
   const [type, setType] = useState('');
@@ -66,7 +64,7 @@ const MovementList = (props) => {
 
       const headers = {
         'Content-Type': 'application/json',
-        'x-auth-token': localStorage.getItem('jwt'),
+        'x-auth-token': user.jwt,
       };
 
       const res = await fetch(url, {
@@ -89,13 +87,13 @@ const MovementList = (props) => {
    * @description gets the user defined movements
    */
   const userMovementMenu = async (currentType) => {
-    const user_ID = localStorage.getItem('UserID');
+    const user_ID = user.user._id;
     try {
       const url = `http://localhost:1234/api/prs/${user_ID}?movement=${currentType}`;
 
       const headers = {
         'Content-Type': 'application/json',
-        'x-auth-token': localStorage.getItem('jwt'),
+        'x-auth-token': user.jwt,
       };
 
       const res = await fetch(url, {
@@ -124,7 +122,7 @@ const MovementList = (props) => {
    */
   const addNewMovement = async (entry) => {
     let body = {
-      user_id: localStorage.getItem('UserID'),
+      user_id: user.user._id,
       name: entry.name.trim().toLowerCase(),
       type: entry.type,
       personalRecord: entry.personalRecord.trim(),
@@ -137,7 +135,7 @@ const MovementList = (props) => {
       const res = await fetch(`http://localhost:1234/api/prs/${entry.type}`, {
         method: 'POST',
         headers: {
-          'x-auth-token': localStorage.getItem('jwt'),
+          'x-auth-token': user.jwt,
           'Content-type': 'application/json',
         },
         body: JSON.stringify(body),
