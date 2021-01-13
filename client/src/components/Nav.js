@@ -3,9 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 
-// eslint-disable-next-line
-export default () => {
-  const [lastPage, setLastPage] = useState('/dashboard');
+const Nav = () => {
+  // const [lastPage, setLastPage] = useState('/dashboard');
   const { user } = useContext(UserContext);
   console.log('**user: ', user);
   let history = useHistory();
@@ -17,7 +16,6 @@ export default () => {
       history.push('/login');
       return;
     }
-    setLastPage(history.location.pathname);
   }, [user]);
 
   return (
@@ -36,9 +34,7 @@ export default () => {
               </NavLink>
             </li>
             <li key='list'>
-              <NavLink to={`${lastPage}`} exact>
-                Back to List
-              </NavLink>
+              <a onClick={() => history.goBack()}>Back</a>
             </li>
             <li key='logout'>
               <NavLink to='/login' exact>
@@ -70,3 +66,5 @@ export default () => {
     </header>
   );
 };
+
+export default Nav;
