@@ -4,12 +4,8 @@ import { UserContext } from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 
 const Nav = () => {
-  // const [lastPage, setLastPage] = useState('/dashboard');
-  const { user } = useContext(UserContext);
-  console.log('**user: ', user);
-  let history = useHistory();
-
-  console.log('history', history);
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (!user) {
@@ -37,9 +33,7 @@ const Nav = () => {
               <a onClick={() => history.goBack()}>Back</a>
             </li>
             <li key='logout'>
-              <NavLink to='/login' exact>
-                Logout
-              </NavLink>
+              <a onClick={() => setUser('')}>Logout</a>
             </li>
           </>
         )}
