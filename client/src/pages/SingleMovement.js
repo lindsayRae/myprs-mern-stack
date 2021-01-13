@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
-export default ({ match }) => {
+const SingleMovement = ({ match }) => {
   const { id } = match.params;
   const name = id.replace(/-/g, ' ');
 
@@ -15,6 +16,7 @@ export default ({ match }) => {
   const [newDate, setNewDate] = useState('');
   const [editComment, setEditComment] = useState('');
   const [newComment, setNewComment] = useState('');
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getEntries();
@@ -25,21 +27,20 @@ export default ({ match }) => {
   const getEntries = async () => {
     setError('');
     const type = getType();
-    let allRecords = await userMovementMenu(type);
+    const allRecords = await userMovementMenu(type);
 
     if (allRecords.length <= 0) {
       setEntries([]);
       setEdit(true);
     } else {
-      let selectedMovement = allRecords.filter((el) => el.name === name);
-
+      const selectedMovement = allRecords.filter((el) => el.name === name);
       setEntries(selectedMovement);
       setLoading(false);
     }
   };
 
   const getType = () => {
-    let str = match.path;
+    const str = match.path;
     const type = str.substring(1).replace(/\/.*/, '').slice(0, -1);
     return type;
   };
@@ -52,13 +53,13 @@ export default ({ match }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:1234/api/prs/${localStorage.getItem('UserID')}`,
+        `http://localhost:1234/api/prs/${user.user._id}`,
         {
           method: 'DELETE',
           body: JSON.stringify(body),
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': localStorage.getItem('jwt'),
+            'x-auth-token': user.jwt,
           },
         }
       );
@@ -68,8 +69,11 @@ export default ({ match }) => {
         setError(data.message);
         return;
       } else if (data.removed) {
-        setEntries([]);
-        getEntries();
+        setEntries(
+          entries.filter((obj) => {
+            return obj._id !== id;
+          })
+        );
       }
     } catch (error) {
       setError(error);
@@ -82,7 +86,7 @@ export default ({ match }) => {
   const handleEditSubmit = async (event) => {
     event.preventDefault();
 
-    let body = {
+    const body = {
       prID: selectedEntry._id,
       name: selectedEntry.name,
       personalRecord: editPR,
@@ -91,14 +95,14 @@ export default ({ match }) => {
       type: selectedEntry.type,
     };
 
-    let url = `http://localhost:1234/api/prs/${localStorage.getItem('UserID')}`;
+    const url = `http://localhost:1234/api/prs/${user.user._id}`;
 
     try {
       const res = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('jwt'),
+          'x-auth-token': user.jwt,
         },
         body: JSON.stringify(body),
       });
@@ -125,8 +129,8 @@ export default ({ match }) => {
     let obj = JSON.parse(sessionStorage.getItem('All Movements'));
     obj = obj.find((item) => item.name === name);
 
-    let body = {
-      user_id: localStorage.getItem('UserID'),
+    const body = {
+      user_id: user.user._id,
       name: name,
       preDefined: obj.preDefined,
       type: obj.type,
@@ -135,14 +139,14 @@ export default ({ match }) => {
       date: newDate,
     };
 
-    let url = `http://localhost:1234/api/prs/${obj.type}`;
+    const url = `http://localhost:1234/api/prs/${obj.type}`;
 
     try {
       const res = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('jwt'),
+          'x-auth-token': user.jwt,
         },
         body: JSON.stringify(body),
       });
@@ -164,13 +168,13 @@ export default ({ match }) => {
   };
 
   const userMovementMenu = async (type) => {
-    const user_ID = localStorage.getItem('UserID');
+    const user_ID = user.user._id;
     try {
       const url = `http://localhost:1234/api/prs/${user_ID}?movement=${type}`;
 
       const headers = {
         'Content-Type': 'application/json',
-        'x-auth-token': localStorage.getItem('jwt'),
+        'x-auth-token': user.jwt,
       };
       const res = await fetch(url, {
         method: 'GET',
@@ -299,3 +303,5 @@ export default ({ match }) => {
     </div>
   );
 };
+
+export default SingleMovement;
