@@ -1,7 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 const Login = ({ history }) => {
+  // console.log('history', history);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

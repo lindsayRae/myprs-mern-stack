@@ -5,20 +5,23 @@ import { useHistory } from 'react-router-dom';
 
 const Nav = () => {
   const { user, setUser } = useContext(UserContext);
+  console.log('user', user);
   const history = useHistory();
 
   useEffect(() => {
     if (!user) {
-      history.push('/login');
+      history.push('/');
       return;
+    } else {
+      history.push('/dashboard');
     }
   }, [user]);
 
   return (
-    <header className='App-header'>
-      <ul className='container'>
-        {user && (
-          <>
+    <>
+      {user && (
+        <header className='App-header'>
+          <ul className='container'>
             <li key='home2'>
               <NavLink to='/dashboard' exact>
                 MyPrs
@@ -35,29 +38,10 @@ const Nav = () => {
             <li key='logout'>
               <a onClick={() => setUser('')}>Logout</a>
             </li>
-          </>
-        )}
-        {!user && (
-          <>
-            <li key='home'>
-              <NavLink to='/login' exact>
-                MyPrs
-              </NavLink>
-            </li>
-            <li key='login'>
-              <NavLink to='/login' exact>
-                Login
-              </NavLink>
-            </li>
-            <li key='signup'>
-              <NavLink to='/signup' exact>
-                Signup
-              </NavLink>
-            </li>
-          </>
-        )}
-      </ul>
-    </header>
+          </ul>
+        </header>
+      )}
+    </>
   );
 };
 

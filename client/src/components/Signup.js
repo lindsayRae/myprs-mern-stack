@@ -9,14 +9,14 @@ const Signup = ({ history }) => {
 
   const { user, setUser } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(user);
-    if (user) {
-      history.push('/login');
-    } else {
-      history.push('/signup');
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   console.log(user);
+  //   if (user) {
+  //     history.push('/login');
+  //   } else {
+  //     history.push('/signup');
+  //   }
+  // }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
