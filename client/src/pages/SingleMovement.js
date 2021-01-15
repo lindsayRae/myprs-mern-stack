@@ -85,7 +85,10 @@ const SingleMovement = ({ match }) => {
    */
   const handleEditSubmit = async (event) => {
     event.preventDefault();
-
+    if (!editPR || !editDate) {
+      setError('Must enter PR and date');
+      return;
+    }
     const body = {
       prID: selectedEntry._id,
       name: selectedEntry.name,
@@ -125,7 +128,10 @@ const SingleMovement = ({ match }) => {
    */
   const handleNewSubmit = async (event) => {
     event.preventDefault();
-
+    if (!newPR || !newDate) {
+      setError('Must enter PR and date');
+      return;
+    }
     let obj = JSON.parse(sessionStorage.getItem('All Movements'));
     obj = obj.find((item) => item.name === name);
 
@@ -244,7 +250,6 @@ const SingleMovement = ({ match }) => {
                             setEditPR(event.target.value);
                           }}
                           placeholder='New PR'
-                          required
                         />
                         <input
                           value={editDate}
@@ -253,7 +258,6 @@ const SingleMovement = ({ match }) => {
                             setEditDate(event.target.value);
                           }}
                           placeholder='New Date'
-                          required
                         />
                         <textarea
                           value={editComment}
@@ -272,6 +276,7 @@ const SingleMovement = ({ match }) => {
             <form onSubmit={handleNewSubmit}>
               <input
                 value={newPR}
+                type='number'
                 onChange={(event) => {
                   setError('');
                   setNewPR(event.target.value);
@@ -280,6 +285,7 @@ const SingleMovement = ({ match }) => {
               />
               <input
                 value={newDate}
+                type='date'
                 onChange={(event) => {
                   setError('');
                   setNewDate(event.target.value);
