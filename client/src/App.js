@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import UserContextProvider from './context/UserContext';
 import Nav from './components/Nav';
-import MovementCategories from './pages/MovementCategories';
+import Dashboard from './pages/Dashboard';
 import MovementList from './pages/MovementList';
 import SingleMovement from './pages/SingleMovement';
 import NotFound from './components/NotFound';
@@ -12,18 +12,19 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import './App.css';
 import './Main.css';
+import './Dash.css';
 
 const App = (props) => {
   return (
     <BrowserRouter>
       <UserContextProvider>
         <div className='App page'>
-          <Nav />
+          {/* <Nav /> */}
           <Switch>
             <Route path='/' exact component={Landing} />
             <Route path='/login' exact component={Login} />
             <Route path='/signup' exact component={SignUp} />
-            <Route path='/dashboard' exact component={MovementCategories} />
+            <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/cardios' exact component={MovementList} />
             <Route path='/lifts' exact component={MovementList} />
             <Route path='/skills' exact component={MovementList} />
