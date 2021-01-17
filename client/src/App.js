@@ -8,16 +8,21 @@ import MovementList from './pages/MovementList';
 import SingleMovement from './pages/SingleMovement';
 import NotFound from './components/NotFound';
 import Landing from './pages/Landing';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import './App.css';
+import './Main.css';
 
 const App = (props) => {
   return (
     <BrowserRouter>
       <UserContextProvider>
-        <div className='App'>
+        <div className='App page'>
           <Nav />
           <Switch>
             <Route path='/' exact component={Landing} />
+            <Route path='/login' exact component={Login} />
+            <Route path='/signup' exact component={SignUp} />
             <Route path='/dashboard' exact component={MovementCategories} />
             <Route path='/cardios' exact component={MovementList} />
             <Route path='/lifts' exact component={MovementList} />
