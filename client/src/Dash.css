@@ -1,0 +1,52 @@
+.header-page {
+  background: rgb(54, 44, 86);
+  background: linear-gradient(
+    9deg,
+    rgba(54, 44, 86, 1) 0%,
+    rgba(38, 42, 57, 1) 100%
+  );
+}
+
+ul {
+  list-style: none;
+}
+.list-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.dash-items {
+  display: flex;
+  align-items: center;
+  height: 0;
+  margin-bottom: 10px;
+  padding-left: 33%;
+  background: rgb(88, 75, 131);
+  background: linear-gradient(
+    145deg,
+    rgba(88, 75, 131, 1) 0%,
+    rgba(68, 57, 102, 1) 100%
+  );
+  overflow: hidden;
+}
+.dash-items.show {
+  height: 50px;
+}
+.dash-items > a {
+  color: #52a9d9;
+}
+
+.dash-items > a > span {
+  color: white;
+  margin-left: 10px;
+}
+
+.card:first-child {
+  margin-top: 25px;
+}
+
+.swing li {
+  opacity: 0;
+  transform: rotateY(-90deg);
+  transition: all 0.5s cubic-bezier(0.36, -0.64, 0.34, 1.76);
+}
