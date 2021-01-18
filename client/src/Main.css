@@ -177,7 +177,9 @@
   flex-direction: column;
   margin-top: 18px;
 }
-
+.text-info {
+  color: #52a9d9;
+}
 .text-white {
   color: #fff;
 }

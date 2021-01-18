@@ -20,20 +20,15 @@ ul {
   align-items: center;
   height: 0;
   margin-bottom: 10px;
-  padding-left: 33%;
-  background: rgb(88, 75, 131);
-  background: linear-gradient(
-    145deg,
-    rgba(88, 75, 131, 1) 0%,
-    rgba(68, 57, 102, 1) 100%
-  );
   overflow: hidden;
+  justify-content: center;
 }
 .dash-items.show {
   height: 50px;
 }
 .dash-items > a {
-  color: #52a9d9;
+  color: white;
+  width: 75px;
 }
 
 .dash-items > a > span {

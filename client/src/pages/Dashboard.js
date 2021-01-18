@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 import { MdDirectionsRun, MdFitnessCenter, MdStar } from 'react-icons/md';
 
 const Dashboard = () => {
@@ -13,7 +13,7 @@ const Dashboard = () => {
     <div className='page-splash'>
       <header className='header header-fixed'>
         <div className='header-inner'>
-          <Header />
+          <Navbar />
         </div>
       </header>
       <div className='login header-page'>
@@ -25,19 +25,19 @@ const Dashboard = () => {
           <div className='page-content'>
             <div className='list-container'>
               <ul className=''>
-                <li key='cardio' className='dash-items show'>
+                <li key='cardio' className='dash-items btn-primary show'>
                   <NavLink to='/cardios' exact>
                     <MdDirectionsRun />
                     <span>Cardio</span>
                   </NavLink>
                 </li>
-                <li key='lifts' className='dash-items show'>
+                <li key='lifts' className='dash-items btn-primary show'>
                   <NavLink to='/lifts' exact>
                     <MdFitnessCenter />
                     <span>Lifts</span>
                   </NavLink>
                 </li>
-                <li key='skills' className='dash-items show'>
+                <li key='skills' className='dash-items btn-primary show'>
                   <NavLink to='/skills' exact>
                     <MdStar />
                     <span>Skills</span>
