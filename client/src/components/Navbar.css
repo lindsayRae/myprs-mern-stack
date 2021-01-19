@@ -27,9 +27,6 @@
   left: -100%;
   transition: 850ms;
 }
-.nav-menu-items {
-  margin-top: 25px;
-}
 
 .nav-menu.active {
   left: 0;
@@ -53,21 +50,28 @@
   align-items: center;
   padding: 0 16px;
   border-radius: 3px;
+  transition: 0.6s;
 }
 
 .nav-text a:hover {
-  background-color: green;
+  background-color: #dedbf363;
+  opacity: 1;
+}
+.nav-text a:hover > svg {
+  color: #232323;
+}
+.nav-text a:hover > span {
+  color: #232323;
 }
 .nav-menu-items {
   width: 100%;
 }
 .navbar-toggle {
-  background-color: white;
-  width: 100%;
-  height: 80px;
   display: flex;
-  justify-content: start;
-  align-items: center;
+  justify-content: flex-end;
+}
+.navbar-toggle a {
+  margin: 15px 15px 0 0;
 }
 
 span {
