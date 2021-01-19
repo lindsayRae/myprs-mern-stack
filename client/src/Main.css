@@ -60,17 +60,13 @@
 .btn {
   border: none;
   border-radius: 2px;
-  display: inline-block;
-  height: 36px;
   line-height: 36px;
-  padding: 0 16px;
   text-transform: uppercase;
   font-size: 1rem;
   padding: 0.5rem 1rem;
   height: 50px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  text-align: center;
 }
 .btn-primary {
   background: rgb(59, 170, 123);
@@ -90,6 +86,14 @@
   );
   color: rgba(255, 255, 255, 0.514);
   cursor: default;
+}
+.btn-primary:hover {
+  background: rgb(59, 170, 123);
+  background: linear-gradient(
+    112deg,
+    rgba(59, 170, 123, 1) 0%,
+    rgba(38, 116, 98, 1) 94%
+  );
 }
 .page-login {
   height: 100%;

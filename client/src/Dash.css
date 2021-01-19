@@ -18,17 +18,14 @@ ul {
 .dash-items {
   display: flex;
   align-items: center;
-  height: 0;
   margin-bottom: 10px;
   overflow: hidden;
   justify-content: center;
 }
-.dash-items.show {
-  height: 50px;
-}
+
 .dash-items > a {
   color: white;
-  width: 75px;
+  width: 85px;
 }
 
 .dash-items > a > span {
@@ -38,10 +35,4 @@ ul {
 
 .card:first-child {
   margin-top: 25px;
-}
-
-.swing li {
-  opacity: 0;
-  transform: rotateY(-90deg);
-  transition: all 0.5s cubic-bezier(0.36, -0.64, 0.34, 1.76);
 }
