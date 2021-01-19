@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp';
 import './App.css';
 import './Main.css';
 import './Dash.css';
+import './pages/MovementList.css';
 
 const App = (props) => {
   return (

@@ -2,8 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import Message from '../components/Message';
+import Navbar from '../components/Navbar';
 import Modal from '../components/Modal';
 import AddMovement from '../components/AddMovement';
+
+import { MdSearch } from 'react-icons/md';
 
 const MovementList = (props) => {
   const [movements, setMovements] = useState([]);
@@ -163,25 +166,48 @@ const MovementList = (props) => {
   };
 
   return (
-    <div className='container'>
+    <div className='page-splash'>
+      <header className='header header-fixed'>
+        <div className='header-inner'>
+          <Navbar />
+        </div>
+      </header>
       {/* {message && <Message type={message} />} */}
-      <h1 className='capitalize'>{type}</h1>
-      <ul>
-        {movements.map((movement) => {
-          let slug = movement.replace(/ /g, '-');
-          return (
-            <Link key={slug} to={`/${type}s/${slug}`}>
-              <li className='capitalize'>{movement}</li>
-            </Link>
-          );
-        })}
-      </ul>
+      <div className='list-page'>
+        <h3 className='page-title capitalize'>{type}</h3>
+        <div className='search-container'>
+          <MdSearch className='text-info' />
 
-      <p>
-        <button className='linkLike capitalize' onClick={openModal}>
-          Add New {type}
-        </button>
-      </p>
+          <div className='form'>
+            <input
+              type='text'
+              name='search'
+              className='search-input'
+              required
+            />
+            <label for='search' className='label-name'>
+              <span className='content-name'>Search Movements</span>
+            </label>
+          </div>
+        </div>
+
+        <div className='list'>
+          <ul className='movements'>
+            {movements.map((movement) => {
+              let slug = movement.replace(/ /g, '-');
+              return (
+                <Link key={slug} to={`/${type}s/${slug}`}>
+                  <li className='capitalize'>{movement}</li>
+                </Link>
+              );
+            })}
+          </ul>
+
+          <button className='btn btn-primary capitalize' onClick={openModal}>
+            Add New {type}
+          </button>
+        </div>
+      </div>
 
       <Modal ref={modalRef}>
         <AddMovement type={type} addNewMovement={addNewMovement} />
