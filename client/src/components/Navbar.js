@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdMenu } from 'react-icons/md';
 import * as AiIcons from 'react-icons/ai';
@@ -6,10 +6,12 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 
-function Navbar() {
+function Navbar(props) {
   const [sidebar, setSidebar] = useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => {
+    setSidebar(!sidebar);
+  };
 
   return (
     <>
@@ -18,6 +20,8 @@ function Navbar() {
           <Link to='#' className='menu-bars'>
             <MdMenu className='text-info' onClick={showSidebar} />
           </Link>
+          <h3 className='capitalize page-title'>{props.title}</h3>
+          <div style={{ width: '26px' }}> </div>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>
