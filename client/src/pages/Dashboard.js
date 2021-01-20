@@ -18,26 +18,26 @@ const Dashboard = () => {
       </header>
       <div className='login header-page'>
         <div className='login-content'>
-          <h2 className='login-title'>Hello {user.user.userName}</h2>
+          <h2 className='login-title capitalize'>Hello {user.user.userName}</h2>
           <p className='login-text'>
             Choose your category to view or add personal records.
           </p>
           <div className='page-content'>
             <div className='list-container'>
               <ul className=''>
-                <li key='cardio' className='dash-items btn-primary show'>
+                <li key='cardio' className='dash-items btn btn-primary'>
                   <NavLink to='/cardios' exact>
                     <MdDirectionsRun />
                     <span>Cardio</span>
                   </NavLink>
                 </li>
-                <li key='lifts' className='dash-items btn-primary show'>
+                <li key='lifts' className='dash-items btn btn-primary'>
                   <NavLink to='/lifts' exact>
                     <MdFitnessCenter />
                     <span>Lifts</span>
                   </NavLink>
                 </li>
-                <li key='skills' className='dash-items btn-primary show'>
+                <li key='skills' className='dash-items btn btn-primary'>
                   <NavLink to='/skills' exact>
                     <MdStar />
                     <span>Skills</span>
