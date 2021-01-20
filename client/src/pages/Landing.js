@@ -10,7 +10,7 @@ const Landing = ({ history }) => {
         <div className='splash-content'>
           <div className='splash-logo'>MYPRS</div>
           <div className='splash-text'>
-            Track your 1 rep max's <br />
+            Track your 1 rep gym max's <br />
             <span className='sm-txt'>
               Login or sign up to create a new account.
             </span>
