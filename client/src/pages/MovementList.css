@@ -1,19 +1,24 @@
+.header-page {
+  width: 100%;
+  color: #fff;
+}
 .list-page {
-  height: 100%;
+  margin-top: 262px;
+  overflow: auto;
 }
 .page-title {
   color: white;
-  padding: 20px 0;
-  display: flex;
-  justify-content: center;
   font-weight: 400;
 }
 .search-container {
-  height: 50px;
-  background-color: #574b83;
+  height: 60px;
+  width: 100%;
+  background-color: #0000009e;
   display: flex;
   align-items: center;
   padding: 0 2px;
+  position: absolute;
+  top: 70px;
 }
 
 .search-container svg {
@@ -22,10 +27,6 @@
 }
 
 .search-container input {
-  /* width: 80%;
-  border: none;
-  padding: 5px;
-  border-bottom: 1px solid #52a9d9; */
   background-color: transparent;
   color: white;
 }
@@ -45,15 +46,22 @@
   height: 45px;
   color: white;
   font-weight: 400;
-  background-color: #574b83;
+  /* background-color: #574b83; */
+  background: rgb(87, 75, 131);
+  background: linear-gradient(
+    112deg,
+    rgba(87, 75, 131, 1) 0%,
+    rgba(68, 57, 107, 1) 99%
+  );
   margin-bottom: 2px;
   padding-left: 8px;
   display: flex;
   align-items: center;
 }
+
 /* source: https://www.youtube.com/watch?v=IxRJ8vplzAo */
 .form {
-  width: 200px;
+  width: 260px;
   position: relative;
   height: 45px;
   overflow: hidden;
@@ -96,16 +104,27 @@
   bottom: 5px;
   left: 0px;
   transition: all 0.3s ease;
-  font-size: 13px;
+  font-size: 16px;
 }
 .form input:focus + .label-name .content-name,
 .form input:valid + .label-name .content-name {
   transform: translateY(-110%);
-  font-size: 12px;
-  color: #dedbf3;
+  font-size: 14px;
+  color: white;
 }
 
 .form input:focus + .label-name::after,
 .form input:valid + .label-name::after {
   transform: translateX(0%);
+}
+
+/* images */
+.img-container {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+.img-responsive {
+  width: 100%;
+  height: auto;
 }

@@ -5,7 +5,6 @@ import Message from '../components/Message';
 import Navbar from '../components/Navbar';
 import Modal from '../components/Modal';
 import AddMovement from '../components/AddMovement';
-
 import { MdSearch } from 'react-icons/md';
 
 const MovementList = (props) => {
@@ -13,6 +12,7 @@ const MovementList = (props) => {
   const [error, setError] = useState('');
   const [type, setType] = useState('');
 
+  console.log(movements);
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -169,28 +169,29 @@ const MovementList = (props) => {
     <div className='page-splash'>
       <header className='header header-fixed'>
         <div className='header-inner'>
-          <Navbar />
+          <Navbar title={type} />
+        </div>
+        <div className='img-container'>
+          <img src='./images/row.jpg' alt='cardio' className='img-responsive' />
+          <div className='search-container'>
+            <MdSearch className='text-info' />
+
+            <div className='form' id='searchForm'>
+              <input
+                type='text'
+                name='search'
+                className='search-input'
+                required
+              />
+              <label htmlFor='search' className='label-name'>
+                <span className='content-name'>Search Movements</span>
+              </label>
+            </div>
+          </div>
         </div>
       </header>
       {/* {message && <Message type={message} />} */}
       <div className='list-page'>
-        <h3 className='page-title capitalize'>{type}</h3>
-        <div className='search-container'>
-          <MdSearch className='text-info' />
-
-          <div className='form'>
-            <input
-              type='text'
-              name='search'
-              className='search-input'
-              required
-            />
-            <label for='search' className='label-name'>
-              <span className='content-name'>Search Movements</span>
-            </label>
-          </div>
-        </div>
-
         <div className='list'>
           <ul className='movements'>
             {movements.map((movement) => {
@@ -202,12 +203,15 @@ const MovementList = (props) => {
               );
             })}
           </ul>
-
-          <button className='btn btn-primary capitalize' onClick={openModal}>
-            Add New {type}
-          </button>
         </div>
       </div>
+      <button
+        style={{ margin: '5px' }}
+        className='btn btn-primary capitalize'
+        onClick={openModal}
+      >
+        Add New {type}
+      </button>
 
       <Modal ref={modalRef}>
         <AddMovement type={type} addNewMovement={addNewMovement} />
