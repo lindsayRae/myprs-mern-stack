@@ -8,11 +8,13 @@ import AddMovement from '../components/AddMovement';
 import { MdSearch } from 'react-icons/md';
 
 const MovementList = (props) => {
-  const [movements, setMovements] = useState([]);
+  const [movements, setMovements] = useState([]); // original data
+  const [searchResults, setSearchResults] = useState([]); // filtered
+  const [searchTerm, setSearchTerm] = useState('');
+
   const [error, setError] = useState('');
   const [type, setType] = useState('');
 
-  console.log(movements);
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -22,6 +24,17 @@ const MovementList = (props) => {
     buildMovementMenu(currentType);
   }, []);
 
+  useEffect(() => {
+    const results = searchResults.filter((item) =>
+      item.toLowerCase().includes(searchTerm)
+    );
+    setMovements(results);
+  }, [searchTerm]);
+
+  const handleChange = (e) => {
+    // console.log(e.target.value);
+    setSearchTerm(e.target.value);
+  };
   /**
    * @description builds movement menu by getting default movements, user defined movements and concatenating together. Then removes duplicate moment names before displaying to user
    */
@@ -29,7 +42,7 @@ const MovementList = (props) => {
     const defaultMovements = await defaultMovementMenu(currentType);
     const userMovements = await userMovementMenu(currentType);
     const allMovements = defaultMovements.concat(userMovements);
-    console.log('Setting sessionStorage');
+
     sessionStorage.setItem('All Movements', JSON.stringify(allMovements));
 
     let defaultMovementName = defaultMovements.map((movement) => {
@@ -49,10 +62,11 @@ const MovementList = (props) => {
 
       //* ... spread puts back into array
       let usersMenu = [...uniqueMenu];
-
+      setSearchResults(usersMenu.sort());
       setMovements(usersMenu.sort());
       return;
     } else {
+      setSearchResults(defaultMovementName);
       setMovements(defaultMovementName);
       return defaultMovementName;
     }
@@ -181,6 +195,8 @@ const MovementList = (props) => {
                 type='text'
                 name='search'
                 className='search-input'
+                value={searchTerm}
+                onChange={handleChange}
                 required
               />
               <label htmlFor='search' className='label-name'>
