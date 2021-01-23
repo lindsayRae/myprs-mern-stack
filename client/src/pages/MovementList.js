@@ -230,15 +230,15 @@ const MovementList = (props) => {
       </button>
 
       <Modal ref={modalRef}>
-        <AddMovement type={type} addNewMovement={addNewMovement} />
-        <button
-          className='linkLike'
+        {/* <button
+          className=''
           onClick={() => {
             modalRef.current.closeModal();
           }}
         >
           Close
-        </button>
+        </button> */}
+        <AddMovement type={type} addNewMovement={addNewMovement} />
       </Modal>
 
       {error && <p>{error}</p>}

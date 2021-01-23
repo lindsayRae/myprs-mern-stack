@@ -26,7 +26,7 @@
   top: 0;
   left: -100%;
   transition: 850ms;
-  z-index: 5;
+  z-index: 20;
 }
 
 .nav-menu.active {
@@ -75,7 +75,7 @@
   margin: 15px 15px 0 0;
 }
 
-span {
+a > span {
   margin-left: 16px;
   color: white;
 }
