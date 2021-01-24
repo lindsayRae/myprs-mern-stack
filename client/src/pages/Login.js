@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext';
 import { MdKeyboardBackspace } from 'react-icons/md';
 
 const Login = ({ history }) => {
-  console.log('history', history);
+  // console.log('history', history);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +50,7 @@ const Login = ({ history }) => {
     }
   };
   const isDisabled = () => {
-    if (email.length != 0 && password.length != 0) {
+    if (email.length !== 0 && password.length !== 0) {
       setDisabled(false);
     } else setDisabled(true);
   };

@@ -132,12 +132,11 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
               })
             }
           />
-        </p>
-
-        {error && <p>{error}</p>} */}
+        </p>*/}
+        {error && <p>{error}</p>}
         <div className='form-submit'>
           <button type='submit' className='btn-text-icon'>
-            <MdAdd style={{ 'font-size': '24px' }} />
+            <MdAdd style={{ fontSize: '24px' }} />
             <span>Add</span>
           </button>
         </div>

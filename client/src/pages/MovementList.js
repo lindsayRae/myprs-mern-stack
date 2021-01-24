@@ -49,7 +49,7 @@ const MovementList = (props) => {
       return movement.name;
     });
 
-    if (userMovements && userMovements.length != 0) {
+    if (userMovements && userMovements.length !== 0) {
       //* use map() to get just the name
       let userDefinedMovementNames = userMovements.map((movement) => {
         return movement.name;

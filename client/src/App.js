@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import UserContextProvider from './context/UserContext';
-import Nav from './components/Nav';
+
 import Dashboard from './pages/Dashboard';
 import MovementList from './pages/MovementList';
 import SingleMovement from './pages/SingleMovement';
@@ -21,7 +21,6 @@ const App = (props) => {
     <BrowserRouter>
       <UserContextProvider>
         <div className='App page'>
-          {/* <Nav /> */}
           <Switch>
             <Route path='/' exact component={Landing} />
             <Route path='/login' exact component={Login} />

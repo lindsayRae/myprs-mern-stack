@@ -35,7 +35,7 @@ const SignUp = ({ history }) => {
     } else if (!confirmPassword) {
       setError('You must confirm your password.');
       return;
-    } else if (password != confirmPassword) {
+    } else if (password !== confirmPassword) {
       setError('Your passwords do not match.');
       return;
     }
@@ -67,10 +67,10 @@ const SignUp = ({ history }) => {
 
   const isDisabled = () => {
     if (
-      userName.length != 0 &&
-      email.length != 0 &&
-      password.length != 0 &&
-      confirmPassword.length != 0
+      userName.length !== 0 &&
+      email.length !== 0 &&
+      password.length !== 0 &&
+      confirmPassword.length !== 0
     ) {
       setDisabled(false);
     } else setDisabled(true);
