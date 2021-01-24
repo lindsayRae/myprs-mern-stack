@@ -12,14 +12,12 @@ const SignUp = ({ history }) => {
   const [disabled, setDisabled] = useState(true);
   const { user, setUser } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   console.log(user);
-  //   if (user) {
-  //     history.push('/login');
-  //   } else {
-  //     history.push('/signup');
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      history.push('/dashboard');
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
