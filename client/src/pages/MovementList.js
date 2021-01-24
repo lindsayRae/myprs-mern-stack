@@ -15,14 +15,14 @@ const MovementList = (props) => {
   const [error, setError] = useState('');
   const [type, setType] = useState('');
 
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     let str = props.location.pathname;
     let currentType = str.substring(1, str.length - 1);
     setType(currentType);
     buildMovementMenu(currentType);
-  }, []);
+  }, [props.location.pathname]);
 
   useEffect(() => {
     const results = searchResults.filter((item) =>
