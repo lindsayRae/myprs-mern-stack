@@ -54,7 +54,7 @@
     rgba(68, 57, 107, 1) 99%
   );
   margin-bottom: 2px;
-  padding-left: 8px;
+  padding: 0 8px;
   display: flex;
   align-items: center;
 }
