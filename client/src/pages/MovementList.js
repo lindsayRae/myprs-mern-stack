@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import Message from '../components/Message';
 import Navbar from '../components/Navbar';
 import Modal from '../components/Modal';
 import AddMovement from '../components/AddMovement';
@@ -21,21 +20,21 @@ const MovementList = (props) => {
     if (!user) {
       props.history.push('/login');
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     let str = props.location.pathname;
     let currentType = str.substring(1, str.length - 1);
     setType(currentType);
     buildMovementMenu(currentType);
-  }, [props.location.pathname]);
+  }, [props.location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const results = searchResults.filter((item) =>
       item.toLowerCase().includes(searchTerm)
     );
     setMovements(results);
-  }, [searchTerm]);
+  }, [searchTerm]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (e) => {
     // console.log(e.target.value);

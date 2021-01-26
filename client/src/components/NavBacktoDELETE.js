@@ -36,7 +36,16 @@ const Nav = () => {
               <a onClick={() => history.goBack()}>Back</a>
             </li>
             <li key='logout'>
-              <a onClick={() => setUser('')}>Logout</a>
+              <a
+                onClick={(e) => {
+                  console.log('hear logout');
+                  e.preventDefault();
+                  // localStorage.clear();
+                  // setUser(null);
+                }}
+              >
+                Logout
+              </a>
             </li>
           </ul>
         </header>

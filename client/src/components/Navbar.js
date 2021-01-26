@@ -10,7 +10,7 @@ import { IconContext } from 'react-icons';
 
 function Navbar(props) {
   const [sidebar, setSidebar] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const showSidebar = () => {
     setSidebar(!sidebar);

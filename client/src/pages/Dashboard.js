@@ -11,7 +11,7 @@ const Dashboard = (props) => {
     if (!user) {
       props.history.push('/login');
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className='page-splash'>
       <header className='header header-fixed'>

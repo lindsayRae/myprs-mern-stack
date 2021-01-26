@@ -16,7 +16,7 @@ const Login = ({ history }) => {
     if (user) {
       history.push('/dashboard');
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (event) => {
     event.preventDefault();

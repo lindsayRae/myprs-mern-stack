@@ -13,11 +13,10 @@ const SignUp = ({ history }) => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       history.push('/dashboard');
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -32,11 +32,11 @@ const SingleMovement = ({ history, match }) => {
     if (!user) {
       history.push('/login');
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getEntries();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   /**
    * @description GET all of users records and match to the name user clicked on to display records or form for new entry
    */
@@ -224,9 +224,9 @@ const SingleMovement = ({ history, match }) => {
       <header className='header header-fixed'>
         <div className='header-inner' onClick={() => history.goBack()}>
           <div className='navbar'>
-            <a className='menu-bars'>
+            <button className='menu-bars link-like'>
               <MdKeyboardBackspace className='text-info' />
-            </a>
+            </button>
             <h3 className='capitalize page-title'>{name}</h3>
             <div style={{ width: '26px' }}> </div>
           </div>
