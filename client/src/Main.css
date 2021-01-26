@@ -70,6 +70,7 @@
   margin-bottom: 10px;
   width: 100%;
 }
+
 .btn {
   border: none;
   line-height: 36px;
@@ -204,4 +205,8 @@
 
 .login-form > p {
   margin-top: 10px;
+}
+.link-like {
+  border: none;
+  cursor: pointer;
 }
