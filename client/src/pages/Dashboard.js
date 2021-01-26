@@ -5,10 +5,13 @@ import { UserContext } from '../context/UserContext';
 import Navbar from '../components/Navbar';
 import { MdDirectionsRun, MdFitnessCenter, MdStar } from 'react-icons/md';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const { user } = useContext(UserContext);
-  console.log(user);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!user) {
+      props.history.push('/login');
+    }
+  }, [user]);
   return (
     <div className='page-splash'>
       <header className='header header-fixed'>

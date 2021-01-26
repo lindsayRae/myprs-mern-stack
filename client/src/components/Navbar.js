@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { MdMenu } from 'react-icons/md';
-import * as AiIcons from 'react-icons/ai';
+import { UserContext } from '../context/UserContext';
 import { SidebarData } from './SidebarData';
+
+import { MdMenu, MdExitToApp } from 'react-icons/md';
+import * as AiIcons from 'react-icons/ai';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 
 function Navbar(props) {
   const [sidebar, setSidebar] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   const showSidebar = () => {
     setSidebar(!sidebar);
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    console.log('heard');
+    localStorage.clear();
+    setUser(null);
   };
 
   return (
@@ -40,6 +49,12 @@ function Navbar(props) {
                 </li>
               );
             })}
+            <li key='logout' className='nav-text' onClick={handleLogout}>
+              <Link to='/login'>
+                <MdExitToApp />
+                <span>Logout</span>
+              </Link>
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>

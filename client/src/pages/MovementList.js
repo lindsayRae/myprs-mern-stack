@@ -18,6 +18,12 @@ const MovementList = (props) => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    if (!user) {
+      props.history.push('/login');
+    }
+  }, [user]);
+
+  useEffect(() => {
     let str = props.location.pathname;
     let currentType = str.substring(1, str.length - 1);
     setType(currentType);

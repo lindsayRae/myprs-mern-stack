@@ -1,5 +1,4 @@
 import React from 'react';
-
 import * as MdIcons from 'react-icons/md';
 
 export const SidebarData = [
@@ -38,12 +37,6 @@ export const SidebarData = [
     title: 'Privacy Policy',
     path: '/#',
     icon: <MdIcons.MdSecurity />,
-    cName: 'nav-text',
-  },
-  {
-    title: 'Logout',
-    path: '/#',
-    icon: <MdIcons.MdExitToApp />,
     cName: 'nav-text',
   },
 ];

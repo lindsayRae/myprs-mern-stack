@@ -29,6 +29,12 @@ const SingleMovement = ({ history, match }) => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    if (!user) {
+      history.push('/login');
+    }
+  }, [user]);
+
+  useEffect(() => {
     getEntries();
   }, []);
   /**
