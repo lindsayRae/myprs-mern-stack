@@ -190,7 +190,28 @@ const MovementList = (props) => {
           <Navbar title={type} />
         </div>
         <div className='img-container'>
-          <img src='./images/row.jpg' alt='cardio' className='img-responsive' />
+          {type === 'lift' && (
+            <img
+              src='./images/lift.jpg'
+              alt='cardio'
+              className='img-responsive'
+            />
+          )}
+          {type === 'cardio' && (
+            <img
+              src='./images/cardio.jpg'
+              alt='cardio'
+              className='img-responsive'
+            />
+          )}
+          {type === 'skill' && (
+            <img
+              src='./images/skill.jpg'
+              alt='cardio'
+              className='img-responsive'
+            />
+          )}
+
           <div className='search-container'>
             <MdSearch className='text-info' />
 

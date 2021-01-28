@@ -201,10 +201,11 @@ const SingleMovement = ({ history, match }) => {
         </div>
         <div className='img-container overlay'>
           <img
-            src='../images/row.jpg'
+            src='../images/back.jpg'
             alt='cardio'
             className='img-responsive'
           />
+
           <div className='add-container'>
             <form className='' onSubmit={handleNewSubmit}>
               <div className='inline-form-group'>

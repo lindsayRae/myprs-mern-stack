@@ -95,7 +95,7 @@
 
 .overlay {
   position: relative;
-  height: 175px !important;
+  height: 195px !important;
 }
 
 input[type='date']:valid::-webkit-datetime-edit {
