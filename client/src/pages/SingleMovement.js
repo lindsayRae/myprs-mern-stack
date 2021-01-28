@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import Modal from '../components/Modal';
+import EditMovement from '../components/EditMovement';
+
 import {
   MdKeyboardBackspace,
   MdAdd,
@@ -14,7 +17,6 @@ const SingleMovement = ({ history, match }) => {
   const [error, setError] = useState('');
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [edit, setEdit] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState('');
   const [editPR, setEditPR] = useState('');
   const [editDate, setEditDate] = useState('');
@@ -24,8 +26,6 @@ const SingleMovement = ({ history, match }) => {
   const [newDate, setNewDate] = useState(new Date().toISOString().slice(0, 10));
   const [newComment, setNewComment] = useState('');
 
-  console.log('newPR', newPR);
-  console.log('newComment', newComment);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const SingleMovement = ({ history, match }) => {
 
     if (allRecords.length <= 0) {
       setEntries([]);
-      setEdit(true);
+      setLoading(false);
     } else {
       const selectedMovement = allRecords.filter((el) => el.name === name);
       setEntries(selectedMovement);
@@ -97,48 +97,6 @@ const SingleMovement = ({ history, match }) => {
   };
 
   /**
-   * @description UPDATE the single entry, PR and Date required in form
-   */
-  const handleEditSubmit = async (event) => {
-    event.preventDefault();
-    if (!editPR || !editDate) {
-      setError('Must enter PR and date');
-      return;
-    }
-    const body = {
-      prID: selectedEntry._id,
-      name: selectedEntry.name,
-      personalRecord: editPR,
-      date: editDate,
-      comment: editComment,
-      type: selectedEntry.type,
-    };
-
-    const url = `http://localhost:1234/api/prs/${user.user._id}`;
-
-    try {
-      const res = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': user.jwt,
-        },
-        body: JSON.stringify(body),
-      });
-
-      const data = await res.json();
-      if (data.message) {
-        setError(data.message);
-        return;
-      }
-      setEdit(false);
-      getEntries();
-    } catch (error) {
-      setError(error.message);
-      console.error(error);
-    }
-  };
-  /**
    * @description CREATES first pr for a movement
    *
    */
@@ -177,9 +135,8 @@ const SingleMovement = ({ history, match }) => {
 
       if (data.message) setError(data.message);
       else {
-        setEdit(false);
         setNewPR('');
-        setNewDate('');
+        setNewDate(new Date().toISOString().slice(0, 10));
         setNewComment('');
         getEntries();
       }
@@ -219,6 +176,17 @@ const SingleMovement = ({ history, match }) => {
     let dateArr = date.split('-');
     return `${dateArr[1]}-${dateArr[2]}-${dateArr[0]}`;
   };
+
+  const modalRef = React.useRef();
+  const openModal = () => {
+    setError('');
+    modalRef.current.openModal();
+  };
+  const closeModal = () => {
+    setError('');
+    modalRef.current.closeModal();
+  };
+
   return (
     <div className='page-splash'>
       <header className='header header-fixed'>
@@ -246,7 +214,6 @@ const SingleMovement = ({ history, match }) => {
                     value={newPR}
                     type='number'
                     onChange={(event) => {
-                      console.log(event);
                       setError('');
                       setNewPR(event.target.value);
                     }}
@@ -262,7 +229,6 @@ const SingleMovement = ({ history, match }) => {
                     value={newDate}
                     type='date'
                     onChange={(event) => {
-                      console.log(event);
                       setError('');
                       setNewDate(event.target.value);
                     }}
@@ -326,52 +292,33 @@ const SingleMovement = ({ history, match }) => {
                           onClick={() => {
                             setSelectedEntry(entry);
                             setEditPR(entry.personalRecord);
-                            setEditDate(entry.date);
-                            setEdit(true);
+                            setEditDate(formatDate(entry.date));
+                            setEditComment(entry.comment);
+                            openModal();
                           }}
                           id={entry._id}
                         />
                       </div>
                       <span className='entry-container'>
-                        <span>PR: {entry.personalRecord}</span>
+                        <span>{entry.personalRecord}</span>
                         <span>{formatDate(entry.date)}</span>
                       </span>
-
-                      {edit && selectedEntry._id === entry._id && (
-                        <form onSubmit={handleEditSubmit}>
-                          <input
-                            value={editPR}
-                            onChange={(event) => {
-                              setError('');
-                              setEditPR(event.target.value);
-                            }}
-                            placeholder='New PR'
-                          />
-                          <input
-                            value={editDate}
-                            onChange={(event) => {
-                              setError('');
-                              setEditDate(event.target.value);
-                            }}
-                            placeholder='New Date'
-                          />
-                          <textarea
-                            value={editComment}
-                            onChange={(event) => {
-                              setError('');
-                              setEditComment(event.target.value);
-                            }}
-                            placeholder='New Comment'
-                          />
-                          <button className='linkLike'>Save Change</button>
-                        </form>
-                      )}
                     </li>
                   ))}
               </ul>
             </>
           )}
         </div>
+        <Modal ref={modalRef}>
+          <EditMovement
+            currentPR={editPR}
+            currentDate={formatDate(editDate)}
+            currentComment={editComment}
+            selectedEntry={selectedEntry}
+            getEntries={getEntries}
+            closeModal={closeModal}
+          />
+        </Modal>
         {error && <p>{error}</p>}
       </div>
     </div>
