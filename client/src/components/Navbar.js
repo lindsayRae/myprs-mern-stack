@@ -17,7 +17,6 @@ function Navbar(props) {
   };
   const handleLogout = (e) => {
     e.preventDefault();
-    console.log('heard');
     localStorage.clear();
     setUser(null);
   };

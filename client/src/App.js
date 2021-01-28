@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import UserContextProvider from './context/UserContext';
 
 import Dashboard from './pages/Dashboard';
+import Privacy from './pages/Privacy';
 import MovementList from './pages/MovementList';
 import SingleMovement from './pages/SingleMovement';
 import NotFound from './components/NotFound';
@@ -16,7 +17,7 @@ import './Main.css';
 import './Dash.css';
 import './pages/MovementList.css';
 
-const App = (props) => {
+const App = () => {
   return (
     <BrowserRouter>
       <UserContextProvider>
@@ -25,6 +26,7 @@ const App = (props) => {
             <Route path='/' exact component={Landing} />
             <Route path='/login' exact component={Login} />
             <Route path='/signup' exact component={SignUp} />
+            <Route path='/privacy' exact component={Privacy} />
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/cardios' exact component={MovementList} />
             <Route path='/lifts' exact component={MovementList} />

@@ -35,7 +35,7 @@ export const SidebarData = [
   },
   {
     title: 'Privacy Policy',
-    path: '/#',
+    path: '/privacy',
     icon: <MdIcons.MdSecurity />,
     cName: 'nav-text',
   },
