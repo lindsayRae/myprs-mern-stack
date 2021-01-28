@@ -37,9 +37,9 @@ const MovementList = (props) => {
   }, [searchTerm]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleChange = (e) => {
-    // console.log(e.target.value);
     setSearchTerm(e.target.value);
   };
+
   /**
    * @description builds movement menu by getting default movements, user defined movements and concatenating together. Then removes duplicate moment names before displaying to user
    */
@@ -163,7 +163,6 @@ const MovementList = (props) => {
         body: JSON.stringify(body),
       });
       const data = await res.json();
-      console.log('addNewMovement', data);
       if (data.message) {
         setError(data.message);
         modalRef.current.closeModal();
@@ -235,14 +234,6 @@ const MovementList = (props) => {
       </button>
 
       <Modal ref={modalRef}>
-        {/* <button
-          className=''
-          onClick={() => {
-            modalRef.current.closeModal();
-          }}
-        >
-          Close
-        </button> */}
         <AddMovement type={type} addNewMovement={addNewMovement} />
       </Modal>
 

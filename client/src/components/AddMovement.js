@@ -6,7 +6,6 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
   const [setSaved] = useState(false);
   const [movement, setMovement] = useState({ ...propsMovement });
   const [error, setError] = useState('');
-
   const prevMovementRef = useRef();
 
   useEffect(() => {
