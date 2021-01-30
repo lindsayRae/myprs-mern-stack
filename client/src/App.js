@@ -12,6 +12,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import './App.css';
+import './components/Forms.css';
 import './components/Modal.css';
 import './Main.css';
 import './Dash.css';

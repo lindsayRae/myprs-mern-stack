@@ -84,56 +84,77 @@ const SignUp = ({ history }) => {
         <div className='login-content'>
           <h2 className='login-title'>Create an account</h2>
           <p className='login-text'>Join for free!</p>
-          <div className='login-form'>
+          <div className='form-login'>
             <form onSubmit={handleSubmit}>
-              <div className='form-row'>
-                <label htmlFor='userName'>User Name:</label>
+              <div className='form-main'>
                 <input
-                  type='string'
+                  type='text'
+                  name='username'
                   value={userName}
                   onChange={(event) => {
                     isDisabled();
                     setError('');
                     setUserName(event.target.value);
                   }}
+                  required
+                  autoComplete='off'
                 />
+                <label htmlFor='username' className='label-name'>
+                  <span className='content-name'>User Name</span>
+                </label>
               </div>
-              <div className='form-row'>
-                <label htmlFor='email'>Email:</label>
+              <div className='form-main'>
                 <input
-                  type='email'
+                  type='text'
+                  name='eamil'
                   value={email}
                   onChange={(event) => {
                     isDisabled();
                     setError('');
                     setEmail(event.target.value);
                   }}
+                  required
+                  autoComplete='off'
                 />
+                <label htmlFor='username' className='label-name'>
+                  <span className='content-name'>Email</span>
+                </label>
               </div>
-              <div className='form-row'>
-                <label htmlFor='password'>Password:</label>
+              <div className='form-main'>
                 <input
                   type='password'
+                  name='password'
                   value={password}
                   onChange={(event) => {
                     isDisabled();
                     setError('');
                     setPassword(event.target.value);
                   }}
+                  required
+                  autoComplete='off'
                 />
+                <label htmlFor='password' className='label-name'>
+                  <span className='content-name'>Password</span>
+                </label>
               </div>
-              <div className='form-row'>
-                <label htmlFor='confirm-password'>Confirm Password:</label>
+              <div className='form-main'>
                 <input
                   type='password'
+                  name='confirm-password'
                   value={confirmPassword}
                   onChange={(event) => {
                     isDisabled();
                     setError('');
                     setConfirmPassword(event.target.value);
                   }}
+                  required
+                  autoComplete='off'
                 />
+                <label htmlFor='confirm-password' className='label-name'>
+                  <span className='content-name'>Confirm Password</span>
+                </label>
               </div>
+              {error && <p className='error-msg'>{error}</p>}
               <div className='login-btn'>
                 <button
                   type='submit'
@@ -144,6 +165,7 @@ const SignUp = ({ history }) => {
                 </button>
               </div>
             </form>
+
             <p className='text-light'>
               Already have an account?
               <NavLink to='/login' exact>
@@ -151,8 +173,6 @@ const SignUp = ({ history }) => {
                 Login
               </NavLink>
             </p>
-
-            {error && <p className='error-msg'>{error}</p>}
           </div>
         </div>
       </div>

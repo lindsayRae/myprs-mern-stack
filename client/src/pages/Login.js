@@ -66,33 +66,43 @@ const Login = ({ history }) => {
         <div className='login-content'>
           <h2 className='login-title'>Welcome back</h2>
           <p className='login-text'>Login to your account</p>
-          <div className='login-form'>
+          <div className='form-login'>
             <form name='login' onSubmit={handleSubmit}>
-              <div className='form-row'>
-                <label htmlFor='email'>Email:</label>
+              <div className='form-main'>
                 <input
-                  type='email'
+                  type='text'
+                  name='email'
                   value={email}
                   onChange={(event) => {
                     isDisabled();
                     setError('');
                     setEmail(event.target.value);
                   }}
+                  required
+                  autoComplete='off'
                 />
+                <label htmlFor='email' className='label-name'>
+                  <span className='content-name'>Email</span>
+                </label>
               </div>
-              <div className='form-row'>
-                <label htmlFor='password'>Password:</label>
+              <div className='form-main'>
                 <input
                   type='password'
+                  name='password'
                   value={password}
                   onChange={(event) => {
                     isDisabled();
                     setError('');
                     setPassword(event.target.value);
                   }}
+                  required
+                  autoComplete='off'
                 />
+                <label htmlFor='password' className='label-name'>
+                  <span className='content-name'>Password</span>
+                </label>
               </div>
-
+              {error && <p className='error-msg'>{error}</p>}
               <div className='login-btn'>
                 <button
                   type='submit'
@@ -110,7 +120,6 @@ const Login = ({ history }) => {
                 Sign up
               </NavLink>
             </p>
-            {error && <p className='error-msg'>{error}</p>}
           </div>
         </div>
       </div>
