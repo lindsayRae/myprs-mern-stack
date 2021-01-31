@@ -185,7 +185,7 @@ const MovementList = (props) => {
 
   return (
     <div className='page-splash'>
-      <header className='header header-fixed'>
+      <header className='header header-fixed header-desktop'>
         <div className='header-inner'>
           <Navbar title={type} />
         </div>
@@ -232,7 +232,7 @@ const MovementList = (props) => {
         </div>
       </header>
       {/* {message && <Message type={message} />} */}
-      <div className='list-page'>
+      <div className='list-page list-desktop'>
         <div className='list'>
           <ul className='movements'>
             {movements.map((movement) => {
@@ -248,7 +248,7 @@ const MovementList = (props) => {
       </div>
       <button
         style={{ margin: '5px' }}
-        className='btn btn-primary capitalize'
+        className='btn btn-primary capitalize btn-desktop'
         onClick={openModal}
       >
         Add New {type}

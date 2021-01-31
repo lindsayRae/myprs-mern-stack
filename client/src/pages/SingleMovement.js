@@ -189,7 +189,7 @@ const SingleMovement = ({ history, match }) => {
 
   return (
     <div className='page-splash'>
-      <header className='header header-fixed'>
+      <header className='header header-fixed header-desktop'>
         <div className='header-inner' onClick={() => history.goBack()}>
           <div className='navbar'>
             <button className='menu-bars link-like'>
@@ -264,7 +264,7 @@ const SingleMovement = ({ history, match }) => {
           </div>
         </div>
       </header>
-      <div className='list-page'>
+      <div className='list-page list-desktop'>
         <div className='list'>
           {loading && <p>Loading...</p>}
           {!loading && (

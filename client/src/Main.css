@@ -184,3 +184,27 @@
   border: none;
   cursor: pointer;
 }
+
+@media (min-width: 688px) {
+  .login-content,
+  .splash-content {
+    width: 500px;
+    padding: 50px;
+    background-color: rgb(92 81 125 / 50%);
+    border-radius: 2px;
+  }
+  .header-desktop,
+  .list-desktop,
+  .btn-desktop {
+    width: 600px;
+  }
+  .header-fixed {
+    left: initial;
+  }
+  .page-splash {
+    align-items: center;
+  }
+  .modal-box {
+    max-width: 500px;
+  }
+}
