@@ -26,7 +26,7 @@ const EditMovement = (props) => {
       type: props.selectedEntry.type,
     };
 
-    const url = `http://localhost:1234/api/prs/${user.user._id}`;
+    const url = `/api/prs/${user.user._id}`;
 
     try {
       const res = await fetch(url, {

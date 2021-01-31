@@ -82,7 +82,7 @@ const MovementList = (props) => {
    */
   const defaultMovementMenu = async (currentType) => {
     try {
-      const url = `http://localhost:1234/api/movements/${currentType}`;
+      const url = `/api/movements/${currentType}`;
 
       const headers = {
         'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ const MovementList = (props) => {
   const userMovementMenu = async (currentType) => {
     const user_ID = user.user._id;
     try {
-      const url = `http://localhost:1234/api/prs/${user_ID}?movement=${currentType}`;
+      const url = `/api/prs/${user_ID}?movement=${currentType}`;
 
       const headers = {
         'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ const MovementList = (props) => {
     };
 
     try {
-      const res = await fetch(`http://localhost:1234/api/prs/${entry.type}`, {
+      const res = await fetch(`/api/prs/${entry.type}`, {
         method: 'POST',
         headers: {
           'x-auth-token': user.jwt,

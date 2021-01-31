@@ -25,7 +25,7 @@ const Login = ({ history }) => {
       return;
     }
     try {
-      const response = await fetch('http://localhost:1234/api/auth', {
+      const response = await fetch(`/api/auth`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',

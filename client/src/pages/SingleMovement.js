@@ -73,17 +73,14 @@ const SingleMovement = ({ history, match }) => {
     };
 
     try {
-      const res = await fetch(
-        `http://localhost:1234/api/prs/${user.user._id}`,
-        {
-          method: 'DELETE',
-          body: JSON.stringify(body),
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': user.jwt,
-          },
-        }
-      );
+      const res = await fetch(`/api/prs/${user.user._id}`, {
+        method: 'DELETE',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': user.jwt,
+        },
+      });
       const data = await res.json();
 
       if (data.message) {
@@ -124,7 +121,7 @@ const SingleMovement = ({ history, match }) => {
       date: newDate,
     };
 
-    const url = `http://localhost:1234/api/prs/${obj.type}`;
+    const url = `/api/prs/${obj.type}`;
 
     try {
       const res = await fetch(url, {
@@ -154,7 +151,7 @@ const SingleMovement = ({ history, match }) => {
   const userMovementMenu = async (type) => {
     const user_ID = user.user._id;
     try {
-      const url = `http://localhost:1234/api/prs/${user_ID}?movement=${type}`;
+      const url = `/api/prs/${user_ID}?movement=${type}`;
 
       const headers = {
         'Content-Type': 'application/json',

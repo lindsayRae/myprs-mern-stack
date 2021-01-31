@@ -37,7 +37,7 @@ const SignUp = ({ history }) => {
       return;
     }
     try {
-      const response = await fetch('http://localhost:1234/api/users/register', {
+      const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
