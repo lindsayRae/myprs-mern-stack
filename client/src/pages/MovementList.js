@@ -215,7 +215,7 @@ const MovementList = (props) => {
           <div className='search-container'>
             <MdSearch className='text-info' />
 
-            <div className='form' id='searchForm'>
+            <div className='form-main search-form' id='searchForm'>
               <input
                 type='text'
                 name='search'

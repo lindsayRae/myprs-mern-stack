@@ -60,42 +60,44 @@ const EditMovement = (props) => {
         onSubmit={handleEditMovement}
         noValidate
       >
-        <div className='modal-form'>
+        <div className='form-main modal-form'>
           <input
             id='edit-pr'
             value={editedPR}
+            type='number'
             onChange={(event) => {
               setError('');
               setEditedPR(event.target.value);
             }}
             required
           />
-          <label htmlFor='edit-pr' className='modal-label-name'>
-            <span className='modal-content-name'>PR</span>
+          <label htmlFor='edit-pr' className='label-name'>
+            <span className='content-name'>PR</span>
           </label>
         </div>
-        <div className='modal-form'>
+        <div className='form-main modal-form'>
           <input
             id='edit-date'
             value={editedDate}
+            type='date'
             onChange={(event) => {
               setError('');
               setEditedDate(event.target.value);
             }}
             required
           />
-          <label htmlFor='edit-date' className='modal-label-name'>
-            <span className='modal-content-name'>Date:</span>
+          <label htmlFor='edit-date' className='label-name'>
+            <span className='content-name'>Date</span>
           </label>
         </div>
-        <div className='modal-form'>
+        <div className='form-main modal-form'>
           <textarea
             id='edit-notes'
             value={editedComment}
             onChange={(event) => setEditComment(event.target.value)}
           />
-          <label htmlFor='edit-note' className='modal-label-name'>
-            <span className='modal-content-name'>Notes...</span>
+          <label htmlFor='edit-notes' className='label-name'>
+            <span className='content-name'>Notes...</span>
           </label>
         </div>
         {error && <p>{error}</p>}

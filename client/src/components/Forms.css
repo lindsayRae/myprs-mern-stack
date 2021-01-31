@@ -1,3 +1,4 @@
+/* source: https://www.youtube.com/watch?v=IxRJ8vplzAo */
 /* forms */
 .form-login {
   width: 70%;
@@ -16,6 +17,15 @@
   height: 100%;
   color: white;
   padding-top: 20px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.form-main textarea {
+  width: 100%;
+  height: 100%;
+  color: white;
+  padding-top: 30px;
   border: none;
   background-color: transparent;
   outline: none;
@@ -55,7 +65,9 @@
 AND
 when input is valid -> move the .label-name/.content-name  */
 .form-main input:focus + .label-name .content-name,
-.form-main input:valid + .label-name .content-name {
+.form-main input:valid + .label-name .content-name,
+.form-main textarea:focus + .label-name .content-name,
+.form-main textarea:not(:empty) + .label-name .content-name {
   transform: translateY(-130%);
   font-size: 14px;
   color: rgb(54, 203, 140);
@@ -64,4 +76,19 @@ when input is valid -> move the .label-name/.content-name  */
 .form-main input:focus + .label-name::after,
 .form-main input:valid + .label-name::after {
   transform: translateX(0%);
+}
+
+.form-main textarea:focus + .label-name::after,
+.form-main textarea:not(:empty) + .label-name::after {
+  transform: translateX(0%);
+}
+
+input[type='date'] {
+  color: transparent;
+}
+input[type='date']:focus,
+input[type='date']:valid {
+  color: white;
+  font-size: 15px;
+  transition: all 0.3s ease;
 }

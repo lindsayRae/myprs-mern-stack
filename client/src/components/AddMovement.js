@@ -31,7 +31,7 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
     <>
       <h2 className='capitalize modal-heading'>Add New {type}</h2>
       <form className='modal-form-container' onSubmit={handleAddMovement}>
-        <div className='modal-form'>
+        <div className='form-main modal-form'>
           <input
             id='form-name'
             value={movement.name || ''}
@@ -45,11 +45,11 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
             }}
             required
           />
-          <label htmlFor='search' className='modal-label-name'>
-            <span className='modal-content-name'>Movement Name</span>
+          <label htmlFor='form-name' className='label-name'>
+            <span className='content-name'>Movement Name</span>
           </label>
         </div>
-        <div className='modal-form'>
+        <div className='form-main modal-form'>
           <input
             id='form-pr'
             value={movement.personalRecord || ''}
@@ -63,11 +63,11 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
             }}
             required
           />
-          <label htmlFor='search' className='modal-label-name'>
-            <span className='modal-content-name'>PR:</span>
+          <label htmlFor='search' className='label-name'>
+            <span className='content-name'>PR</span>
           </label>
         </div>
-        <div className='modal-form'>
+        <div className='form-main modal-form'>
           <textarea
             id='form-notes'
             value={movement.comment || ''}
@@ -79,59 +79,11 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
               })
             }
           />
-          <label htmlFor='search' className='modal-label-name'>
-            <span className='modal-content-name'>Notes...</span>
+          <label htmlFor='search' className='label-name'>
+            <span className='content-name'>Notes...</span>
           </label>
         </div>
 
-        {/* <h3 className='capitalize modal-heading'>Add New {type}</h3>
-        <p>
-          <label htmlFor='form-name'>New Movement:</label>
-          <input
-            id='form-name'
-            value={movement.name || ''}
-            placeholder='Movement Name'
-            onChange={(event) => {
-              setError('');
-              setMovement({
-                ...movement,
-                name: event.target.value,
-                type,
-              });
-            }}
-          />
-        </p>
-        <p>
-          <label htmlFor='form-pr'>PR:</label>
-          <input
-            id='form-pr'
-            placeholder='Personal Record'
-            value={movement.personalRecord || ''}
-            onChange={(event) => {
-              setError('');
-              setMovement({
-                ...movement,
-                personalRecord: event.target.value,
-                type,
-              });
-            }}
-          />
-        </p>
-        <p>
-          <label htmlFor='form-notes'>Notes:</label>
-          <textarea
-            id='form-notes'
-            placeholder='Notes...'
-            value={movement.comment || ''}
-            onChange={(event) =>
-              setMovement({
-                ...movement,
-                comment: event.target.value,
-                type,
-              })
-            }
-          />
-        </p>*/}
         {error && <p>{error}</p>}
         <div className='form-submit'>
           <button type='submit' className='btn-text-icon'>

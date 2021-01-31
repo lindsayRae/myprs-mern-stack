@@ -10,6 +10,7 @@ import {
   MdModeEdit,
 } from 'react-icons/md';
 import './SingleMovement.css';
+
 const SingleMovement = ({ history, match }) => {
   const { id } = match.params;
   const name = id.replace(/-/g, ' ');
@@ -23,7 +24,11 @@ const SingleMovement = ({ history, match }) => {
   const [editComment, setEditComment] = useState('');
 
   const [newPR, setNewPR] = useState('');
-  const [newDate, setNewDate] = useState(new Date().toISOString().slice(0, 10));
+
+  const [newDate, setNewDate] = useState('');
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
   const [newComment, setNewComment] = useState('');
 
   const { user } = useContext(UserContext);
@@ -136,7 +141,7 @@ const SingleMovement = ({ history, match }) => {
       if (data.message) setError(data.message);
       else {
         setNewPR('');
-        setNewDate(new Date().toISOString().slice(0, 10));
+        setNewDate('');
         setNewComment('');
         getEntries();
       }
@@ -209,7 +214,7 @@ const SingleMovement = ({ history, match }) => {
           <div className='add-container'>
             <form className='' onSubmit={handleNewSubmit}>
               <div className='inline-form-group'>
-                <div className='inline-form'>
+                <div className='form-main inline-form'>
                   <input
                     id='new-pr-entry'
                     value={newPR}
@@ -220,28 +225,32 @@ const SingleMovement = ({ history, match }) => {
                     }}
                     required
                   />
-                  <label htmlFor='new-pr-entry' className='modal-label-name'>
-                    <span className='modal-content-name'>PR:</span>
+                  <label htmlFor='new-pr-entry' className='label-name'>
+                    <span className='content-name'>PR</span>
                   </label>
                 </div>
-                <div className='inline-form'>
+                <div className='form-main inline-form'>
                   <input
                     id='new-date'
                     value={newDate}
                     type='date'
+                    onClick={(e) => {
+                      e.target.value = currentDate;
+                      setNewDate(e.target.value);
+                    }}
                     onChange={(event) => {
                       setError('');
                       setNewDate(event.target.value);
                     }}
                     required
                   />
-                  <label htmlFor='new-date' className='modal-label-name'>
-                    <span className='modal-content-name light'></span>
+                  <label htmlFor='new-date' className='label-name'>
+                    <span className='content-name light'>Date</span>
                   </label>
                 </div>
               </div>
 
-              <div className='modal-form light'>
+              <div className='form-main'>
                 <textarea
                   id='new-comment'
                   value={newComment}
@@ -250,8 +259,8 @@ const SingleMovement = ({ history, match }) => {
                     setNewComment(event.target.value);
                   }}
                 />
-                <label htmlFor='new-comment' className='modal-label-name'>
-                  <span className='modal-content-name'>Notes...</span>
+                <label htmlFor='new-comment' className='label-name'>
+                  <span className='content-name'>Notes...</span>
                 </label>
               </div>
               <div className='inline-form-submit'>
@@ -281,24 +290,26 @@ const SingleMovement = ({ history, match }) => {
                 {entries.length > 0 &&
                   entries.map((entry) => (
                     <li key={entry._id} className='capitalize single-movement'>
-                      <div className='icon-container delete-container'>
-                        <MdCancel
-                          onClick={() => {
-                            handleDelete(entry._id, entry.type);
-                          }}
-                        />
+                      <div
+                        className='icon-container delete-container'
+                        onClick={() => {
+                          handleDelete(entry._id, entry.type);
+                        }}
+                      >
+                        <MdCancel />
                       </div>
-                      <div className='icon-container edit-container'>
-                        <MdModeEdit
-                          onClick={() => {
-                            setSelectedEntry(entry);
-                            setEditPR(entry.personalRecord);
-                            setEditDate(formatDate(entry.date));
-                            setEditComment(entry.comment);
-                            openModal();
-                          }}
-                          id={entry._id}
-                        />
+                      <div
+                        className='icon-container edit-container'
+                        onClick={() => {
+                          setSelectedEntry(entry);
+                          setEditPR(entry.personalRecord);
+                          setEditDate(formatDate(entry.date));
+                          setEditComment(entry.comment);
+                          openModal();
+                        }}
+                        id={entry._id}
+                      >
+                        <MdModeEdit />
                       </div>
                       <span className='entry-container'>
                         <span>{entry.personalRecord}</span>
