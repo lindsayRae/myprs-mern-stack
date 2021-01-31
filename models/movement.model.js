@@ -27,11 +27,11 @@ const movementSchema = new mongoose.Schema ({
 const Movement = mongoose.model('Movement', movementSchema)
 
 function validateMovement(movement){
-    const schema = {
+    const schema = Joi.object({
         name: Joi.string().min(1).max(99).required(), 
         type: Joi.string().min(1).max(99).required(),       
         preDefined: Joi.bool().required()        
-    };
+    });
   
     return Joi.validate(movement, schema);
 }

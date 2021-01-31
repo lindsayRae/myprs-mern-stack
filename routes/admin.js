@@ -9,8 +9,8 @@ const _ = require('lodash');
  */
 router.post('/defaults', async (req, res) => {
     
-    const {error} = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+   // const {error} = validate(req.body);
+   // if(error) return res.status(400).send(error.details[0].message);
 
     let movement = await Movement.findOne({name: req.body.name})
     if(movement) return res.status(400).send({message: 'Movement already exists.'})
