@@ -15,11 +15,12 @@ const Modal = forwardRef((props, ref) => {
   const open = () => setDisplay(true);
   const close = () => setDisplay(false);
 
+  const boxClasses = `modal-box ${props.className}`;
   if (display) {
     return ReactDOM.createPortal(
       <div className={'modal-wrapper'}>
         <div className={'modal-backdrop'} onClick={close} />
-        <div className={'modal-box'}>{props.children}</div>
+        <div className={boxClasses}>{props.children}</div>
       </div>,
       document.getElementById('modal-root')
     );

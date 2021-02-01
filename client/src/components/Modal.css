@@ -31,9 +31,16 @@
   padding: 24px;
 }
 
+.modal-danger {
+  background: #d75061;
+}
 .modal-heading {
   color: white;
   font-weight: 500;
+}
+.modal-message {
+  color: white;
+  margin-top: 1rem;
 }
 
 .form-submit {
@@ -73,4 +80,15 @@
   transform: translateY(-110%);
   font-size: 14px;
   color: #584b83;
+}
+
+.btn-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.btn-container > button {
+  font-weight: 500;
 }
