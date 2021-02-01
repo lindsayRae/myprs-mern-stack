@@ -1,13 +1,22 @@
-const express = require('express');
-const router = express.Router();
 const nodemailer = require('nodemailer');
 
-router.post('/', async (req, res) => {
-  let name = req.body.name;
-  let email = req.body.email;
-  let message = req.body.message;
+let env = process.env.environment;
+let baseURL;
 
-  let text = `From: ${name} Message: ${message}`;
+if (env === 'dev') {
+  baseURL = process.env.devURL;
+} else {
+  baseURL = 'myprs.net';
+}
+
+let sendEmail = (userName, email, GUID) => {
+  let emailBody = `Hello ${userName},
+
+  Thank you for registering for the myPRS application. In order to activate your account, please copy and past or click the link below.
+
+http://${baseURL}/activate/?email=${email}&guid=${GUID}
+
+Have a wonderful day!`;
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -20,7 +29,7 @@ router.post('/', async (req, res) => {
     from: email,
     to: 'lbarnett712@gmail.com',
     subject: 'hello from website form',
-    text: text,
+    text: emailBody,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -30,6 +39,6 @@ router.post('/', async (req, res) => {
       res.send({ status: 200, message: 'Email was sent. Thank you!' });
     }
   });
-});
+};
 
-module.exports = router;
+module.exports.sendEmail = sendEmail;

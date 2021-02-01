@@ -9,6 +9,8 @@ const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const { PersonalRecord } = require('../models/personalRecord.model');
 
+const { sendEmail } = require('../middleware/email');
+
 const currentENV = process.env.environment;
 let baseURL;
 if (currentENV === 'dev') {
@@ -108,8 +110,12 @@ router.post('/register', async (req, res) => {
     });
 
     let json = await response.json();
-    console.log(json);
-    res.send({ jwt: token, user: _.pick(user, ['userName', 'email', '_id']) });
+    console.log('usersetup:', json);
+    sendEmail(user.userName, user.email, user.GUID);
+    res.send({
+      jwt: token,
+      user: _.pick(user, ['userName', 'email', '_id', 'activated']),
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
