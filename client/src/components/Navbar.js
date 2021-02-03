@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { SidebarData } from './SidebarData';
-import Modal from '../components/Modal';
-import Verify from '../components/Verify';
 import { MdMenu, MdExitToApp, MdDelete } from 'react-icons/md';
 import * as AiIcons from 'react-icons/ai';
 import './Navbar.css';
@@ -22,15 +20,6 @@ function Navbar(props) {
     setUser(null);
   };
 
-  const handleDeleteUser = () => {};
-
-  const modalRef = React.useRef();
-  const openModal = () => {
-    modalRef.current.openModal();
-  };
-  const closeModal = () => {
-    modalRef.current.closeModal();
-  };
   return (
     <>
       <IconContext.Provider value={{ color: '#52A9D9' }}>
@@ -66,8 +55,8 @@ function Navbar(props) {
             </li>
           </ul>
           <ul className='del-account'>
-            <li className='nav-text' onClick={openModal}>
-              <Link to='#'>
+            <li className='nav-text'>
+              <Link to='/delete-account'>
                 <MdDelete className='text-danger' />
                 <span>Delete My Account</span>
               </Link>
@@ -75,9 +64,6 @@ function Navbar(props) {
           </ul>
         </nav>
       </IconContext.Provider>
-      <Modal ref={modalRef} className='modal-danger'>
-        <Verify closeModal={closeModal} handleDeleteUser={handleDeleteUser} />
-      </Modal>
     </>
   );
 }

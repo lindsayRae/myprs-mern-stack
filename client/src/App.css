@@ -95,3 +95,10 @@ a.active {
   color: #d74e60;
   margin-top: 10px;
 }
+
+.error-delete {
+  display: flex;
+  justify-content: center;
+  color: #d74e60;
+  margin-top: 20px;
+}

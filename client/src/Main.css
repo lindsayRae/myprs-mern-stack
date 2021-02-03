@@ -90,6 +90,7 @@
   );
   color: #fff;
 }
+
 .btn-primary:disabled {
   background: rgba(59, 170, 124, 0.541);
   background: linear-gradient(
@@ -108,6 +109,11 @@
     rgba(38, 116, 98, 1) 94%
   );
 }
+.btn-danger {
+  background: #d75061;
+  color: #fff;
+}
+
 .page-login {
   height: 100%;
   background: rgb(54, 44, 86);
