@@ -40,30 +40,57 @@ router.get('/me', auth, async (req, res) => {
 /**
  * @description UPDATE current user
  */
-router.put('/me', auth, async (req, res) => {
-  const { error } = validateUser(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+// router.put('/me', auth, async (req, res) => {
+//   const { error } = validateUser(req.body);
+//   if (error) return res.status(400).send(error.details[0].message);
 
-  const user = await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      $set: {
-        userName: req.body.userName,
-        email: req.body.email,
-      },
-    },
-    { new: true }
-  );
-  if (user) return res.send(user);
-  if (!user) return res.send('Could not update user.');
-});
+//   const user = await User.findByIdAndUpdate(
+//     req.user._id,
+//     {
+//       $set: {
+//         userName: req.body.userName,
+//         email: req.body.email,
+//       },
+//     },
+//     { new: true }
+//   );
+//   if (user) return res.send(user);
+//   if (!user) return res.send('Could not update user.');
+// });
 
 /**
- * @description DELETE current user
+ * @description DELETE user
  */
-router.delete('/me', auth, async (req, res) => {
-  const result = await User.deleteOne({ _id: req.user._id });
-  res.send(result);
+router.delete('/deleteaccount/:id', auth, async (req, res) => {
+  let id = req.params.id;
+  try {
+    let records = await PersonalRecord.deleteOne({ user_id: id });
+    console.log('delete account records', records);
+    if (records.deletedCount == 0) {
+      res.send({ message: 'Error trying to delete Personal Records' });
+      return;
+    }
+    // delete the user
+    let user = await User.deleteOne({ _id: id });
+    console.log('delete account user', user);
+
+    if (user.deletedCount == 0) {
+      res.send({ message: 'Error trying to delete user account' });
+      return;
+    }
+    let retrieveAll = async () => {
+      let results = await Promise.all([records], [user]);
+      console.log('results', results);
+      if (records.deletedCount === 1 && user.deletedCount === 1) {
+        res.send({ removed: true });
+      } else {
+        res.send({ removed: false, message: 'Could not delete account.' });
+      }
+    };
+    retrieveAll();
+  } catch (err) {
+    res.send({ message: error.message });
+  }
 });
 
 /**
@@ -96,13 +123,13 @@ router.post('/register', async (req, res) => {
 
   try {
     let newUser = await user.save();
-    //! Need to create a header for the creation of the blank you document in personalRecord
+    //? Need to create a header for the creation of the blank you document in personalRecord
     let headers = {
       'Content-Type': 'application/json',
     };
     const token = user.generateAuthToken();
 
-    //! Call out to existing endpoint to create a new PR record with empty arrays (lifts, cardio, skills)
+    //? Call out to existing endpoint to create a new PR record with empty arrays (lifts, cardio, skills)
     let url = `http://${baseURL}/api/users/usersetup/${newUser._id}`;
     let response = await fetch(url, {
       method: 'POST',
@@ -110,7 +137,7 @@ router.post('/register', async (req, res) => {
     });
 
     let json = await response.json();
-    console.log('usersetup:', json);
+    console.log('usersetup: ', json);
     sendEmail(user.userName, user.email, user.GUID);
     res.send({
       jwt: token,
@@ -140,7 +167,7 @@ router.post('/usersetup/:id', async (req, res) => {
   let personalRecord = new PersonalRecord(newUserEntry);
 
   let result = await personalRecord.save();
-  console.log(result);
+  console.log('usersetup: ', result);
 
   res.send(result);
 });
