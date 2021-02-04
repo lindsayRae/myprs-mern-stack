@@ -60,6 +60,13 @@ const DeleteConfirmation = () => {
               <p className='login-text'>
                 I hope you keep on moving. Come back anytime!
               </p>
+              <p className='text-light'>
+                Return to
+                <NavLink to='/signup' exact>
+                  {' '}
+                  Sign up
+                </NavLink>
+              </p>
             </>
           )}
           {error && <p className='error-delete'>{error}</p>}
