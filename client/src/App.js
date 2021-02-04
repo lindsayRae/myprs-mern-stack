@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import EmailSent from './pages/EmailSent';
 import DeleteAccount from './pages/DeleteAccount';
+import Activate from './pages/Activate';
 
 import './App.css';
 import './components/Forms.css';
@@ -33,6 +34,7 @@ const App = () => {
             <Route path='/emailsent' exact component={EmailSent} />
             <Route path='/privacy' exact component={Privacy} />
             <Route path='/delete-account' exact component={DeleteAccount} />
+            <Route path='/activate' exact component={Activate} />
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/cardios' exact component={MovementList} />
             <Route path='/lifts' exact component={MovementList} />

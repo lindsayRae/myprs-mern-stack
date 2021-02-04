@@ -4,7 +4,7 @@ let env = process.env.environment;
 let baseURL;
 
 if (env === 'dev') {
-  baseURL = process.env.devURL;
+  baseURL = 'localhost:3000';
 } else {
   baseURL = 'myprs.net';
 }
@@ -12,7 +12,7 @@ if (env === 'dev') {
 let sendEmail = (userName, email, GUID) => {
   let emailBody = `Hello ${userName},
 
-  Thank you for registering for the myPRS application. In order to activate your account, please copy and past or click the link below.
+  Thank you for registering for the myPRS application. In order to activate your account, please copy and past or click the link below. If you received this by mistake then please ignore.
 
 http://${baseURL}/activate/?email=${email}&guid=${GUID}
 
