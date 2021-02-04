@@ -151,6 +151,24 @@ router.put('/:id', auth, async (req, res) => {
 });
 
 /**
+ * @description DELETE all pr entries by user_id
+ */
+
+router.delete('/allrecords/:id', async (req, res) => {
+  let id = req.params.id;
+  try {
+    let record = await PersonalRecord.deleteOne({ user_id: id });
+    if (record) {
+      res.send({ removed: true });
+    } else {
+      res.send({ message: 'Record not found. Could not delete.' });
+    }
+  } catch (err) {
+    res.send({ message: error.message });
+  }
+});
+
+/**
  * @description DELETE a single PR entry by user_id
  */
 router.delete('/:id', auth, async (req, res) => {
