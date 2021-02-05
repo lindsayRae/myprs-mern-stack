@@ -176,7 +176,7 @@ const SingleMovement = ({ history, match }) => {
 
   const formatDate = (date) => {
     let dateArr = date.split('-');
-    return `${dateArr[1]}-${dateArr[2]}-${dateArr[0]}`;
+    return `${dateArr[1]}/${dateArr[2]}/${dateArr[0]}`;
   };
 
   const modalRef = React.useRef();
@@ -300,7 +300,7 @@ const SingleMovement = ({ history, match }) => {
                         onClick={() => {
                           setSelectedEntry(entry);
                           setEditPR(entry.personalRecord);
-                          setEditDate(formatDate(entry.date));
+                          setEditDate(entry.date);
                           setEditComment(entry.comment);
                           openModal();
                         }}
@@ -321,11 +321,12 @@ const SingleMovement = ({ history, match }) => {
         <Modal ref={modalRef}>
           <EditMovement
             currentPR={editPR}
-            currentDate={formatDate(editDate)}
+            currentDate={editDate}
             currentComment={editComment}
             selectedEntry={selectedEntry}
             getEntries={getEntries}
             closeModal={closeModal}
+            formatDate={formatDate}
           />
         </Modal>
         {error && <p>{error}</p>}
