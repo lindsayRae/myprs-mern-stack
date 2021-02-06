@@ -79,6 +79,8 @@ const EditMovement = (props) => {
           <input
             id='edit-date'
             value={editedDate}
+            //
+            // value='2020-01-01'
             type='date'
             onChange={(event) => {
               setError('');

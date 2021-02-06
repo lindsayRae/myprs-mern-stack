@@ -10,6 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 const { PersonalRecord } = require('../models/personalRecord.model');
 
 const { sendEmail } = require('../middleware/email');
+const { sendEmailReset } = require('../middleware/email-reset');
 
 const currentENV = process.env.environment;
 let baseURL;
@@ -90,6 +91,60 @@ router.delete('/deleteaccount/:id', auth, async (req, res) => {
     retrieveAll();
   } catch (err) {
     res.send({ message: error.message });
+  }
+});
+
+router.put('/newpass', async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    console.log('user: ', user);
+    if (!user) {
+      return res.status(400).send({ message: 'No User' });
+    }
+
+    let password = req.body.password;
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+    let result = await user.save();
+    res.send({ result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      message: 'There was a problem creating your user, please try again later',
+    });
+  }
+});
+
+/**
+ * @description generate new GUID to reset password
+ */
+
+router.put('/reset', async (req, res) => {
+  console.log('in /reset...');
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    console.log('user: ', user);
+    if (!user) {
+      return res
+        .status(400)
+        .send({ message: 'Please check your email for a reset password link' });
+    }
+
+    user.GUID = uuidv4();
+    let result = await user.save();
+
+    console.log('result', result);
+    sendEmailReset(user.userName, user.email, user.GUID);
+
+    return res.send({
+      user: _.pick(user, ['userName', 'email', '_id', 'activated', 'GUID']),
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      message:
+        'There was a problem looking up this user, please try again later.',
+    });
   }
 });
 

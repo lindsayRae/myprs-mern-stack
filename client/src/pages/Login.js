@@ -11,15 +11,16 @@ const Login = ({ history }) => {
   const [error, setError] = useState('');
 
   const { user, setUser } = useContext(UserContext);
-
-  useEffect(() => {
-    if (user) {
-      history.push('/dashboard');
-    }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  console.log('in login user:', user);
+  // useEffect(() => {
+  //   if (user) {
+  //     history.push('/dashboard');
+  //   }
+  // }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('heard login...');
     if (!email || !password) {
       setError('You must provide an email and password.');
       return;
@@ -37,7 +38,7 @@ const Login = ({ history }) => {
       });
 
       const data = await response.json();
-
+      console.log('data', data);
       if (data.message) {
         setError(data.message);
         return;
@@ -45,6 +46,7 @@ const Login = ({ history }) => {
 
       setUser(data);
       localStorage.setItem('userData', JSON.stringify(data));
+      history.push('/dashboard');
     } catch (err) {
       setError(`Something went wrong: ${err}`);
     }
@@ -103,6 +105,13 @@ const Login = ({ history }) => {
                 </label>
               </div>
               {error && <p className='error-msg'>{error}</p>}
+              <p className='login-link-text'>
+                Forgot password?{' '}
+                <NavLink to='/reset' exact>
+                  {' '}
+                  Reset
+                </NavLink>
+              </p>
               <div className='login-btn'>
                 <button
                   type='submit'
@@ -113,7 +122,7 @@ const Login = ({ history }) => {
                 </button>
               </div>
             </form>
-            <p className='text-light'>
+            <p className='login-link-text'>
               Don't have an account?
               <NavLink to='/signup' exact>
                 {' '}

@@ -13,8 +13,11 @@ const SignUp = ({ history }) => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) {
+    console.log('in useEffect Signup ...');
+    if (user && user.activated) {
       history.push('/dashboard');
+    } else if (user && !user.activated) {
+      history.push('/emailsent');
     }
   }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -50,12 +53,13 @@ const SignUp = ({ history }) => {
       });
 
       const data = await response.json();
-
+      console.log(data);
       if (data.message) {
         setError(data.message);
         return;
       } else {
         setUser(data);
+        localStorage.setItem('userData', JSON.stringify(data));
       }
     } catch (err) {
       setError('Something went wrong: ', err);
@@ -106,7 +110,7 @@ const SignUp = ({ history }) => {
               <div className='form-main'>
                 <input
                   type='text'
-                  name='eamil'
+                  name='email'
                   value={email}
                   onChange={(event) => {
                     isDisabled();
@@ -155,7 +159,7 @@ const SignUp = ({ history }) => {
                 </label>
               </div>
               {error && <p className='error-msg'>{error}</p>}
-              <div className='login-btn'>
+              <div className='login-btn' style={{ marginTop: '30px' }}>
                 <button
                   type='submit'
                   className='btn btn-primary'
@@ -166,7 +170,7 @@ const SignUp = ({ history }) => {
               </div>
             </form>
 
-            <p className='text-light'>
+            <p className='login-link-text'>
               Already have an account?
               <NavLink to='/login' exact>
                 {' '}
