@@ -39,4 +39,10 @@ export const SidebarData = [
     icon: <MdIcons.MdSecurity />,
     cName: 'nav-text',
   },
+  {
+    title: 'Change Password',
+    path: '/change-password',
+    icon: <MdIcons.MdLockOutline />,
+    cName: 'nav-text',
+  },
 ];

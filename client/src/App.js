@@ -16,6 +16,7 @@ import DeleteAccount from './pages/DeleteAccount';
 import Activate from './pages/Activate';
 import StartPassReset from './pages/StartPassReset';
 import PassReset from './pages/PassReset';
+import ChangePassword from './pages/ChangePassword';
 
 import './App.css';
 import './components/Forms.css';
@@ -39,6 +40,7 @@ const App = () => {
             <Route path='/activate' exact component={Activate} />
             <Route path='/reset' exact component={StartPassReset} />
             <Route path='/pass-reset' exact component={PassReset} />
+            <Route path='/change-password' exact component={ChangePassword} />
             <Route path='/dashboard' exact component={Dashboard} />
             <Route path='/cardios' exact component={MovementList} />
             <Route path='/lifts' exact component={MovementList} />

@@ -94,6 +94,45 @@ router.delete('/deleteaccount/:id', auth, async (req, res) => {
   }
 });
 
+/**
+ * @description UPDATE for change password
+ */
+router.put('/change-password', async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    console.log('user: ', user);
+    if (!user) {
+      return res.status(400).send({ message: 'No User' });
+    }
+
+    const validPassword = await bcrypt.compare(
+      req.body.oldPassword,
+      user.password
+    );
+    console.log(validPassword);
+
+    if (!validPassword) {
+      return res.status(400).send({ message: 'Invalid email or password.' });
+    }
+
+    let newPassword = req.body.newPassword;
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    let result = await user.save();
+    res.send({ result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      message: 'There was a problem changing, please try again later',
+    });
+  }
+});
+
+/**
+ * @description UPDATE for forgot password reset
+ */
 router.put('/newpass', async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
@@ -103,8 +142,10 @@ router.put('/newpass', async (req, res) => {
     }
 
     let password = req.body.password;
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
+
     let result = await user.save();
     res.send({ result });
   } catch (error) {
