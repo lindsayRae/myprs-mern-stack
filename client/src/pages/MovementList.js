@@ -136,13 +136,13 @@ const MovementList = (props) => {
   const currentDate = () => {
     const today = new Date();
     const year = today.getFullYear().toString().substr(2, 2);
-    return `${today.getMonth() + 1}/${today.getDate()}/${year}`;
+    return `${year}-${today.getMonth() + 1}-${today.getDate()}`;
   };
   /**
    * @description CREATE new movement name and pr entry
    * @param {*} entry
    */
-  const addNewMovement = async (entry) => {
+  const addNewMovement = async (entry, unit) => {
     let body = {
       user_id: user.user._id,
       name: entry.name.trim().toLowerCase(),
@@ -151,8 +151,10 @@ const MovementList = (props) => {
       comment: entry.comment ? entry.comment.trim() : '',
       date: currentDate(),
       preDefined: false,
+      unitType: unit,
     };
 
+    console.log(body);
     try {
       const res = await fetch(`/api/prs/${entry.type}`, {
         method: 'POST',

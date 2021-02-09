@@ -32,6 +32,10 @@ const movementSchema = new mongoose.Schema({
     minlength: 1,
     maxlength: 99,
   },
+  unitType: {
+    type: String,
+    required: false,
+  },
 });
 
 const PersonalRecordSchema = new mongoose.Schema({

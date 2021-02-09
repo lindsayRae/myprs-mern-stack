@@ -3,7 +3,6 @@ const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const { concat } = require('lodash');
 
 /**
  * @description GET record by user_id and movement by query param
@@ -14,7 +13,7 @@ router.get('/:id', auth, async (req, res) => {
 
   try {
     let record = await PersonalRecord.findOne({ user_id: id });
-
+    console.log('RECORD: ', record);
     if (record == null) {
       return res.status(404).send({
         record: [],
@@ -50,7 +49,9 @@ router.post('/:movement', auth, async (req, res) => {
     date: req.body.date,
     comment: req.body.comment,
     personalRecord: req.body.personalRecord,
+    unitType: req.body.unitType,
   };
+  console.log('NEW PR:', pr);
   try {
     const record = await PersonalRecord.findOne({ user_id: id });
 
@@ -95,6 +96,7 @@ router.put('/:id', auth, async (req, res) => {
   let personalRecord = req.body.personalRecord;
   let comment = req.body.comment;
   let type = req.body.type;
+  let unitType = req.body.unitType;
 
   let record;
   try {
@@ -107,6 +109,7 @@ router.put('/:id', auth, async (req, res) => {
             'lifts.$.date': date,
             'lifts.$.personalRecord': personalRecord,
             'lifts.$.comment': comment,
+            'lifts.$.unitType': unitType,
           },
         }
       );
@@ -119,6 +122,7 @@ router.put('/:id', auth, async (req, res) => {
             'cardio.$.date': date,
             'cardio.$.personalRecord': personalRecord,
             'cardio.$.comment': comment,
+            'cardio.$.unitType': unitType,
           },
         }
       );
@@ -131,6 +135,7 @@ router.put('/:id', auth, async (req, res) => {
             'skills.$.date': date,
             'skills.$.personalRecord': personalRecord,
             'skills.$.comment': comment,
+            'skills.$.unitType': unitType,
           },
         }
       );
@@ -138,7 +143,6 @@ router.put('/:id', auth, async (req, res) => {
       res.send({ message: `${type} does not exist.` });
       return;
     }
-    console.log('!!!! record', record);
 
     if (!record) {
       res.send({ message: 'No record for this user.' });

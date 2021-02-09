@@ -2,8 +2,10 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 const EditMovement = (props) => {
+  console.log(props);
   const [error, setError] = useState('');
   const [editedPR, setEditedPR] = useState(props.currentPR);
+  const [unit, setUnit] = useState(props.unit);
   const [editedDate, setEditedDate] = useState(props.currentDate);
   const [editedComment, setEditComment] = useState(props.currentComment);
   const { user } = useContext(UserContext);
@@ -13,8 +15,16 @@ const EditMovement = (props) => {
    */
   const handleEditMovement = async (event) => {
     event.preventDefault();
-    if (!editedPR || !editedDate) {
-      setError('Must enter PR and date');
+    if (!editedPR) {
+      setError('Must enter a PR');
+      return;
+    }
+    if (!unit) {
+      setError('Must select a unit');
+      return;
+    }
+    if (!editedDate) {
+      setError('Must enter a date');
       return;
     }
     const body = {
@@ -24,6 +34,7 @@ const EditMovement = (props) => {
       date: editedDate,
       comment: editedComment,
       type: props.selectedEntry.type,
+      unitType: unit,
     };
 
     const url = `/api/prs/${user.user._id}`;
@@ -60,21 +71,56 @@ const EditMovement = (props) => {
         onSubmit={handleEditMovement}
         noValidate
       >
-        <div className='form-main modal-form'>
-          <input
-            id='edit-pr'
-            value={editedPR}
-            type='number'
-            onChange={(event) => {
-              setError('');
-              setEditedPR(event.target.value);
-            }}
-            required
-          />
-          <label htmlFor='edit-pr' className='label-name'>
-            <span className='content-name'>PR</span>
-          </label>
+        <div className='inline-form-group'>
+          <div className='form-main modal-form inline-form'>
+            <input
+              id='edit-pr'
+              value={editedPR}
+              type='number'
+              onChange={(event) => {
+                setError('');
+                setEditedPR(event.target.value);
+              }}
+              required
+            />
+            <label htmlFor='edit-pr' className='label-name'>
+              <span className='content-name'>PR</span>
+            </label>
+          </div>
+          <div className='form-main inline-form custom-select'>
+            <select
+              value={unit}
+              onChange={(event) => {
+                // setFormError('');
+                console.log(event.target.value);
+                setUnit(event.target.value);
+                if (event.target.value != 'unit') {
+                  event.target.nextSibling.classList.add(
+                    'custom-modal-underline'
+                  );
+                } else {
+                  event.target.nextSibling.classList.remove(
+                    'custom-modal-underline'
+                  );
+                }
+              }}
+              required
+            >
+              <option value='unit'>Units...</option>
+              <option value='lbs'>lbs</option>
+              <option value='kg'>kg</option>
+              <option value='min:sec'>min:sec</option>
+              <option value='reps'>reps</option>
+            </select>
+
+            <label
+              htmlFor=''
+              className='label-name custom-modal-underline'
+              id=''
+            ></label>
+          </div>
         </div>
+
         <div className='form-main modal-form'>
           <input
             id='edit-date'

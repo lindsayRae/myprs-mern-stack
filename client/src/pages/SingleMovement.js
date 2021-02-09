@@ -16,12 +16,14 @@ const SingleMovement = ({ history, match }) => {
   const name = id.replace(/-/g, ' ');
 
   const [error, setError] = useState('');
+  const [formError, setFormError] = useState('');
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedEntry, setSelectedEntry] = useState('');
   const [editPR, setEditPR] = useState('');
   const [editDate, setEditDate] = useState('');
   const [editComment, setEditComment] = useState('');
+  const [unit, setUnit] = useState('unit');
 
   const [newPR, setNewPR] = useState('');
 
@@ -33,6 +35,7 @@ const SingleMovement = ({ history, match }) => {
 
   const { user } = useContext(UserContext);
 
+  console.log(entries);
   useEffect(() => {
     if (!user) {
       history.push('/login');
@@ -104,8 +107,18 @@ const SingleMovement = ({ history, match }) => {
    */
   const handleNewSubmit = async (event) => {
     event.preventDefault();
-    if (!newPR || !newDate) {
-      setError('Must enter PR and date');
+    console.log('unit', unit);
+
+    if (!newPR) {
+      setFormError('Must enter a PR');
+      return;
+    }
+    if (unit === 'unit') {
+      setFormError('Must select a unit');
+      return;
+    }
+    if (!newDate) {
+      setFormError('Must enter a date');
       return;
     }
     let obj = JSON.parse(sessionStorage.getItem('All Movements'));
@@ -119,6 +132,7 @@ const SingleMovement = ({ history, match }) => {
       personalRecord: newPR,
       comment: newComment,
       date: newDate,
+      unitType: unit,
     };
 
     const url = `/api/prs/${obj.type}`;
@@ -140,6 +154,7 @@ const SingleMovement = ({ history, match }) => {
         setNewPR('');
         setNewDate('');
         setNewComment('');
+        setUnit('unit');
         getEntries();
       }
     } catch (error) {
@@ -215,9 +230,9 @@ const SingleMovement = ({ history, match }) => {
                   <input
                     id='new-pr-entry'
                     value={newPR}
-                    type='number'
+                    type='text'
                     onChange={(event) => {
-                      setError('');
+                      setFormError('');
                       setNewPR(event.target.value);
                     }}
                     required
@@ -226,33 +241,58 @@ const SingleMovement = ({ history, match }) => {
                     <span className='content-name'>PR</span>
                   </label>
                 </div>
-                <div className='form-main inline-form'>
-                  <input
-                    id='new-date'
-                    value={newDate}
-                    type='date'
-                    onClick={(e) => {
-                      e.target.value = currentDate;
-                      setNewDate(e.target.value);
-                    }}
+                <div className='form-main inline-form custom-select'>
+                  <select
                     onChange={(event) => {
-                      setError('');
-                      setNewDate(event.target.value);
+                      setFormError('');
+                      setUnit(event.target.value);
+                      if (event.target.value != 'unit') {
+                        event.target.nextSibling.classList.add(
+                          'custom-underline'
+                        );
+                      } else {
+                        event.target.nextSibling.classList.remove(
+                          'custom-underline'
+                        );
+                      }
                     }}
                     required
-                  />
-                  <label htmlFor='new-date' className='label-name'>
-                    <span className='content-name light'>Date</span>
-                  </label>
+                  >
+                    <option value='unit'>Units...</option>
+                    <option value='lbs'>lbs</option>
+                    <option value='kg'>kg</option>
+                    <option value='min:sec'>min:sec</option>
+                    <option value='reps'>reps</option>
+                  </select>
+
+                  <label htmlFor='' className='label-name ' id=''></label>
                 </div>
               </div>
-
+              <div className='form-main '>
+                <input
+                  id='new-date'
+                  value={newDate}
+                  type='date'
+                  onClick={(e) => {
+                    e.target.value = currentDate;
+                    setNewDate(e.target.value);
+                  }}
+                  onChange={(event) => {
+                    setFormError('');
+                    setNewDate(event.target.value);
+                  }}
+                  required
+                />
+                <label htmlFor='new-date' className='label-name'>
+                  <span className='content-name light'>Date</span>
+                </label>
+              </div>
               <div className='form-main'>
                 <textarea
                   id='new-comment'
                   value={newComment}
                   onChange={(event) => {
-                    setError('');
+                    setFormError('');
                     setNewComment(event.target.value);
                   }}
                 />
@@ -260,7 +300,13 @@ const SingleMovement = ({ history, match }) => {
                   <span className='content-name'>Notes...</span>
                 </label>
               </div>
+
               <div className='inline-form-submit'>
+                {formError && (
+                  <p className='error-msg' style={{ marginRight: '15px' }}>
+                    {formError}
+                  </p>
+                )}
                 <button type='submit' className='btn-text-icon'>
                   <MdAdd style={{ fontSize: '24px' }} />
                   <span>Add Entry</span>
@@ -270,7 +316,7 @@ const SingleMovement = ({ history, match }) => {
           </div>
         </div>
       </header>
-      <div className='list-page list-desktop'>
+      <div className='single-list-page list-desktop'>
         <div className='list'>
           {loading && <p>Loading...</p>}
           {!loading && (
@@ -300,6 +346,7 @@ const SingleMovement = ({ history, match }) => {
                         onClick={() => {
                           setSelectedEntry(entry);
                           setEditPR(entry.personalRecord);
+                          setUnit(entry.unitType);
                           setEditDate(entry.date);
                           setEditComment(entry.comment);
                           openModal();
@@ -309,7 +356,11 @@ const SingleMovement = ({ history, match }) => {
                         <MdModeEdit />
                       </div>
                       <span className='entry-container'>
-                        <span>{entry.personalRecord}</span>
+                        <div>
+                          <span className='pr'>{entry.personalRecord}</span>
+                          <span className='unit'>{entry.unitType}</span>
+                        </div>
+
                         <span>{formatDate(entry.date)}</span>
                       </span>
                     </li>
@@ -321,6 +372,7 @@ const SingleMovement = ({ history, match }) => {
         <Modal ref={modalRef}>
           <EditMovement
             currentPR={editPR}
+            unit={unit}
             currentDate={editDate}
             currentComment={editComment}
             selectedEntry={selectedEntry}

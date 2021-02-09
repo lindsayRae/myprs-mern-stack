@@ -66,7 +66,7 @@
 }
 
 .modal-form .label-name::after {
-  border-bottom: 1px solid #584b83;
+  border-bottom: 2px solid #584b83;
 }
 .modal-form input:focus + .label-name .content-name,
 .modal-form input:valid + .label-name .content-name,
@@ -91,4 +91,8 @@
 
 .btn-container > button {
   font-weight: 500;
+}
+
+.custom-modal-underline {
+  border-bottom: 2px solid #584b83 !important;
 }
