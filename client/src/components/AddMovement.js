@@ -45,9 +45,10 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
             value={movement.name || ''}
             onChange={(event) => {
               setError('');
+              let nameInput = event.target.value;
               setMovement({
                 ...movement,
-                name: event.target.value,
+                name: nameInput.replace(/-/g, ''),
                 type,
               });
             }}
