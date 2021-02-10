@@ -76,7 +76,7 @@ const EditMovement = (props) => {
             <input
               id='edit-pr'
               value={editedPR}
-              type='number'
+              type='text'
               onChange={(event) => {
                 setError('');
                 setEditedPR(event.target.value);
