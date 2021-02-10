@@ -10,6 +10,9 @@
 .text-white {
   color: #fff;
 }
+.text-center {
+  text-align: center;
+}
 .page {
   width: 100%;
 }
@@ -175,7 +178,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 40px 0 20px 0;
+  /* margin: 20px 0 20px 0; */
+}
+.login-link-text {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #dedbf3;
+}
+.login-link-text > a {
+  color: #dedbf3;
+  font-weight: bold;
 }
 
 .text-light {

@@ -10,6 +10,7 @@
   position: relative;
   height: 50px;
   overflow: hidden;
+  margin-top: 5px;
 }
 
 .form-main input {
@@ -85,6 +86,7 @@ when input is valid -> move the .label-name/.content-name  */
 
 input[type='date'] {
   color: transparent;
+  font-family: 'Montserrat', sans-serif;
 }
 input[type='date']:focus,
 input[type='date']:valid {
@@ -106,10 +108,11 @@ select {
   color: white;
   border: 0;
   width: 90%;
+  font-family: 'Montserrat', sans-serif;
 }
 
 select option {
-  background: rgb(54, 44, 86);
+  background-color: #574b83;
   color: rgb(54, 203, 140);
   font-size: 0.85rem;
   border: none;
@@ -121,4 +124,10 @@ select:focus {
 
 .custom-underline {
   border-bottom: 2px solid rgb(54, 203, 140) !important;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+  outline: none;
 }

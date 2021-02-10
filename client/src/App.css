@@ -94,6 +94,7 @@ a.active {
 .error-msg {
   color: #d74e60;
   margin-top: 10px;
+  text-align: center;
 }
 
 .error-delete {

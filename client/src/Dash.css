@@ -21,11 +21,12 @@ ul {
   margin-bottom: 10px;
   overflow: hidden;
   justify-content: center;
+  text-align: left;
 }
 
 .dash-items > a {
   color: white;
-  width: 85px;
+  width: 100px;
 }
 
 .dash-items > a > span {
