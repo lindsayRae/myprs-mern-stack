@@ -5,6 +5,7 @@ import UserContextProvider from './context/UserContext';
 
 import Dashboard from './pages/Dashboard';
 import Privacy from './pages/Privacy';
+import Donate from './pages/Donate';
 import MovementList from './pages/MovementList';
 import SingleMovement from './pages/SingleMovement';
 import NotFound from './components/NotFound';
@@ -36,6 +37,7 @@ const App = () => {
             <Route path='/signup' exact component={SignUp} />
             <Route path='/emailsent' exact component={EmailSent} />
             <Route path='/privacy' exact component={Privacy} />
+            <Route path='/donate' exact component={Donate} />
             <Route path='/delete-account' exact component={DeleteAccount} />
             <Route path='/activate' exact component={Activate} />
             <Route path='/reset' exact component={StartPassReset} />

@@ -29,7 +29,7 @@ export const SidebarData = [
 
   {
     title: 'Donate',
-    path: '/#',
+    path: '/donate',
     icon: <MdIcons.MdAttachMoney />,
     cName: 'nav-text',
   },
