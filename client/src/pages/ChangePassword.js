@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { NavLink } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';

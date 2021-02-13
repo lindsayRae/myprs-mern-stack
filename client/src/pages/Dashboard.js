@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
@@ -6,12 +6,23 @@ import Navbar from '../components/Navbar';
 import { MdDirectionsRun, MdFitnessCenter, MdStar } from 'react-icons/md';
 
 const Dashboard = (props) => {
+  console.log('dashboard props', props);
+
   const { user } = useContext(UserContext);
-  useEffect(() => {
-    if (!user) {
-      props.history.push('/login');
-    }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  console.log('user in dashboard:', user);
+
+  // useEffect(() => {
+  //   console.log('in dashboard useEffect...');
+
+  //   if (!user) {
+  //     console.log('No user ...');
+  //     // props.history.push('/login');
+  //   }
+  //   return () => {
+  //     console.log('componenet unmounting');
+  //   };
+  // }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className='page-splash'>
       <header className='header header-fixed'>
@@ -46,11 +57,6 @@ const Dashboard = (props) => {
                     <span>Skills</span>
                   </NavLink>
                 </li>
-                {/* <li key='wod'>
-              <NavLink to='/wods' exact>
-                WODs
-              </NavLink>
-            </li> */}
               </ul>
             </div>
           </div>

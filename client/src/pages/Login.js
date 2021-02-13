@@ -11,12 +11,12 @@ const Login = ({ history }) => {
   const [error, setError] = useState('');
 
   const { user, setUser } = useContext(UserContext);
-  console.log('in login user:', user);
-  // useEffect(() => {
-  //   if (user) {
-  //     history.push('/dashboard');
-  //   }
-  // }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (user) {
+      history.push('/dashboard');
+    }
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -105,14 +105,8 @@ const Login = ({ history }) => {
                 </label>
               </div>
               {error && <p className='error-msg'>{error}</p>}
-              <p className='login-link-text'>
-                Forgot password?{' '}
-                <NavLink to='/reset' exact>
-                  {' '}
-                  Reset
-                </NavLink>
-              </p>
-              <div className='login-btn'>
+
+              <div className='login-btn' style={{ marginTop: '30px' }}>
                 <button
                   type='submit'
                   disabled={disabled}
@@ -122,11 +116,19 @@ const Login = ({ history }) => {
                 </button>
               </div>
             </form>
-            <p className='login-link-text'>
+
+            <p className='login-link-text' style={{ marginBottom: '10px' }}>
               Don't have an account?
               <NavLink to='/signup' exact>
                 {' '}
                 Sign up
+              </NavLink>
+            </p>
+            <p className='login-link-text' style={{ marginTop: '0px' }}>
+              Forgot password?{' '}
+              <NavLink to='/reset' exact>
+                {' '}
+                Reset
               </NavLink>
             </p>
           </div>

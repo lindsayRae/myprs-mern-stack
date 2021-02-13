@@ -16,8 +16,6 @@ const SignUp = ({ history }) => {
     console.log('in useEffect Signup ...');
     if (user && user.activated) {
       history.push('/dashboard');
-    } else if (user && !user.activated) {
-      history.push('/emailsent');
     }
   }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 

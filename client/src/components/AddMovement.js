@@ -84,7 +84,7 @@ const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
                 setError('');
                 console.log(event.target.value);
                 setUnit(event.target.value);
-                if (event.target.value != 'unit') {
+                if (event.target.value !== 'unit') {
                   event.target.nextSibling.classList.add(
                     'custom-modal-underline'
                   );

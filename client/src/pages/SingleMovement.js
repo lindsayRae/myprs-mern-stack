@@ -246,7 +246,7 @@ const SingleMovement = ({ history, match }) => {
                     onChange={(event) => {
                       setFormError('');
                       setUnit(event.target.value);
-                      if (event.target.value != 'unit') {
+                      if (event.target.value !== 'unit') {
                         event.target.nextSibling.classList.add(
                           'custom-underline'
                         );
