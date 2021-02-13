@@ -226,7 +226,9 @@ router.post('/register', async (req, res) => {
     const token = user.generateAuthToken();
 
     //? Call out to existing endpoint to create a new PR record with empty arrays (lifts, cardio, skills)
-    let url = `http://${baseURL}/api/users/usersetup/${newUser._id}`;
+    let baseURL = process.env.web_url;
+    let url = `${baseURL}/api/users/usersetup/${newUser._id}`;
+    //let url = `http://${baseURL}/api/users/usersetup/${newUser._id}`;
     let response = await fetch(url, {
       method: 'POST',
       headers: headers,
