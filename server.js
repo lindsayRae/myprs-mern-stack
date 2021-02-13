@@ -5,6 +5,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+const bodyParser = require('body-parser');
+
 require('dotenv').config();
 
 const app = express();
@@ -47,6 +49,12 @@ app.use('/api/prs', personalRecordsRouter);
 app.use('/api/auth', auth);
 app.use('/api/contact', contact);
 app.use('/api/activate', activate);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const paymentsRouter = require('./routes/payments');
+app.use('/api/payments', paymentsRouter);
 
 app.use(error);
 
