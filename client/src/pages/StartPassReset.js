@@ -10,7 +10,8 @@ import React, { useEffect, useState } from 'react';
 // can I access .env on frontend
 //  relative path from
 
-let baseURL = 'localhost:1234';
+//! Changed for Heroku testing
+//let baseURL = 'localhost:1234';
 
 const Reset = (props) => {
   const [error, setError] = useState('');
@@ -24,7 +25,11 @@ const Reset = (props) => {
       email: email,
     };
 
-    const url = `http://${baseURL}/api/users/reset`;
+    let baseURL = process.env.web_url;
+    let url = `${baseURL}/api/users/reset`;
+
+    //! Changed for Heroku testing
+    //const url = `http://${baseURL}/api/users/reset`;
 
     console.log(body);
     console.log(url);

@@ -12,13 +12,15 @@ const { PersonalRecord } = require('../models/personalRecord.model');
 const { sendEmail } = require('../middleware/email');
 const { sendEmailReset } = require('../middleware/email-reset');
 
-const currentENV = process.env.environment;
-let baseURL;
-if (currentENV === 'dev') {
-  baseURL = process.env.devURL;
-} else {
-  baseURL = process.env.prodURL;
-}
+// const currentENV = process.env.environment;
+// let baseURL;
+// if (currentENV === 'dev') {
+//   baseURL = process.env.devURL;
+// } else {
+//   baseURL = process.env.prodURL;
+// }
+
+let baseURL = process.env.web_url;
 
 // Note:  All error handling is used through "express-async-errors": "^3.1.1"
 
@@ -226,6 +228,8 @@ router.post('/register', async (req, res) => {
     const token = user.generateAuthToken();
 
     //? Call out to existing endpoint to create a new PR record with empty arrays (lifts, cardio, skills)
+
+    //! Changed for Heroku testing
     let baseURL = process.env.web_url;
     let url = `${baseURL}/api/users/usersetup/${newUser._id}`;
     //let url = `http://${baseURL}/api/users/usersetup/${newUser._id}`;

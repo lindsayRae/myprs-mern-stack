@@ -1,20 +1,23 @@
 const nodemailer = require('nodemailer');
 
-let env = process.env.environment;
-let baseURL;
+//! changed for Heroku testing
+// let env = process.env.environment;
+// let baseURL;
 
-if (env === 'dev') {
-  baseURL = 'localhost:3000';
-} else {
-  baseURL = 'myprs.net';
-}
+// if (env === 'dev') {
+//   baseURL = 'localhost:3000';
+// } else {
+//   baseURL = 'myprs.net';
+// }
+
+let baseURL = process.env.web_url;
 
 let sendEmailReset = (userName, email, GUID) => {
   let emailBody = `Hello ${userName},
 
   You are receiving this email because you want to reset your password for myPRs Application. To do so, please copy and past or click the link below. If you received this by mistake then please ignore.
 
-http://${baseURL}/pass-reset/?email=${email}&guid=${GUID}
+  ${baseURL}/pass-reset/?email=${email}&guid=${GUID}
 
 Have a wonderful day!`;
   let transporter = nodemailer.createTransport({

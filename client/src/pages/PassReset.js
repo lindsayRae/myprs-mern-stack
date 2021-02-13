@@ -13,7 +13,8 @@ import queryString from 'query-string';
 // can I access .env on frontend
 //  relative path from
 
-let baseURL = 'localhost:1234';
+//! Commented out for Heroku testing
+//let baseURL = 'localhost:1234';
 
 const PassReset = (props) => {
   const [error, setError] = useState('');
@@ -38,7 +39,11 @@ const PassReset = (props) => {
       GUID: params.guid,
     };
 
-    const url = `http://${baseURL}/api/activate`;
+    let baseURL = process.env.web_url;
+    let url = `${baseURL}/api/activate`;
+
+    //! Changed for Heroku testing
+    // const url = `http://${baseURL}/api/activate`;
     try {
       const res = await fetch(url, {
         method: 'PUT',

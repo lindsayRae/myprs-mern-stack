@@ -1,20 +1,22 @@
 const nodemailer = require('nodemailer');
 
-let env = process.env.environment;
-let baseURL;
+// let env = process.env.environment;
+// let baseURL;
 
-if (env === 'dev') {
-  baseURL = 'localhost:3000';
-} else {
-  baseURL = 'myprs.net';
-}
+// if (env === 'dev') {
+//   baseURL = 'localhost:3000';
+// } else {
+//   baseURL = 'myprs.net';
+// }
+
+let baseURL = process.env.web_url;
 
 let sendEmail = (userName, email, GUID) => {
   let emailBody = `Hello ${userName},
 
   Thank you for registering for the myPRS application. In order to activate your account, please copy and past or click the link below. If you received this by mistake then please ignore.
 
-http://${baseURL}/activate/?email=${email}&guid=${GUID}
+${baseURL}/activate/?email=${email}&guid=${GUID}
 
 Have a wonderful day!`;
   let transporter = nodemailer.createTransport({

@@ -14,7 +14,8 @@ import { set } from 'lodash';
 // can I access .env on frontend
 //  relative path from
 
-let baseURL = 'localhost:1234';
+//! Changed for Heroku testing
+//let baseURL = 'localhost:1234';
 
 const Activate = (props) => {
   const [error, setError] = useState('');
@@ -34,8 +35,12 @@ const Activate = (props) => {
       email: params.email,
       GUID: params.guid,
     };
+    let baseURL = process.env.web_url;
+    let url = `${baseURL}/api/activate`;
 
-    const url = `http://${baseURL}/api/activate`;
+    //! Changed for Heroku testing
+    //const url = `http://${baseURL}/api/activate`;
+
     try {
       const res = await fetch(url, {
         method: 'PUT',
