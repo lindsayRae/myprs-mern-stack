@@ -14,6 +14,8 @@ const port = process.env.PORT || 1234;
 
 const privateKey = process.env.prs_jwtPrivateKey;
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 if (!privateKey) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
   // 0 is success, anything else is failure
