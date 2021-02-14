@@ -209,7 +209,7 @@ router.post('/register', async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
 
   let baseURL;
-  if (process.env.environment == 'prod') {
+  if (process.env.NODE_ENV === 'production') {
     baseURL = process.env.web_url;
   } else {
     baseURL = 'http://localhost:1234';
