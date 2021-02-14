@@ -15,7 +15,7 @@ const MovementList = (props) => {
   const [type, setType] = useState('');
 
   const { user } = useContext(UserContext);
-  console.log(user);
+
   useEffect(() => {
     if (!user) {
       props.history.push('/login');
@@ -113,6 +113,8 @@ const MovementList = (props) => {
     try {
       const url = `/api/prs/${user_ID}?movement=${currentType}`;
 
+      console.log('url', url);
+
       const headers = {
         'Content-Type': 'application/json',
         'x-auth-token': user.jwt,
@@ -123,6 +125,8 @@ const MovementList = (props) => {
         headers: headers,
       });
       const data = await res.json();
+
+      console.log('Data', data);
 
       if (data.message) {
         setError(data.message);
