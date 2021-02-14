@@ -60,9 +60,9 @@ const DeleteConfirmation = () => {
               <p className='login-text'>
                 I hope you keep on moving. Come back anytime!
               </p>
-              <p className='text-light'>
+              <p className='login-text'>
                 Return to
-                <NavLink to='/signup' exact>
+                <NavLink to='/signup' exact className='text-info'>
                   {' '}
                   Sign up
                 </NavLink>
