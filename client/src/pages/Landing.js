@@ -8,6 +8,12 @@ const Landing = ({ history }) => {
     <div className='page-splash'>
       <div className='splash'>
         <div className='splash-content'>
+          <img
+            src='./images/myPRs_white.png'
+            alt='cardio'
+            className='img-logo'
+          />
+
           <div className='splash-logo'>MYPRS</div>
           <div className='splash-text'>
             Track your 1 rep gym max's <br />
@@ -25,7 +31,11 @@ const Landing = ({ history }) => {
             </NavLink>
           </div>
           <div className='privacy'>
-            We respect your privacy. Read our terms of service here.
+            We respect your privacy. Read our terms of service{' '}
+            <NavLink to='/privacy' exact className='text-info'>
+              here
+            </NavLink>
+            .
           </div>
         </div>
       </div>
