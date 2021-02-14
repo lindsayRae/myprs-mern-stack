@@ -218,8 +218,7 @@ router.post('/register', async (req, res) => {
 
     //? Call out to existing endpoint to create a new PR record with empty arrays (lifts, cardio, skills)
 
-    //! Changed for Heroku testing
-    // let baseURL = process.env.web_url || 'http://localhost:1234';
+    //! For the backend you need an absolute URL for the fetch method to work
     let baseURL = process.env.baseURL;
     let url = `${baseURL}/api/users/usersetup/${newUser._id}`;
 

@@ -25,8 +25,6 @@ const PassReset = (props) => {
       GUID: params.guid,
     };
 
-    //let baseURL = process.env.web_url || 'http://localhost:1234';
-    //! Heroku let url = `${baseURL}/api/activate`;
     let url = `/api/activate`;
 
     try {
