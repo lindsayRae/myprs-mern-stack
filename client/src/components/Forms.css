@@ -91,24 +91,25 @@ input[type='date'] {
 input[type='date']:focus,
 input[type='date']:valid {
   color: white;
-  font-size: 15px;
   transition: all 0.3s ease;
 }
-
+input,
+select,
+textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+}
 .custom-select {
   position: relative;
 }
 
 select {
-  font-size: 1rem;
-  /* padding: 0.5rem 0.7rem 0rem 0.7rem; */
   padding-top: 0.5rem;
   margin-top: 1rem;
   background: transparent;
   color: white;
   border: 0;
   width: 90%;
-  font-family: 'Montserrat', sans-serif;
 }
 
 select option {
@@ -121,7 +122,9 @@ select option {
 select:focus {
   outline: none;
 }
-
+textarea {
+  font-family: 'Montserrat', sans-serif;
+}
 .custom-underline {
   border-bottom: 2px solid rgb(54, 203, 140) !important;
 }
