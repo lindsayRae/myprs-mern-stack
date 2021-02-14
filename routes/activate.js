@@ -10,6 +10,8 @@ router.put('/', async (req, res) => {
   try {
     const user = await User.findOne({ email: userEmail });
 
+    console.log('User', user);
+
     if (!user)
       return res.send({
         message: 'Could not find your email. Please re-register',
@@ -23,6 +25,9 @@ router.put('/', async (req, res) => {
     if (user.GUID === GUID) {
       user.activated = true;
       const result = await user.save();
+
+      console.log('Result', result);
+
       return res.send(result);
     }
   } catch (error) {

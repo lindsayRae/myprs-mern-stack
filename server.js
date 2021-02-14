@@ -4,17 +4,23 @@ const error = require('./middleware/error');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 1234;
+const port = process.env.PORT || 666;
 
 const privateKey = process.env.prs_jwtPrivateKey;
 
-//app.use(express.static(path.join(__dirname, 'client/build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  });
+}
 
 if (!privateKey) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');

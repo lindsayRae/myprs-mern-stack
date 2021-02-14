@@ -1,18 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-// let currentENV = process.env.currentENV;
-// let baseURL;
-// if (currentENV === 'dev') {
-//   baseURL = process.env.devURL;
-// } else {
-//   baseURL = process.env.prodURL;
-// }
-// can I access .env on frontend
-//  relative path from
-
-//! Changed for Heroku testing
-//let baseURL = 'localhost:1234';
-
 const Reset = (props) => {
   const [error, setError] = useState('');
   const [sent, setSent] = useState(false);
@@ -25,14 +12,10 @@ const Reset = (props) => {
       email: email,
     };
 
-    let baseURL = process.env.web_url;
-    let url = `${baseURL}/api/users/reset`;
+    //! Testing for sending email heroku
+    let url = `http://localhost:1234/api/users/reset`;
+    console.log('URL', url);
 
-    //! Changed for Heroku testing
-    //const url = `http://${baseURL}/api/users/reset`;
-
-    console.log(body);
-    console.log(url);
     try {
       const res = await fetch(url, {
         method: 'PUT',

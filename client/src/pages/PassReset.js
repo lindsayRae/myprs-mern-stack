@@ -1,20 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
 import queryString from 'query-string';
-
-// let currentENV = process.env.currentENV;
-// let baseURL;
-// if (currentENV === 'dev') {
-//   baseURL = process.env.devURL;
-// } else {
-//   baseURL = process.env.prodURL;
-// }
-// can I access .env on frontend
-//  relative path from
-
-//! Commented out for Heroku testing
-//let baseURL = 'localhost:1234';
 
 const PassReset = (props) => {
   const [error, setError] = useState('');
@@ -42,8 +28,6 @@ const PassReset = (props) => {
     let baseURL = process.env.web_url;
     let url = `${baseURL}/api/activate`;
 
-    //! Changed for Heroku testing
-    // const url = `http://${baseURL}/api/activate`;
     try {
       const res = await fetch(url, {
         method: 'PUT',

@@ -11,7 +11,7 @@ const Login = ({ history }) => {
   const [error, setError] = useState('');
 
   const { user, setUser } = useContext(UserContext);
-
+  console.log(process.env.REACT_APP_FRONT_END_PORT);
   useEffect(() => {
     if (user) {
       history.push('/dashboard');

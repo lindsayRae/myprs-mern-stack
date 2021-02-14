@@ -2,20 +2,6 @@ import React, { useEffect, useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import queryString from 'query-string';
-import { set } from 'lodash';
-
-// let currentENV = process.env.currentENV;
-// let baseURL;
-// if (currentENV === 'dev') {
-//   baseURL = process.env.devURL;
-// } else {
-//   baseURL = process.env.prodURL;
-// }
-// can I access .env on frontend
-//  relative path from
-
-//! Changed for Heroku testing
-//let baseURL = 'localhost:1234';
 
 const Activate = (props) => {
   const [error, setError] = useState('');
@@ -36,10 +22,9 @@ const Activate = (props) => {
       GUID: params.guid,
     };
     let baseURL = process.env.web_url;
-    let url = `${baseURL}/api/activate`;
 
-    //! Changed for Heroku testing
-    //const url = `http://${baseURL}/api/activate`;
+    baseURL = 'http://localhost:1234';
+    let url = `${baseURL}/api/activate`;
 
     try {
       const res = await fetch(url, {

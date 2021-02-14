@@ -32,7 +32,7 @@ const Dashboard = (props) => {
       </header>
       <div className='login header-page'>
         <div className='login-content'>
-          <h2 className='login-title capitalize'>Hello {user.user.userName}</h2>
+          <h2 className='login-title capitalize'>Hello {user.userName}</h2>
           <p className='login-text'>
             Choose your category to view or add personal records.
           </p>
