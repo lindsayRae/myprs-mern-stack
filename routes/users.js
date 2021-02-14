@@ -229,7 +229,7 @@ router.post('/register', async (req, res) => {
 
     //! Changed for Heroku testing
     // let baseURL = process.env.web_url || 'http://localhost:1234';
-    let url = `${baseURL}/api/users/usersetup/${newUser._id}`;
+    let url = `/api/users/usersetup/${newUser._id}`;
 
     let response = await fetch(url, {
       method: 'POST',
@@ -263,11 +263,8 @@ router.post('/usersetup/:id', async (req, res) => {
     cardio: [],
     skills: [],
   };
-
   let personalRecord = new PersonalRecord(newUserEntry);
-
   let result = await personalRecord.save();
-  console.log('usersetup: ', result);
 
   res.send(result);
 });
