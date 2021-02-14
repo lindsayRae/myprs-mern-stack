@@ -208,13 +208,6 @@ router.post('/register', async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 
-  let baseURL;
-  if (process.env.NODE_ENV === 'production') {
-    baseURL = process.env.web_url;
-  } else {
-    baseURL = 'http://localhost:1234';
-  }
-
   try {
     let newUser = await user.save();
     //? Need to create a header for the creation of the blank you document in personalRecord
@@ -227,7 +220,8 @@ router.post('/register', async (req, res) => {
 
     //! Changed for Heroku testing
     // let baseURL = process.env.web_url || 'http://localhost:1234';
-    let url = `https://myprs-mern.herokuapp.com/api/users/usersetup/${newUser._id}`;
+    let baseURL = process.env.baseURL;
+    let url = `${baseURL}/api/users/usersetup/${newUser._id}`;
 
     let response = await fetch(url, {
       method: 'POST',
