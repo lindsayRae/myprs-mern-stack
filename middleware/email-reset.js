@@ -2,9 +2,9 @@ const nodemailer = require('nodemailer');
 let baseURL;
 
 if (process.env.NODE_ENV === 'production') {
-  baseURL = process.env.web_url;
+  emailURL = process.env.emailURL;
 } else {
-  baseURL = 'http://localhost:3000';
+  emailURL = 'http://localhost:3000';
 }
 
 let sendEmailReset = (userName, email, GUID) => {
@@ -12,7 +12,7 @@ let sendEmailReset = (userName, email, GUID) => {
 
   You are receiving this email because you want to reset your password for myPRs Application. To do so, please copy and past or click the link below. If you received this by mistake then please ignore.
 
-  ${baseURL}/pass-reset/?email=${email}&guid=${GUID}
+  ${emailURL}/pass-reset/?email=${email}&guid=${GUID}
 
 Have a wonderful day!`;
   let transporter = nodemailer.createTransport({
