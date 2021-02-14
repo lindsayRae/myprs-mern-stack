@@ -1,9 +1,10 @@
 const nodemailer = require('nodemailer');
 
-let baseURL = process.env.web_url;
-
-//! Testing hardcoded email
-baseURL = 'http://localhost:3000';
+if (process.env.NODE_ENV === 'production') {
+  baseURL = process.env.web_url;
+} else {
+  baseURL = 'http://localhost:3000';
+}
 
 let sendEmail = (userName, email, GUID) => {
   let emailBody = `Hello ${userName},

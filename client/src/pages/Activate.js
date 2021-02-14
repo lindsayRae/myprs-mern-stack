@@ -21,9 +21,8 @@ const Activate = (props) => {
       email: params.email,
       GUID: params.guid,
     };
-    let baseURL = process.env.web_url;
+    let baseURL = process.env.web_url || 'http://localhost:1234';
 
-    baseURL = 'http://localhost:1234';
     let url = `${baseURL}/api/activate`;
 
     try {
@@ -36,6 +35,8 @@ const Activate = (props) => {
         body: JSON.stringify(body),
       });
       const data = await res.json();
+
+      console.log(data);
 
       if (data.message) {
         setError(data.message);

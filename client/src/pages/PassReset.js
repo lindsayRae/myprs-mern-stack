@@ -25,7 +25,7 @@ const PassReset = (props) => {
       GUID: params.guid,
     };
 
-    let baseURL = process.env.web_url;
+    let baseURL = process.env.web_url || 'http://localhost:1234';
     let url = `${baseURL}/api/activate`;
 
     try {

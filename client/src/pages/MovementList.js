@@ -15,7 +15,7 @@ const MovementList = (props) => {
   const [type, setType] = useState('');
 
   const { user } = useContext(UserContext);
-
+  console.log(user);
   useEffect(() => {
     if (!user) {
       props.history.push('/login');

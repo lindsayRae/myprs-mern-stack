@@ -1,8 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-
-import { MdKeyboardBackspace } from 'react-icons/md';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -10,14 +8,7 @@ const Login = ({ history }) => {
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState('');
 
-  const { user, setUser } = useContext(UserContext);
-  console.log(process.env.REACT_APP_FRONT_END_PORT);
-  useEffect(() => {
-    if (user) {
-      history.push('/dashboard');
-    }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  const { setUser } = useContext(UserContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('heard login...');
@@ -59,11 +50,11 @@ const Login = ({ history }) => {
 
   return (
     <div className='page-splash'>
-      <header className='header header-fixed' onClick={() => history.goBack()}>
+      {/* <header className='header header-fixed' onClick={() => history.goBack()}>
         <div className='header-inner'>
           <MdKeyboardBackspace style={{ fontSize: 25 }} />
         </div>
-      </header>
+      </header> */}
       <div className='login'>
         <div className='login-content'>
           <h2 className='login-title'>Welcome back</h2>
