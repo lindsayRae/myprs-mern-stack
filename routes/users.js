@@ -215,6 +215,8 @@ router.post('/register', async (req, res) => {
     baseURL = 'http://localhost:1234';
   }
 
+  baseURL = process.env.web_url;
+
   try {
     let newUser = await user.save();
     //? Need to create a header for the creation of the blank you document in personalRecord
