@@ -229,7 +229,7 @@ router.post('/register', async (req, res) => {
 
     //! Changed for Heroku testing
     // let baseURL = process.env.web_url || 'http://localhost:1234';
-    let url = `/api/users/usersetup/${newUser._id}`;
+    let url = `https://myprs-mern.herokuapp.com/api/users/usersetup/${newUser._id}`;
 
     let response = await fetch(url, {
       method: 'POST',
