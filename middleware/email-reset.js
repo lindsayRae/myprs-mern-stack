@@ -8,7 +8,8 @@ let sendEmailReset = (userName, email, GUID) => {
 
   ${emailURL}/pass-reset/?email=${email}&guid=${GUID}
 
-Have a wonderful day!`;
+  Have a wonderful day!`;
+
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

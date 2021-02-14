@@ -13,7 +13,7 @@ const Reset = (props) => {
     };
 
     //! Testing for sending email heroku
-    let url = `http://localhost:1234/api/users/reset`;
+    let url = `/api/users/reset`;
     console.log('URL', url);
 
     try {

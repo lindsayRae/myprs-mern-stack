@@ -6,9 +6,10 @@ let sendEmail = (userName, email, GUID) => {
 
   Thank you for registering for the myPRS application. In order to activate your account, please copy and past or click the link below. If you received this by mistake then please ignore.
 
-${emailURL}/activate/?email=${email}&guid=${GUID}
+  ${emailURL}/activate/?email=${email}&guid=${GUID}
 
-Have a wonderful day!`;
+  Have a wonderful day!`;
+
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
