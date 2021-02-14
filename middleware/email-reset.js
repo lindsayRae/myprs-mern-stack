@@ -1,11 +1,5 @@
 const nodemailer = require('nodemailer');
-let emailURL;
-
-if (process.env.NODE_ENV === 'production') {
-  emailURL = process.env.emailURL;
-} else {
-  emailURL = 'http://localhost:3000';
-}
+const emailURL = process.env.emailURL;
 
 let sendEmailReset = (userName, email, GUID) => {
   let emailBody = `Hello ${userName},
