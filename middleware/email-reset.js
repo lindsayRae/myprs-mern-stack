@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 let baseURL;
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV == 'prod') {
   baseURL = process.env.web_url;
 } else {
   baseURL = 'http://localhost:3000';
