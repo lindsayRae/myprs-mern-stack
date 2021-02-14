@@ -11,19 +11,11 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 666;
+const port = process.env.PORT || 1234;
+console.log('in server PORT:', port);
+console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
 
 const privateKey = process.env.prs_jwtPrivateKey;
-
-//! Heroku debug
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  // Handle React routing, return all requests to React app
-  app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
-}
 
 if (!privateKey) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
@@ -68,6 +60,15 @@ const paymentsRouter = require('./routes/payments');
 app.use('/api/payments', paymentsRouter);
 
 app.use(error);
+//! Heroku debug
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
