@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-let baseURL;
+let emailURL;
 
 if (process.env.NODE_ENV === 'production') {
   emailURL = process.env.emailURL;
