@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { MdKeyboardBackspace } from 'react-icons/md';
 
 const Reset = (props) => {
   const [error, setError] = useState('');
@@ -44,6 +46,13 @@ const Reset = (props) => {
 
   return (
     <div className='page-splash'>
+      <header className='header header-fixed'>
+        <div className='header-inner'>
+          <NavLink to='/' exact>
+            <MdKeyboardBackspace style={{ fontSize: 25, color: 'white' }} />
+          </NavLink>
+        </div>
+      </header>
       <div className='login header-page'>
         <div className='login-content'>
           <h2 className='login-title capitalize'>Password Reset</h2>
