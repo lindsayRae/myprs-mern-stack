@@ -12,7 +12,7 @@ const ChangePassword = ({ history }) => {
   const [passwordChanged, setPasswordChanged] = useState(false);
 
   const { user } = useContext(UserContext);
-  console.log(user);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!oldPassword) {
@@ -72,6 +72,7 @@ const ChangePassword = ({ history }) => {
           <MdKeyboardBackspace style={{ fontSize: 25 }} />
         </div>
       </header>
+
       <div className='login'>
         <div className='login-content'>
           {!passwordChanged && (

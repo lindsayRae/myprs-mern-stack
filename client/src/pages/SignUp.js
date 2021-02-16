@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { NavLink } from 'react-router-dom';
 import { MdKeyboardBackspace } from 'react-icons/md';
@@ -11,17 +11,7 @@ const SignUp = ({ history }) => {
   const [error, setError] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [formSuccess, setFormSuccess] = useState(false);
-  const { user, setUser } = useContext(UserContext);
-
-  console.log(user);
-  console.log(formSuccess);
-
-  // useEffect(() => {
-  //   console.log('in useEffect Signup ...');
-  //   if (user && user.activated) {
-  //     history.push('/dashboard');
-  //   }
-  // }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

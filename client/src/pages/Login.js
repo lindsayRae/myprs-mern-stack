@@ -9,9 +9,10 @@ const Login = ({ history }) => {
   const [error, setError] = useState('');
 
   const { setUser } = useContext(UserContext);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('heard login...');
+
     if (!email || !password) {
       setError('You must provide an email and password.');
       return;
@@ -29,7 +30,7 @@ const Login = ({ history }) => {
       });
 
       const data = await response.json();
-      console.log('data', data);
+
       if (data.message) {
         setError(data.message);
         return;
