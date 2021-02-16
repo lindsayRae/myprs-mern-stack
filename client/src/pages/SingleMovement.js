@@ -28,19 +28,17 @@ const SingleMovement = ({ history, match }) => {
   const [newPR, setNewPR] = useState('');
 
   const [newDate, setNewDate] = useState('');
-  const [currentDate, setCurrentDate] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
+  const [currentDate] = useState(new Date().toISOString().slice(0, 10));
   const [newComment, setNewComment] = useState('');
 
   const { user } = useContext(UserContext);
+  const isAuthenticated = localStorage.getItem('userData');
 
-  console.log(entries);
   useEffect(() => {
-    if (!user) {
-      history.push('/login');
+    if (!isAuthenticated) {
+      history.push('/');
     }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getEntries();
@@ -107,7 +105,6 @@ const SingleMovement = ({ history, match }) => {
    */
   const handleNewSubmit = async (event) => {
     event.preventDefault();
-    console.log('unit', unit);
 
     if (!newPR) {
       setFormError('Must enter a PR');

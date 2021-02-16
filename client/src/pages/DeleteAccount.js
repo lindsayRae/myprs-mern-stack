@@ -1,14 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
 import Navbar from '../components/Navbar';
 
-const DeleteConfirmation = () => {
+const DeleteConfirmation = ({ history }) => {
   const [confirmDeleted, setConfirmDeleted] = useState(false);
   const [error, setError] = useState('');
 
   const { user, setUser } = useContext(UserContext);
+  const isAuthenticated = localStorage.getItem('userData');
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      history.push('/');
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDeleteUser = async () => {
     try {

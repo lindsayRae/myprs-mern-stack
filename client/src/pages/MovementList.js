@@ -15,18 +15,17 @@ const MovementList = (props) => {
   const [type, setType] = useState('');
 
   const { user } = useContext(UserContext);
+  const isAuthenticated = localStorage.getItem('userData');
 
   useEffect(() => {
-    if (!user) {
-      props.history.push('/login');
+    if (!isAuthenticated) {
+      props.history.push('/');
+    } else {
+      let str = props.location.pathname;
+      let currentType = str.substring(1, str.length - 1);
+      setType(currentType);
+      buildMovementMenu(currentType);
     }
-  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    let str = props.location.pathname;
-    let currentType = str.substring(1, str.length - 1);
-    setType(currentType);
-    buildMovementMenu(currentType);
   }, [props.location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -113,8 +112,6 @@ const MovementList = (props) => {
     try {
       const url = `/api/prs/${user_ID}?movement=${currentType}`;
 
-      console.log('url', url);
-
       const headers = {
         'Content-Type': 'application/json',
         'x-auth-token': user.jwt,
@@ -125,8 +122,6 @@ const MovementList = (props) => {
         headers: headers,
       });
       const data = await res.json();
-
-      console.log('Data', data);
 
       if (data.message) {
         setError(data.message);
@@ -191,80 +186,84 @@ const MovementList = (props) => {
 
   return (
     <div className='page-splash'>
-      <header className='header header-fixed header-desktop'>
-        <div className='header-inner'>
-          <Navbar title={type} />
-        </div>
-        <div className='img-container'>
-          {type === 'lift' && (
-            <img
-              src='./images/lift.jpg'
-              alt='cardio'
-              className='img-responsive'
-            />
-          )}
-          {type === 'cardio' && (
-            <img
-              src='./images/cardio.jpg'
-              alt='cardio'
-              className='img-responsive'
-            />
-          )}
-          {type === 'skill' && (
-            <img
-              src='./images/skill.jpg'
-              alt='cardio'
-              className='img-responsive'
-            />
-          )}
+      {isAuthenticated && (
+        <>
+          <header className='header header-fixed header-desktop'>
+            <div className='header-inner'>
+              <Navbar title={type} />
+            </div>
+            <div className='img-container'>
+              {type === 'lift' && (
+                <img
+                  src='./images/lift.jpg'
+                  alt='cardio'
+                  className='img-responsive'
+                />
+              )}
+              {type === 'cardio' && (
+                <img
+                  src='./images/cardio.jpg'
+                  alt='cardio'
+                  className='img-responsive'
+                />
+              )}
+              {type === 'skill' && (
+                <img
+                  src='./images/skill.jpg'
+                  alt='cardio'
+                  className='img-responsive'
+                />
+              )}
 
-          <div className='search-container'>
-            <MdSearch className='text-info' />
+              <div className='search-container'>
+                <MdSearch className='text-info' />
 
-            <div className='form-main search-form' id='searchForm'>
-              <input
-                type='text'
-                name='search'
-                className='search-input'
-                value={searchTerm}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor='search' className='label-name'>
-                <span className='content-name'>Search Movements</span>
-              </label>
+                <div className='form-main search-form' id='searchForm'>
+                  <input
+                    type='text'
+                    name='search'
+                    className='search-input'
+                    value={searchTerm}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor='search' className='label-name'>
+                    <span className='content-name'>Search Movements</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div className='list-page list-desktop'>
+            <div className='list'>
+              <ul className='movements'>
+                {movements.map((movement) => {
+                  let slug = movement.replace(/ /g, '-');
+                  return (
+                    <Link key={slug} to={`/${type}s/${slug}`}>
+                      <li className='capitalize'>{movement}</li>
+                    </Link>
+                  );
+                })}
+              </ul>
             </div>
           </div>
-        </div>
-      </header>
-      {/* {message && <Message type={message} />} */}
-      <div className='list-page list-desktop'>
-        <div className='list'>
-          <ul className='movements'>
-            {movements.map((movement) => {
-              let slug = movement.replace(/ /g, '-');
-              return (
-                <Link key={slug} to={`/${type}s/${slug}`}>
-                  <li className='capitalize'>{movement}</li>
-                </Link>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-      <button
-        style={{ margin: '5px' }}
-        className='btn btn-primary capitalize btn-desktop'
-        onClick={openModal}
-      >
-        Add New {type}
-      </button>
+          <button
+            style={{ margin: '5px' }}
+            className='btn btn-primary capitalize btn-desktop'
+            onClick={openModal}
+          >
+            Add New {type}
+          </button>
 
-      <Modal ref={modalRef}>
-        <AddMovement type={type} addNewMovement={addNewMovement} />
-      </Modal>
+          <Modal ref={modalRef}>
+            <AddMovement type={type} addNewMovement={addNewMovement} />
+          </Modal>
 
-      {error && <p>{error}</p>}
+          {error && <p>{error}</p>}
+        </>
+      )}
     </div>
   );
 };

@@ -1,15 +1,31 @@
 import React from 'react';
 
 import Navbar from '../components/Navbar';
+import { MdKeyboardBackspace } from 'react-icons/md';
 
-const Privacy = () => {
+const Privacy = ({ history }) => {
+  const isAuthenticated = localStorage.getItem('userData');
+
   return (
     <div className='page-splash'>
-      <header className='header header-fixed'>
-        <div className='header-inner'>
-          <Navbar />
-        </div>
-      </header>
+      {isAuthenticated && (
+        <header className='header header-fixed'>
+          <div className='header-inner'>
+            <Navbar />
+          </div>
+        </header>
+      )}
+      {!isAuthenticated && (
+        <header
+          className='header header-fixed'
+          onClick={() => history.goBack()}
+        >
+          <div className='header-inner'>
+            <MdKeyboardBackspace style={{ fontSize: 25 }} />
+          </div>
+        </header>
+      )}
+
       <div className='policy-container'>
         <div className=''>
           <h2 className='login-title'>Privacy Policy</h2>
