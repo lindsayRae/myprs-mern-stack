@@ -62,6 +62,7 @@ app.use('/api/payments', paymentsRouter);
 app.use(error);
 //! Heroku debug
 if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('public'));
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
