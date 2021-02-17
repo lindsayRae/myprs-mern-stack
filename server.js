@@ -57,6 +57,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const paymentsRouter = require('./routes/payments');
+const { request } = require('express');
 app.use('/api/payments', paymentsRouter);
 
 app.use(error);
@@ -67,6 +68,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
   app.get('*', function (req, res) {
+    if (!req.secure) {
+      res.redirect('https://' + req.headers.host + req.url);
+    }
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
