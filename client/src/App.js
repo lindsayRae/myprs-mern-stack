@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-//import UserContextProvider from './context/UserContext';
-
 import Dashboard from './pages/Dashboard';
+import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
+import Gear from './pages/Gear';
 import Donate from './pages/Donate';
 import MovementList from './pages/MovementList';
 import SingleMovement from './pages/SingleMovement';
@@ -36,6 +36,7 @@ const App = () => {
           <Route path='/signup' exact component={SignUp} />
           <Route path='/emailsent' exact component={EmailSent} />
           <Route path='/privacy' exact component={Privacy} />
+          <Route path='/gear' exact component={Gear} />
           <Route path='/donate' exact component={Donate} />
           <Route path='/delete-account' exact component={DeleteAccount} />
           <Route path='/activate' exact component={Activate} />
@@ -43,6 +44,7 @@ const App = () => {
           <Route path='/pass-reset' exact component={PassReset} />
           <Route path='/change-password' exact component={ChangePassword} />
           <Route path='/dashboard' exact component={Dashboard} />
+          <Route path='/contact' exact component={Contact} />
           <Route path='/cardios' exact component={MovementList} />
           <Route path='/lifts' exact component={MovementList} />
           <Route path='/skills' exact component={MovementList} />

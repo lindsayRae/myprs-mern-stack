@@ -73,6 +73,24 @@ when input is valid -> move the .label-name/.content-name  */
   font-size: 14px;
   color: rgb(54, 203, 140);
 }
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+.message-container > label {
+  color: rgb(54, 203, 140);
+}
+
+.message {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgb(54, 203, 140);
+  font-size: 14px;
+  padding-top: 10px;
+  /* color: rgb(54, 203, 140); */
+  color: white;
+}
 
 .form-main input:focus + .label-name::after,
 .form-main input:valid + .label-name::after {

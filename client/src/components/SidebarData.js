@@ -26,7 +26,18 @@ export const SidebarData = [
     icon: <MdIcons.MdStar />,
     cName: 'nav-text',
   },
-
+  {
+    title: 'Contact',
+    path: '/contact',
+    icon: <MdIcons.MdEmail />,
+    cName: 'nav-text',
+  },
+  {
+    title: 'Cool Gear',
+    path: '/gear',
+    icon: <MdIcons.MdShoppingCart />,
+    cName: 'nav-text',
+  },
   {
     title: 'Donate',
     path: '/donate',

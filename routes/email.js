@@ -32,4 +32,34 @@ router.post('/', async (req, res) => {
   });
 });
 
+router.post('/contact', async (req, res) => {
+  let name = req.body.name;
+  let email = req.body.email;
+  let message = req.body.message;
+
+  let text = `From: ${name} Message: ${message}`;
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'lbarnett712@gmail.com',
+      pass: 'hwhyqqoeaujzfics',
+    },
+  });
+
+  let mailOptions = {
+    from: email,
+    to: 'lbarnett712@gmail.com',
+    subject: 'From myPRs Contact Form',
+    text: text,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.send({ error: error });
+    } else {
+      res.send({ status: 200, message: 'Email was sent. Thank you!' });
+    }
+  });
+});
+
 module.exports = router;
