@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
 
-//import PayPal from '../components/PayPal';
-import { MdKeyboardBackspace } from 'react-icons/md';
 import StripeContainer from '../components/StripeContainer';
 
 const Donate = ({ history }) => {
@@ -13,26 +12,31 @@ const Donate = ({ history }) => {
 
   return (
     <div className='page-splash'>
-      <header className='header header-fixed' onClick={() => history.goBack()}>
+      <header className='header header-fixed'>
         <div className='header-inner'>
-          <MdKeyboardBackspace style={{ fontSize: 25 }} />
+          <Navbar />
         </div>
       </header>
       <div className='login header-page'>
         <div className='login-content'>
           <h2 className='login-title capitalize'>Donate</h2>
-          {!donate ? (
+          {!donate && (
+            <p className='login-text'>
+              Coming soon... Please check back another time!
+            </p>
+          )}
+          {/* {!donate ? (
             <p className='login-text'>
               Are you enjoying myPRs app? If you want to continue using this app
               long term please consider monthly donations to help keep this up
               and running!
             </p>
           ) : (
-            <p className='login-text'>Please continue with PayPal</p>
-          )}
+            <p className='login-text'>Please continue with Stripe</p>
+          )} */}
 
           <div className='form-login'>
-            {donate && <StripeContainer />}
+            {/* {donate && <StripeContainer />}
             {!donate && !otherAmount && (
               <div className='login-btn' style={{ marginTop: '30px' }}>
                 <button
@@ -54,7 +58,7 @@ const Donate = ({ history }) => {
                   Donate other
                 </button>
               </div>
-            )}
+            )} */}
             {!donate && otherAmount && (
               <>
                 <form name='login'>
