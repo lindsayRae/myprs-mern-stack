@@ -22,7 +22,7 @@ const Donate = ({ history }) => {
           <h2 className='login-title capitalize'>Donate</h2>
           {!donate && (
             <p className='login-text'>
-              Coming soon... Please check back another time!
+              Coming soon... Please check back another time.
             </p>
           )}
           {/* {!donate ? (
