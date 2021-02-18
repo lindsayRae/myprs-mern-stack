@@ -63,14 +63,17 @@ app.use('/api/payments', paymentsRouter);
 app.use(error);
 //! Heroku debug
 if (process.env.NODE_ENV === 'production') {
+  if (!req.secure) {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
   app.use(express.static('public'));
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
   app.get('*', function (req, res) {
-    if (!req.secure) {
-      res.redirect('https://' + req.headers.host + req.url);
-    }
+    // if (!req.secure) {
+    //   res.redirect('https://' + req.headers.host + req.url);
+    // }
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
