@@ -30,7 +30,7 @@ const MovementList = (props) => {
 
   useEffect(() => {
     const results = searchResults.filter((item) =>
-      item.toLowerCase().includes(searchTerm)
+      item.toLowerCase().includes(searchTerm.toLocaleLowerCase())
     );
     setMovements(results);
   }, [searchTerm]); // eslint-disable-line react-hooks/exhaustive-deps
