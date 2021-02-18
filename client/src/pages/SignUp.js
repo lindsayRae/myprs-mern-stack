@@ -83,7 +83,7 @@ const SignUp = ({ history }) => {
         <div className='login-content'>
           {!formSuccess && (
             <>
-              <h2 className='login-title'>Create an account</h2>
+              <h2 className='login-title'>Create an Account</h2>
               <p className='login-text'>Join for free!</p>
               <div className='form-login'>
                 <form onSubmit={handleSubmit}>

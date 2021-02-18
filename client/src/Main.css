@@ -157,12 +157,12 @@
   width: 100%;
 }
 .login-title {
-  width: 100%;
+  width: 70%;
   text-align: center;
   color: #ffffff;
   font-weight: 300;
   font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin: 0 auto 40px auto;
   padding: 0px;
 }
 

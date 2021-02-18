@@ -58,7 +58,7 @@ const Login = ({ history }) => {
       </header> */}
       <div className='login'>
         <div className='login-content'>
-          <h2 className='login-title'>Welcome back</h2>
+          <h2 className='login-title'>Welcome Back</h2>
           <p className='login-text'>Login to your account</p>
           <div className='form-login'>
             <form name='login' onSubmit={handleSubmit}>
