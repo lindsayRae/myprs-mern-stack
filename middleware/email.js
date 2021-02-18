@@ -21,7 +21,7 @@ let sendEmail = (userName, email, GUID) => {
   let mailOptions = {
     from: email,
     to: 'lbarnett712@gmail.com',
-    subject: 'hello from website form',
+    subject: 'MYPRs Activation Link',
     text: emailBody,
   };
 

@@ -89,7 +89,7 @@ const Reset = (props) => {
           )}
           {sent && (
             <p className='login-text'>
-              Please check your email to complete password reset.
+              If this account is registered you will receive an email.
             </p>
           )}
 

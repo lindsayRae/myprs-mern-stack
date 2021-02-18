@@ -159,7 +159,9 @@ router.put('/reset', async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .send({ message: 'Please check your email for a reset password link' });
+        .send({
+          message: 'If this account is registered you will receive an email.',
+        });
     }
 
     user.GUID = uuidv4();
@@ -174,8 +176,7 @@ router.put('/reset', async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).send({
-      message:
-        'There was a problem looking up this user, please try again later.',
+      message: 'There was a problem with the server, please try again later.',
     });
   }
 });
