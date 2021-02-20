@@ -202,7 +202,7 @@ router.post('/register', async (req, res) => {
   // chose not to use pick method because of hardcoded activated and GUID
   user = new User({
     userName: userName,
-    email: email,
+    email: email.toLowerCase(),
     password: password,
     activated: false,
     GUID: uuidv4(),

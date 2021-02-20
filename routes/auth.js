@@ -12,7 +12,9 @@ router.post('/', async (req, res) => {
   //const {error} = validate(req.body)
   // if(error) return res.status(400).send({message: error.details[0].message})
 
-  let user = await User.findOne({ email: req.body.email });
+  let email = req.body.email;
+
+  let user = await User.findOne({ email: email.toLowerCase() });
   if (!user) {
     return res.status(400).send({ message: 'Invalid email or password.' });
   }
