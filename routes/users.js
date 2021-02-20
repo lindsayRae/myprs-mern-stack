@@ -57,14 +57,13 @@ router.delete('/deleteaccount/:id', auth, async (req, res) => {
   let id = req.params.id;
   try {
     let records = await PersonalRecord.deleteOne({ user_id: id });
-    console.log('delete account records', records);
+
     if (records.deletedCount == 0) {
       res.send({ message: 'Error trying to delete Personal Records' });
       return;
     }
     // delete the user
     let user = await User.deleteOne({ _id: id });
-    console.log('delete account user', user);
 
     if (user.deletedCount == 0) {
       res.send({ message: 'Error trying to delete user account' });
@@ -157,11 +156,9 @@ router.put('/reset', async (req, res) => {
     let user = await User.findOne({ email: req.body.email });
     console.log('user: ', user);
     if (!user) {
-      return res
-        .status(400)
-        .send({
-          message: 'If this account is registered you will receive an email.',
-        });
+      return res.status(400).send({
+        message: 'If this account is registered you will receive an email.',
+      });
     }
 
     user.GUID = uuidv4();
@@ -190,9 +187,14 @@ router.post('/register', async (req, res) => {
 
   let user = await User.findOne({ email: req.body.email });
 
-  if (user)
+  if (user) {
     return res.status(400).send({ message: 'User already registered.' });
-
+  }
+  if (req.body.password.length < 9) {
+    return res
+      .status(400)
+      .send({ message: 'Password must be at least 8 characters' });
+  }
   let userName = req.body.userName;
   let email = req.body.email;
   let password = req.body.password;
@@ -211,6 +213,7 @@ router.post('/register', async (req, res) => {
 
   try {
     let newUser = await user.save();
+
     //? Need to create a header for the creation of the blank you document in personalRecord
     let headers = {
       'Content-Type': 'application/json',

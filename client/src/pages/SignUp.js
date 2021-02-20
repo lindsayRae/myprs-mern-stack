@@ -21,8 +21,14 @@ const SignUp = ({ history }) => {
     } else if (!email) {
       setError('You must provide an email');
       return;
+    } else if (!validateEmail(email)) {
+      setError('You must provide an valid email');
+      return;
     } else if (!password) {
       setError('You must provide a password');
+      return;
+    } else if (password.length < 8) {
+      setError('Password must be at least 8 characters');
       return;
     } else if (!confirmPassword) {
       setError('You must confirm your password.');
@@ -58,7 +64,10 @@ const SignUp = ({ history }) => {
       setError('Something went wrong: ', err);
     }
   };
-
+  const validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
   const isDisabled = () => {
     if (
       userName.length !== 0 &&
