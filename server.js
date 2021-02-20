@@ -8,6 +8,8 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
+const secure = require('ssl-express-www');
+
 require('dotenv').config();
 
 const app = express();
@@ -67,7 +69,9 @@ if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
+  app.use(secure);
   app.get('*', function (req, res) {
+    // below code causing browser error of too many redirects
     // if (!req.secure) {
     //   res.redirect('https://' + req.headers.host + req.url);
     // }
