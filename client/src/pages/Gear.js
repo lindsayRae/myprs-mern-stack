@@ -21,7 +21,10 @@ const Gear = (props) => {
           </header>
           <div className='gear-container'>
             <h2 className='login-title'>Cool Gear</h2>
-            <p className=''>
+            <p className='login-text'>
+              Coming soon... Please check back another time.
+            </p>
+            {/* <p className=''>
               Below is a list of product that I personally love using! These are
               affiliate links to help support the cost of running this site.
               None of these companies have paid me to add their product to this
@@ -39,7 +42,7 @@ const Gear = (props) => {
                 <li>Nano9s</li>
                 <li>Face Mask</li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </>
       )}
