@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MdAdd } from 'react-icons/md';
 
 const AddMovement = ({ movement: propsMovement, addNewMovement, type }) => {
-  // const [setSaved] = useState(false);
   const [movement, setMovement] = useState({ ...propsMovement });
   const [unit, setUnit] = useState('unit');
   const [error, setError] = useState('');
