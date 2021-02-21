@@ -34,26 +34,26 @@ const Dashboard = (props) => {
               </p>
               <div className='page-content'>
                 <div className='list-container'>
-                  <ul className=''>
-                    <li key='cardio' className='dash-items btn btn-primary'>
-                      <NavLink to='/cardios' exact>
+                  <div className='splash-buttons'>
+                    <NavLink to='/cardios' exact>
+                      <button className='btn btn-primary'>
                         <MdDirectionsRun />
                         <span>Cardio</span>
-                      </NavLink>
-                    </li>
-                    <li key='lifts' className='dash-items btn btn-primary'>
-                      <NavLink to='/lifts' exact>
+                      </button>
+                    </NavLink>
+                    <NavLink to='/lifts' exact>
+                      <button className='btn btn-primary'>
                         <MdFitnessCenter />
                         <span>Lifts</span>
-                      </NavLink>
-                    </li>
-                    <li key='skills' className='dash-items btn btn-primary'>
-                      <NavLink to='/skills' exact>
+                      </button>
+                    </NavLink>
+                    <NavLink to='/skills' exact>
+                      <button className='btn btn-primary'>
                         <MdStar />
                         <span>Skills</span>
-                      </NavLink>
-                    </li>
-                  </ul>
+                      </button>
+                    </NavLink>
+                  </div>
                 </div>
               </div>
             </div>
