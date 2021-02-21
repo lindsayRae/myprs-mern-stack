@@ -1,4 +1,7 @@
-const { PersonalRecord } = require('../models/personalRecord.model');
+const {
+  PersonalRecord,
+  validateMovementSchema,
+} = require('../models/personalRecord.model');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
@@ -13,7 +16,7 @@ router.get('/:id', auth, async (req, res) => {
 
   try {
     let record = await PersonalRecord.findOne({ user_id: id });
-    console.log('RECORD: ', record);
+    // console.log('RECORD: ', record);
     if (record == null) {
       return res.status(404).send({
         record: [],
@@ -34,12 +37,12 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 /**
- * @description CREATE a new movement and push to movement array AND creates movement first PR
+ * @description CREATE a new movement and push to movement array AND creates movement PR
  */
 router.post('/:movement', auth, async (req, res) => {
-  // const {error} = validatePR(req.body)
-  // console.log('error: ', error)
-  //if(error) return res.status(400).send({message: error.details[0].message});
+  const { error } = validateMovementSchema(req.body);
+
+  if (error) return res.status(400).send({ message: error.details[0].message });
   const movement = req.params.movement;
   const id = req.body.user_id;
   const pr = {
@@ -51,7 +54,7 @@ router.post('/:movement', auth, async (req, res) => {
     personalRecord: req.body.personalRecord,
     unitType: req.body.unitType,
   };
-  console.log('NEW PR:', pr);
+
   try {
     const record = await PersonalRecord.findOne({ user_id: id });
 
@@ -204,18 +207,18 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
-function validatePR(pr) {
-  const schema = Joi.object({
-    prID: Joi.string().min(1).max(99),
-    user_id: Joi.string().min(1).max(99),
-    name: Joi.string().min(1).max(99).required(),
-    type: Joi.string(),
-    preDefined: Joi.boolean(),
-    date: Joi.string().max(999).required(),
-    comment: Joi.string().max(999),
-    personalRecord: Joi.string().min(1).max(99).required(),
-  });
-  return Joi.validate(pr, schema);
-}
+// function validatePR(pr) {
+//   const schema = Joi.object({
+//     prID: Joi.string().min(1).max(99),
+//     user_id: Joi.string().min(1).max(99),
+//     name: Joi.string().min(1).max(99).required(),
+//     type: Joi.string(),
+//     preDefined: Joi.boolean(),
+//     date: Joi.string().max(999).required(),
+//     comment: Joi.string().max(999),
+//     personalRecord: Joi.string().min(1).max(99).required(),
+//   });
+//   return Joi.validate(pr, schema);
+// }
 
 module.exports = router;

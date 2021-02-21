@@ -12,7 +12,7 @@ router.get('/:type', auth, async (req, res) => {
   let type = req.params.type;
   // need to only get the the subdoc where type = type
   const movement = await Movement.find({ type: type });
-  console.log('Movement', movement);
+  //console.log('** Movement', movement);
   res.send(movement);
 });
 
@@ -32,16 +32,6 @@ router.post('/', auth, async (req, res) => {
   let result = await movement.save();
   res.send(result);
 });
-
-// don't think i'll use, might delete 12/22/20
-// /**
-//  * @description GET
-//  */
-// router.route('/:id').get((req, res) => {
-//     Movement.findById(req.params.id)
-//         .then(movement => res.json(movement))
-//         .catch(err => res.status(400).json('Error: ' + err))
-// })
 
 /**
  * @description DELETE a movement

@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const movementSchema = new mongoose.Schema({
@@ -34,7 +35,7 @@ const movementSchema = new mongoose.Schema({
   },
   unitType: {
     type: String,
-    required: false,
+    required: true,
   },
 });
 
@@ -52,4 +53,21 @@ const PersonalRecordSchema = new mongoose.Schema({
 
 const PersonalRecord = mongoose.model('PersonalRecord', PersonalRecordSchema);
 
+function validateMovementSchema(personalRecord) {
+  const schema = Joi.object({
+    user_id: Joi.string().length(24).required(),
+    name: Joi.string().min(1).max(99).required(),
+    type: Joi.string().required(),
+    preDefined: Joi.bool().required(),
+    date: Joi.string().length(10).required(),
+    comment: Joi.string().max(999),
+    personalRecord: Joi.string().min(1).max(99).required(),
+    unitType: Joi.string().required(),
+  });
+
+  const { error, value } = schema.validate(personalRecord);
+  return { error, value };
+}
+
 exports.PersonalRecord = PersonalRecord;
+exports.validateMovementSchema = validateMovementSchema;

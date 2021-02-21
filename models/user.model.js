@@ -55,10 +55,22 @@ function validateUser(user) {
   const schema = Joi.object({
     userName: Joi.string().min(1).max(99).required(),
     email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(8).max(255).required(),
+    password: Joi.string().min(8).max(1024).required(),
   });
-  return Joi.validate(user, schema);
+
+  const { error, value } = schema.validate(user);
+  return { error, value };
+}
+
+function validateLogin(login) {
+  const schema = Joi.object({
+    email: Joi.string().min(5).max(255).required().email(),
+    password: Joi.string().min(8).max(1024).required(),
+  });
+  const { error, value } = schema.validate(login);
+  return { error, value };
 }
 
 exports.User = User;
 exports.validate = validateUser;
+exports.validateLogin = validateLogin;

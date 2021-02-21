@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const auth = require('../middleware/auth');
 const fetch = require('node-fetch');
 const bcrypt = require('bcrypt');
@@ -28,27 +27,6 @@ router.get('/me', auth, async (req, res) => {
   const user = await User.findById(req.user._id).select('-password');
   res.send(user);
 });
-
-/**
- * @description UPDATE current user
- */
-// router.put('/me', auth, async (req, res) => {
-//   const { error } = validateUser(req.body);
-//   if (error) return res.status(400).send(error.details[0].message);
-
-//   const user = await User.findByIdAndUpdate(
-//     req.user._id,
-//     {
-//       $set: {
-//         userName: req.body.userName,
-//         email: req.body.email,
-//       },
-//     },
-//     { new: true }
-//   );
-//   if (user) return res.send(user);
-//   if (!user) return res.send('Could not update user.');
-// });
 
 /**
  * @description DELETE user
@@ -182,8 +160,8 @@ router.put('/reset', async (req, res) => {
  * @description CREATE a new user
  */
 router.post('/register', async (req, res) => {
-  //const {error} = validate(req.body)
-  // if(error) return res.status(400).send({message: error.details[0].message})
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send({ message: error.details[0].message });
 
   let user = await User.findOne({ email: req.body.email });
 
@@ -232,7 +210,7 @@ router.post('/register', async (req, res) => {
     });
 
     let json = await response.json();
-    console.log('usersetup: ', json);
+
     sendEmail(user.userName, user.email, user.GUID);
     res.send({
       jwt: token,
@@ -263,17 +241,5 @@ router.post('/usersetup/:id', async (req, res) => {
 
   res.send(result);
 });
-
-/**
- *
- * @description custom validation to update customer (no password needed)
- */
-function validateUser(req) {
-  const schema = Joi.object({
-    email: Joi.string().min(5).max(255).required().email(),
-    userName: Joi.string().min(1).max(99).required(),
-  });
-  return Joi.validate(req, schema);
-}
 
 module.exports = router;
