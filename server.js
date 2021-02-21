@@ -8,7 +8,7 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
-const secure = require('ssl-express-www');
+//const secure = require('ssl-express-www');
 
 require('dotenv').config();
 
@@ -59,22 +59,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const paymentsRouter = require('./routes/payments');
-const { request } = require('express');
+
 app.use('/api/payments', paymentsRouter);
 
 app.use(error);
-//! Heroku debug
+
 if (process.env.NODE_ENV === 'production') {
+  // app.use(secure);
   app.use(express.static('public'));
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
+
   // Handle React routing, return all requests to React app
-  app.use(secure);
   app.get('*', function (req, res) {
-    // below code causing browser error of too many redirects
-    // if (!req.secure) {
-    //   res.redirect('https://' + req.headers.host + req.url);
-    // }
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
