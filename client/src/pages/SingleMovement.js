@@ -229,6 +229,7 @@ const SingleMovement = ({ history, match }) => {
                     value={newPR}
                     type='text'
                     onChange={(event) => {
+                      setError('');
                       setFormError('');
                       setNewPR(event.target.value);
                     }}
@@ -241,6 +242,7 @@ const SingleMovement = ({ history, match }) => {
                 <div className='form-main inline-form custom-select'>
                   <select
                     onChange={(event) => {
+                      setError('');
                       setFormError('');
                       setUnit(event.target.value);
                       if (event.target.value !== 'unit') {
@@ -275,6 +277,7 @@ const SingleMovement = ({ history, match }) => {
                     setNewDate(e.target.value);
                   }}
                   onChange={(event) => {
+                    setError('');
                     setFormError('');
                     setNewDate(event.target.value);
                   }}
@@ -289,6 +292,7 @@ const SingleMovement = ({ history, match }) => {
                   id='new-comment'
                   value={newComment}
                   onChange={(event) => {
+                    setError('');
                     setFormError('');
                     setNewComment(event.target.value);
                   }}
@@ -378,7 +382,7 @@ const SingleMovement = ({ history, match }) => {
             formatDate={formatDate}
           />
         </Modal>
-        {error && <p>{error}</p>}
+        {error && <p className='error-msg'>{error}</p>}
       </div>
     </div>
   );
