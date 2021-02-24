@@ -60,7 +60,7 @@ function validateMovementSchema(personalRecord) {
     type: Joi.string().required(),
     preDefined: Joi.bool().required(),
     date: Joi.string().length(10).required(),
-    comment: Joi.string().max(999),
+    comment: Joi.string().max(999).allow(''),
     personalRecord: Joi.string().min(1).max(99).required(),
     unitType: Joi.string().required(),
   });
