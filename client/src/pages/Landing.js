@@ -16,10 +16,8 @@ const Landing = ({ history }) => {
 
           <div className='splash-logo'>MYPRS</div>
           <div className='splash-text'>
-            Track your 1 rep gym max's <br />
-            <span className='sm-txt'>
-              Login or sign up to create a new account.
-            </span>
+            <p>1 Rep Max Tracker</p>
+            <p className='sm-txt'>Login or Sign Up to create a new account.</p>
           </div>
 
           <div className='splash-buttons'>
@@ -27,7 +25,7 @@ const Landing = ({ history }) => {
               <button className='btn btn-primary'>Login</button>
             </NavLink>
             <NavLink to='/signup' exact>
-              <button className='btn'>Signup</button>
+              <button className='btn'>Sign up</button>
             </NavLink>
           </div>
           <div className='privacy'>
