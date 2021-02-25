@@ -9,7 +9,7 @@ import { IconContext } from 'react-icons';
 
 function Navbar(props) {
   const [sidebar, setSidebar] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const showSidebar = () => {
     setSidebar(!sidebar);
@@ -38,14 +38,28 @@ function Navbar(props) {
               </Link>
             </li>
             {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              );
+              if (
+                user.user.email === 'myprs.test@gmail.com' &&
+                item.title != 'Change Password'
+              ) {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              } else if (user.user.email !== 'myprs.test@gmail.com') {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              }
             })}
             <li key='logout' className='nav-text' onClick={handleLogout}>
               <Link to='/login'>
@@ -54,14 +68,16 @@ function Navbar(props) {
               </Link>
             </li>
           </ul>
-          <ul className='del-account'>
-            <li className='nav-text'>
-              <Link to='/delete-account'>
-                <MdDelete className='text-danger' />
-                <span>Delete My Account</span>
-              </Link>
-            </li>
-          </ul>
+          {user && user.user.email !== 'myprs.test@gmail.com' && (
+            <ul className='del-account'>
+              <li className='nav-text'>
+                <Link to='/delete-account'>
+                  <MdDelete className='text-danger' />
+                  <span>Delete My Account</span>
+                </Link>
+              </li>
+            </ul>
+          )}
         </nav>
       </IconContext.Provider>
     </>
