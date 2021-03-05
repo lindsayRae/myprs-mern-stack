@@ -8,8 +8,6 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
-//const secure = require('ssl-express-www');
-
 require('dotenv').config();
 
 const app = express();
@@ -64,7 +62,7 @@ app.use('/api/payments', paymentsRouter);
 
 app.use(error);
 
-app.enable('trust proxy');
+app.enable('trust proxy'); // must include!!
 if (process.env.NODE_ENV === 'production') {
   app.use(function (req, res, next) {
     if (req.secure) {
@@ -75,7 +73,6 @@ if (process.env.NODE_ENV === 'production') {
       res.redirect('https://' + req.headers.host + req.url);
     }
   });
-  // app.use(secure);
 
   app.use(express.static('public'));
   // Serve any static files
