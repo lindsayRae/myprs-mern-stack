@@ -241,6 +241,7 @@ const SingleMovement = ({ history, match }) => {
                 </div>
                 <div className='form-main inline-form custom-select'>
                   <select
+                    value={unit}
                     onChange={(event) => {
                       setError('');
                       setFormError('');
@@ -263,8 +264,15 @@ const SingleMovement = ({ history, match }) => {
                     <option value='min:sec'>min:sec</option>
                     <option value='reps'>reps</option>
                   </select>
-
-                  <label htmlFor='' className='label-name ' id=''></label>
+                  {unit === 'unit' && (
+                    <label htmlFor='' className='label-name '></label>
+                  )}
+                  {unit != 'unit' && (
+                    <label
+                      htmlFor=''
+                      className='label-name custom-underline'
+                    ></label>
+                  )}
                 </div>
               </div>
               <div className='form-main '>
