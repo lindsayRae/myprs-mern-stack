@@ -64,6 +64,7 @@ app.use('/api/payments', paymentsRouter);
 
 app.use(error);
 
+app.enable('trust proxy');
 if (process.env.NODE_ENV === 'production') {
   app.use(function (req, res, next) {
     if (req.secure) {
