@@ -16,7 +16,7 @@ const Landing = ({ history }) => {
 
           <div className='splash-logo'>MYPRS</div>
           <div className='splash-text'>
-            <p>1 Rep Max Tracker</p>
+            <p>Personal Record Tracker</p>
             <p className='sm-txt'>Login or Sign Up to create a new account.</p>
           </div>
 
