@@ -60,18 +60,19 @@ const MovementList = (props) => {
       });
       //* concat() the two arrays together
       let allMovements = userDefinedMovementNames.concat(defaultMovementName);
-
+   
       //* new Set() removes duplicate values -> returns object
       let uniqueMenu = new Set(allMovements);
 
       //* ... spread puts back into array
       let usersMenu = [...uniqueMenu];
+
       setSearchResults(usersMenu.sort());
       setMovements(usersMenu.sort());
       return;
     } else {
-      setSearchResults(defaultMovementName);
-      setMovements(defaultMovementName);
+      setSearchResults(defaultMovementName.sort());
+      setMovements(defaultMovementName.sort());
       return defaultMovementName;
     }
   };
