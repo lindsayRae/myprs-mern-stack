@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 
-import StripeContainer from '../components/StripeContainer';
+//import StripeContainer from '../components/StripeContainer';
 
 const Donate = ({ history }) => {
   const [donate, setDonate] = useState(false);
   const [otherAmount, setOtherAmount] = useState(false);
   const [donateAmount, setDonateAmount] = useState('');
-  const [showItem, setShowItem] = useState(false);
-  const [error, setError] = useState('');
+  //const [showItem, setShowItem] = useState(false);
+  const [setError] = useState('');
 
   return (
     <div className='page-splash'>

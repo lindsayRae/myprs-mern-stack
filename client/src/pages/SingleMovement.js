@@ -267,7 +267,7 @@ const SingleMovement = ({ history, match }) => {
                   {unit === 'unit' && (
                     <label htmlFor='' className='label-name '></label>
                   )}
-                  {unit != 'unit' && (
+                  {unit !== 'unit' && (
                     <label
                       htmlFor=''
                       className='label-name custom-underline'

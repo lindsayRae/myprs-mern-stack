@@ -40,7 +40,7 @@ function Navbar(props) {
             {SidebarData.map((item, index) => {
               if (
                 user.user.email === 'myprs.test@gmail.com' &&
-                item.title != 'Change Password'
+                item.title !== 'Change Password'
               ) {
                 return (
                   <li key={index} className={item.cName}>
