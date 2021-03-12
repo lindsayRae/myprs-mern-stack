@@ -9,7 +9,6 @@ const SignUp = ({ history }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [userName, setUserName] = useState('');
   const [error, setError] = useState('');
-  const [disabled, setDisabled] = useState(true);
   const [formSuccess, setFormSuccess] = useState(false);
   const { setUser } = useContext(UserContext);
 
@@ -68,16 +67,6 @@ const SignUp = ({ history }) => {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   };
-  const isDisabled = () => {
-    if (
-      userName.length !== 0 &&
-      email.length !== 0 &&
-      password.length !== 0 &&
-      confirmPassword.length !== 0
-    ) {
-      setDisabled(false);
-    } else setDisabled(true);
-  };
 
   return (
     <div className='page-splash'>
@@ -101,8 +90,7 @@ const SignUp = ({ history }) => {
                       type='text'
                       name='username'
                       value={userName}
-                      onChange={(event) => {
-                        isDisabled();
+                      onChange={(event) => {                       
                         setError('');
                         setUserName(event.target.value);
                       }}
@@ -118,8 +106,7 @@ const SignUp = ({ history }) => {
                       type='text'
                       name='email'
                       value={email}
-                      onChange={(event) => {
-                        isDisabled();
+                      onChange={(event) => {                        
                         setError('');
                         setEmail(event.target.value);
                       }}
@@ -135,8 +122,7 @@ const SignUp = ({ history }) => {
                       type='password'
                       name='password'
                       value={password}
-                      onChange={(event) => {
-                        isDisabled();
+                      onChange={(event) => {                        
                         setError('');
                         setPassword(event.target.value);
                       }}
@@ -152,8 +138,7 @@ const SignUp = ({ history }) => {
                       type='password'
                       name='confirm-password'
                       value={confirmPassword}
-                      onChange={(event) => {
-                        isDisabled();
+                      onChange={(event) => {                       
                         setError('');
                         setConfirmPassword(event.target.value);
                       }}
@@ -168,8 +153,7 @@ const SignUp = ({ history }) => {
                   <div className='login-btn' style={{ marginTop: '30px' }}>
                     <button
                       type='submit'
-                      className='btn btn-primary'
-                      disabled={disabled}
+                      className='btn btn-primary'                      
                     >
                       Sign up
                     </button>

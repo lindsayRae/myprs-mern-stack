@@ -4,8 +4,7 @@ import { UserContext } from '../context/UserContext';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
+  const [password, setPassword] = useState(''); 
   const [error, setError] = useState('');
 
   const { setUser } = useContext(UserContext);
@@ -43,19 +42,10 @@ const Login = ({ history }) => {
       setError(`Something went wrong: ${err}`);
     }
   };
-  const isDisabled = () => {
-    if (email.length !== 0 && password.length !== 0) {
-      setDisabled(false);
-    } else setDisabled(true);
-  };
+
 
   return (
-    <div className='page-splash'>
-      {/* <header className='header header-fixed' onClick={() => history.goBack()}>
-        <div className='header-inner'>
-          <MdKeyboardBackspace style={{ fontSize: 25 }} />
-        </div>
-      </header> */}
+    <div className='page-splash'>     
       <div className='login'>
         <div className='login-content'>
           <h2 className='login-title'>Welcome Back</h2>
@@ -67,8 +57,7 @@ const Login = ({ history }) => {
                   type='text'
                   name='email'
                   value={email}
-                  onChange={(event) => {
-                    isDisabled();
+                  onChange={(event) => {                    
                     setError('');
                     setEmail(event.target.value);
                   }}
@@ -84,8 +73,7 @@ const Login = ({ history }) => {
                   type='password'
                   name='password'
                   value={password}
-                  onChange={(event) => {
-                    isDisabled();
+                  onChange={(event) => {                   
                     setError('');
                     setPassword(event.target.value);
                   }}
@@ -100,8 +88,7 @@ const Login = ({ history }) => {
 
               <div className='login-btn' style={{ marginTop: '30px' }}>
                 <button
-                  type='submit'
-                  disabled={disabled}
+                  type='submit'                 
                   className='btn btn-primary'
                 >
                   Login
