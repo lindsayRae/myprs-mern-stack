@@ -6,16 +6,13 @@ const PassReset = (props) => {
   const [error, setError] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
   const [validResetLink, setValidResetLink] = useState(false);
   const [loading, setLoading] = useState(true);
   const [passwordSuccess, setPasswordSuccess] = useState(false);
 
-  let params = queryString.parse(props.location.search);
-  console.log('In PassReset Componenet');
+  let params = queryString.parse(props.location.search); 
 
-  useEffect(() => {
-    console.log('In PassReset Componenet UseEffect');
+  useEffect(() => {   
     validateAccount();
   }, []);
 
@@ -92,11 +89,6 @@ const PassReset = (props) => {
     console.log('here');
   };
 
-  const isDisabled = () => {
-    if (password.length !== 0 && confirmPassword.length !== 0) {
-      setDisabled(false);
-    } else setDisabled(true);
-  };
   return (
     <div className='page-splash'>
       <div className='login header-page'>
@@ -118,8 +110,7 @@ const PassReset = (props) => {
                       type='password'
                       name='password'
                       value={password}
-                      onChange={(event) => {
-                        isDisabled();
+                      onChange={(event) => {                   
                         setError('');
                         setPassword(event.target.value);
                       }}
@@ -135,8 +126,7 @@ const PassReset = (props) => {
                       type='password'
                       name='confirm-password'
                       value={confirmPassword}
-                      onChange={(event) => {
-                        isDisabled();
+                      onChange={(event) => {                      
                         setError('');
                         setConfirmPassword(event.target.value);
                       }}
@@ -151,8 +141,7 @@ const PassReset = (props) => {
                   <div className='login-btn' style={{ marginTop: '30px' }}>
                     <button
                       type='submit'
-                      className='btn btn-primary'
-                      disabled={disabled}
+                      className='btn btn-primary'                     
                     >
                       Set Password
                     </button>
