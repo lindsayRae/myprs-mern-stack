@@ -8,23 +8,11 @@ const Privacy = ({ history }) => {
 
   return (
     <div className='page-splash'>
-      {isAuthenticated && (
-        <header className='header header-fixed'>
-          <div className='header-inner'>
-            <Navbar />
-          </div>
-        </header>
-      )}
-      {!isAuthenticated && (
-        <header
-          className='header header-fixed'
-          onClick={() => history.goBack()}
-        >
-          <div className='header-inner'>
-            <MdKeyboardBackspace style={{ fontSize: 25 }} />
-          </div>
-        </header>
-      )}
+      <header className='header header-fixed' onClick={() => history.goBack()}>
+        <div className='header-inner'>
+          <MdKeyboardBackspace style={{ fontSize: 25 }} />
+        </div>
+      </header>
 
       <div className='policy-container'>
         <div className=''>
