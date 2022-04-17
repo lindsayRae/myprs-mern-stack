@@ -45,8 +45,13 @@ const userSchema = new mongoose.Schema(
 // cannot user arrow function here since it does not have their own 'this'
 // if you want to create a method that is part of an object, do not use arrow function
 userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
-  return token;
+  try {
+    console.log("config.get('jwtPrivateKey'):", config.get('jwtPrivateKey')); // returns 'mySecureKey'
+    const token = jwt.sign({ _id: this._id }, config.get('jwtPrivateKey'));
+    return token;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const User = mongoose.model('User', userSchema);

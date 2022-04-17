@@ -8,7 +8,7 @@ const router = express.Router();
  * @description login a user
  */
 router.post('/', async (req, res) => {
-  const { error } = validateLogin(req.body);
+  const { error } = await validateLogin(req.body);
   console.log(error);
   if (error) return res.status(400).send({ message: error.details[0].message });
 
