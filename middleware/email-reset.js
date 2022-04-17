@@ -19,8 +19,8 @@ let sendEmailReset = (userName, email, GUID) => {
   });
 
   let mailOptions = {
-    from: email,
-    to: 'lbarnett712@gmail.com',
+    from: 'lbarnett712@gmail.com',
+    to: email,
     subject: 'myPRs password rest',
     text: emailBody,
   };
