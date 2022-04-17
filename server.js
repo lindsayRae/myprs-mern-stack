@@ -6,8 +6,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
-const bodyParser = require('body-parser');
-
 require('dotenv').config();
 
 const app = express();
@@ -16,7 +14,7 @@ console.log('in server PORT:', port);
 console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
 
 const privateKey = process.env.prs_jwtPrivateKey;
-
+console.log(privateKey);
 if (!privateKey) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
   // 0 is success, anything else is failure
@@ -36,6 +34,7 @@ connection.once('open', () => {
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const adminRouter = require('./routes/admin');
 const movementsRouter = require('./routes/movements');
@@ -53,8 +52,10 @@ app.use('/api/auth', auth);
 app.use('/api/contact', contact);
 app.use('/api/activate', activate);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//! no longer need bodyParser with express 4.16+
+//? https://stackoverflow.com/questions/5710358/how-to-access-post-form-fields/63999686#63999686
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
 const paymentsRouter = require('./routes/payments');
 

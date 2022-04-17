@@ -5,7 +5,6 @@ const {
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
 
 /**
  * @description GET record by user_id and movement by query param
@@ -206,19 +205,5 @@ router.delete('/:id', auth, async (req, res) => {
     res.send({ message: error.message });
   }
 });
-
-// function validatePR(pr) {
-//   const schema = Joi.object({
-//     prID: Joi.string().min(1).max(99),
-//     user_id: Joi.string().min(1).max(99),
-//     name: Joi.string().min(1).max(99).required(),
-//     type: Joi.string(),
-//     preDefined: Joi.boolean(),
-//     date: Joi.string().max(999).required(),
-//     comment: Joi.string().max(999),
-//     personalRecord: Joi.string().min(1).max(99).required(),
-//   });
-//   return Joi.validate(pr, schema);
-// }
 
 module.exports = router;
