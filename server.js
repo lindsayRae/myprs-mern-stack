@@ -10,11 +10,8 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 1234;
-console.log('in server PORT:', port);
-console.log('process.env.NODE_ENV:', process.env.NODE_ENV);
-
 const privateKey = process.env.prs_jwtPrivateKey;
-console.log(privateKey);
+
 if (!privateKey) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
   // 0 is success, anything else is failure
